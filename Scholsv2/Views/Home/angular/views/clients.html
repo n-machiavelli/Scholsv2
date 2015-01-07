@@ -1,0 +1,38 @@
+﻿
+<div class="row">
+    <div class="col-md-2">
+        &nbsp;
+    </div>
+    <div class="col-md-8">
+                <div class="text-center"> <!--page-header -->
+                    <h3>List of Client Applications ({{vm.clientApps.length}})</h3>
+                </div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Client App ID</th>
+                    <th>Client Application Name</th>
+                    <th>Client Secret Key</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="clientApp in vm.clientApps">
+                    <td>
+                        {{clientApp.id}}
+                    </td>
+                    <td>
+                        <a data-ng-href="/tokens/{{clientApp.id}}">{{clientApp.name}}</a>
+                    </td>
+                    <td>
+                        {{clientApp.secret }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a id="Register" class="btn btn-primary btn-large" data-ng-click="vm.open()">Register Client App</a>
+
+    </div>
+<div class="col-md-2">
+        &nbsp;
+    </div>
+</div>

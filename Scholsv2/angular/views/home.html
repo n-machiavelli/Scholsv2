@@ -1,0 +1,27 @@
+﻿<div class="row" data-ng-hide="vm.isAuthorized">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <h2>Login</h2>
+
+        <p class="text-primary">If you have Username and Password, you can use the button below to access the secured
+            content using a token.</p>
+
+        <p><a class="btn btn-primary" target="_self"
+              data-ng-href="/auth/login?appname={{vm.clientId}}&redirect_uri={{vm.redirectURI}}"
+              role="button">Login &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Register Admin User</h2>
+
+        <p class="text-primary">Use the button below to create Username and Password to access the secured content using
+            a token.</p>
+
+        <p><a class="btn btn-primary" target="_self"
+              data-ng-href="/auth/register?appname={{vm.clientId}}&redirect_uri={{vm.redirectURI}}" role="button">Register &raquo;</a>
+        </p>
+    </div>
+</div>
+
+<div class="row" data-ng-hide="!vm.isAuthorized">
+    <p class="col-md-4-offset-4">Welcome to the oAuth2 Server Administration WebApp.</p>
+</div>

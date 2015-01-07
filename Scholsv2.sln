@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholsv2", "Scholsv2\Scholsv2.csproj", "{DF40B37A-3C78-4000-8358-A939C5A10809}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scholsv2.Tests", "Scholsv2.Tests\Scholsv2.Tests.csproj", "{6EC98ABB-7A90-4030-9A28-54D2B1A750DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF40B37A-3C78-4000-8358-A939C5A10809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF40B37A-3C78-4000-8358-A939C5A10809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF40B37A-3C78-4000-8358-A939C5A10809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF40B37A-3C78-4000-8358-A939C5A10809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC98ABB-7A90-4030-9A28-54D2B1A750DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC98ABB-7A90-4030-9A28-54D2B1A750DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC98ABB-7A90-4030-9A28-54D2B1A750DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC98ABB-7A90-4030-9A28-54D2B1A750DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
