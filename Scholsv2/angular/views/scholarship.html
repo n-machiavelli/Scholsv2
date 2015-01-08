@@ -17,6 +17,11 @@
         <div id="applicationform">
             <form class="form-login" role="form" id="myform">
                 <h2 class="form-login-heading">Apply Here...</h2>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" data-ng-model="vm.loadprofile" data-ng-click="vm.getProfile();"> Load my profile information
+                    </label>
+                </div>
                 <input id="universityid" data-ng-model="vm.universityid" type="text" class="form-control" placeholder="University ID Number" autofocus>
                 <input id="firstname" data-ng-model="vm.firstname" type="text" class="form-control" placeholder="First Name" autofocus>
                 <input id="middlename" data-ng-model="vm.middlename" type="text" class="form-control" placeholder="Middle Name">
@@ -64,7 +69,8 @@
                     <input type="hidden" id="reffilename" data-ng-model="vm.reffilename" />
                     <input type="hidden" id="fund_acct" data-ng-model="vm.fund_acct" />
                 </div>
-                <br /><br />
+                <div id="msg" data-ng-bind="vm.message" data-ng-hide="vm.message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'"></div>
+                <br />
                 <button id="applybutton" class="btn btn-lg btn-primary btn-block" type="button" data-ng-click="vm.apply();">Apply!</button>
             </form>
         </div>

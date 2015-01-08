@@ -271,7 +271,9 @@ namespace Schols.Models
 
             if (searchObject.college != null && !searchObject.college.Equals("-1"))
             {
-                sqlstr += " and f.FUND_COLL_ATTRB like :college or f.FUND_COLL_ATTRB IS NULL OR f.FUND_COLL_ATTRB=''"; //no need regex since we have dropdown for these
+                sqlstr += " and regexp_like(f.FUND_COLL_ATTRB, :college)  or f.FUND_COLL_ATTRB IS NULL OR f.FUND_COLL_ATTRB=''"; 
+                //no need regex since we have dropdown for these
+                //changed "like :college to =college" bcos like needs exact in case of '01        '. i need to be able to use '01'
                 parameters.Add(new OracleParameter("college", searchObject.college));
             }
             if (searchObject.department != null && !searchObject.department.Equals("-1"))
@@ -312,6 +314,7 @@ namespace Schols.Models
             }
             System.Diagnostics.Debug.WriteLine(sqlstr);
             DataTable dt = query(sqlstr, parameters);
+            System.Diagnostics.Debug.WriteLine(dt.Rows.Count);
             return dt;
         }
         public List<ScholarshipLink> GetScholarshipsWithFavorites(SearchObject searchObject, string user)

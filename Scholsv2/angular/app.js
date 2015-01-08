@@ -9,7 +9,7 @@ app.config(function ($routeProvider, $locationProvider, $logProvider) {
     $routeProvider.when("/", {
         controller: "searchController",
         controllerAs: "vm",
-        templateUrl: "angular/views/search.html"
+        templateUrl: "views/search.html"
     });
 
     $routeProvider.when("/search", {
@@ -17,7 +17,12 @@ app.config(function ($routeProvider, $locationProvider, $logProvider) {
         controllerAs: "vm",
         templateUrl: "views/search.html"
     });
-    
+    $routeProvider.when("/searchcollege/:collegecode/:collegename", {
+        controller: "searchController",
+        controllerAs: "vm",
+        templateUrl: "views/searchresults.html"
+    });
+
     $routeProvider.when("/login", {
         controller: "loginController",
         controllerAs: "vm",
@@ -47,9 +52,8 @@ app.config(function ($routeProvider, $locationProvider, $logProvider) {
     });
 
 
-
     $routeProvider.otherwise({redirectTo: "/"});
-    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true);
 });
 
 //var serviceBase = 'http://localhost:26264/';

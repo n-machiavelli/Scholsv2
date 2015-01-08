@@ -20,7 +20,7 @@
         activate();
         function logOut() {
             authService.logOut();
-            $location.path('/');
+            $location.path('/Home/Ng');
         }
         function activate() {
             

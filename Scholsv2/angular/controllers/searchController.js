@@ -5,23 +5,32 @@
         .module('app')
         .controller('searchController', searchController);
 
-    searchController.$inject = ['searchService','$location','$anchorScroll','authService'];
+    searchController.$inject = ['searchService','$location','$anchorScroll','authService','$routeParams'];
 
     /* @ngInject */
-    function searchController(searchService,$location,$anchorScroll,authService) {
+    function searchController(searchService,$location,$anchorScroll,authService,$routeParams) {
         /* jshint validthis: true */
         var vm = this;
         vm.activate = activate;
         vm.spinnerdisplay = "hideme";
         vm.message = "";
         //vm.title = 'searchController';
-
         vm.getScholarships = getScholarships;
         vm.toggleFavorite = toggleFavorite;
         //vm.registerClient = registerClientApp;
         vm.scholarships = [];
+        if ($routeParams !== undefined && $routeParams !== null && $routeParams.collegecode!==undefined) {
+            vm.college = $routeParams.collegecode;
+            vm.collegename = $routeParams.collegename;
+            if (vm.collegename.indexOf("College") == -1) {
+                vm.collegename = "College of " + $routeParams.collegename;
+            }
+            getScholarships();
+        } else {
+            activate();
+        }
 
-        activate();
+        //activate();
 
         ////////////////
         function activate() {

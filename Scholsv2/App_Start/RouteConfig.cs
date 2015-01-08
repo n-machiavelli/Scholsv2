@@ -18,11 +18,22 @@ namespace Scholsv2
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
             routes.MapRoute(
-                name: "Angular",
+                name: "Ng",
                 url: "ng/{*.}",
                 defaults: new { controller = "Home", action = "Ng" }
             );
+            routes.MapRoute(
+                name: "Angular",
+                url: "angular/{*.}",
+                defaults: new { controller = "Home", action = "Index" }
+            );
+            //routes.MapRoute(
+            //    name: "DefaultHere",
+            //    url: "{*}",
+            //    defaults: new { controller = "Home", action = "Index" }
+            //);
         }
     }
 }

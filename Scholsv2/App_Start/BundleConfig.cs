@@ -19,9 +19,7 @@ namespace Scholsv2
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
-            bundles.Add(new ScriptBundle("~/bundles/mybootstrap").Include(
-                      "~/angular/,
-                      "~/Scripts/respond.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));

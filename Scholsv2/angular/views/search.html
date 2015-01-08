@@ -17,7 +17,7 @@
             <input ng-model="vm.gradGPA" id="gradGPA" type="text" class="form-control" placeholder="Graduate GPA" autofocus>
             <input ng-model="vm.highschoolGPA" id="highschoolGPA" type="text" class="form-control" placeholder="High School GPA" autofocus>
             <input ng-model="vm.keyword" id="keyword" type="text" class="form-control" placeholder="Any Keyword..." autofocus>
-            <button id="searchbutton" class="btn btn-lg btn-primary btn-block" type="button" data-ng-click="vm.getScholarships();" onclick="$('html,body').animate({ scrollTop: $('#scholarship').offset().top - 100 });">
+            <button id="searchbutton" class="btn btn-md btn-primary btn-block" type="button" data-ng-click="vm.getScholarships();" onclick="$('html,body').animate({ scrollTop: $('#scholarship').offset().top - 100 });">
                 <span ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span>
                 Search!
             </button>
@@ -46,7 +46,7 @@
                         {{$index + 1}}
                     </td>
                     <td>
-                        <a data-ng-href="/angular/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
+                        <a data-ng-href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
                     </td>
                     <td data-ng-hide="vm.isAuthorized">
                         <span class='glyphicon pointer' id='favbutton' data-ng-click="vm.toggleFavorite(scholarship.FUND_ACCT,scholarship.FRML_SCHLRSHP_NAME);scholarship.fav=scholarship.fav=='yes'?'no':'yes'; console.log('made fav');" data-ng-class="scholarship.fav=='yes' ?'glyphicon-star':'glyphicon-star-empty'"></span>

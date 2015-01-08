@@ -48,7 +48,7 @@
                     console.log(result);
                     vm.message = result;
                     vm.savedSuccessfully = true;
-                    $location.path("/login");
+                    $location.path("login");
                 } else {
                     vm.message = "Empty auth";//AuthFactory.message;
                 }

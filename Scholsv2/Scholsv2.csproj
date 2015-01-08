@@ -313,6 +313,7 @@
     <Content Include="angular\views\register.html" />
     <Content Include="angular\views\scholarship.html" />
     <Content Include="angular\views\administration.html" />
+    <Content Include="angular\views\searchresults.html" />
     <Content Include="angular\views\search.html" />
     <Content Include="angular\views\uimodal.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -484,6 +485,8 @@
     <Content Include="Views\Home\angular\css\fontawesome420\scss\_variables.scss" />
     <Content Include="Views\Home\angular\css\fontawesome420\scss\font-awesome.scss" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Index.cshtml" />
+    <Content Include="Views\Home\Index - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

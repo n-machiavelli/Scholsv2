@@ -48,7 +48,7 @@
                     //console.log("$location move");
                     console.log(authData);
                     vm.authData = authData;
-                    $location.path("/");
+                    $location.path("/Home/Ng");
                 } else {
                     vm.msg = "Empty auth";//AuthFactory.message;
                     console.log(vm.msg);

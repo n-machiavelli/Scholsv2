@@ -1,0 +1,38 @@
+﻿
+<div>
+       <h3  id="searchinfo" class="form-login-heading">{{vm.searchstring}}
+       </h3>   
+    <div data-ng-show="vm.scholarships.length>0" class="col-md-8">
+        <div class="text-center">
+            <!--page-header -->
+            <h3>{{vm.scholarships.length}} Scholarships in {{vm.collegename}}</h3>
+        </div>
+        <table id="scholarship" class="table table-condensed table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Scholarship Page</th>
+                    <th data-ng-hide="vm.isAuthorized">Fav</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="scholarship in vm.scholarships">
+                    <td>
+                        {{$index + 1}}
+                    </td>
+                    <td>
+                        <a data-ng-href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
+                    </td>
+                    <td data-ng-hide="vm.isAuthorized">
+                        <span class='glyphicon pointer' id='favbutton' data-ng-click="vm.toggleFavorite(scholarship.FUND_ACCT,scholarship.FRML_SCHLRSHP_NAME);scholarship.fav=scholarship.fav=='yes'?'no':'yes'; console.log('made fav');" data-ng-class="scholarship.fav=='yes' ?'glyphicon-star':'glyphicon-star-empty'"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>        
+
+
+
