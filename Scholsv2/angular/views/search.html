@@ -1,32 +1,52 @@
-﻿<div>
-        <form class="form-login" role="form">
-            <h2 class="form-login-heading">Search Here...</h2>
-            <input ng-model="vm.title" id="title" type="text" class="form-control" placeholder="Title" autofocus>
-            <span id="loadingdeptspinner"><i class="fa fa-spinner fa-spin"></i></span>
-    <select ng-model="vm.department" class="form-control" id="department" required="required">
-        <option value="{{department.FUND_DEPT_ATTRB}}" ng-repeat="department in vm.departments">{{department.FUND_DEPT_DESCR}}</option>
-    </select>
-    <select ng-model="vm.college" class="form-control" id="college" required="required">
-        <option value="{{college.FUND_COLL_ATTRB}}" ng-repeat="college in vm.colleges">{{college.FUND_COLL_DESCR}}</option>
-    </select>
-    <select ng-model="vm.schoolyear" class="form-control" id="schoolyear" required="required">
-        <option value="{{schoolyear.USER_CD}}" ng-repeat="schoolyear in vm.schoolyears">{{schoolyear.USER_CD_DESCR}}</option>
-    </select>
-            <input ng-model="vm.major" id="major" type="text" class="form-control" placeholder="Major" autofocus>
-            <input ng-model="vm.undergradGPA" id="undergradGPA" type="text" class="form-control" placeholder="Undergraduate GPA" autofocus>
-            <input ng-model="vm.gradGPA" id="gradGPA" type="text" class="form-control" placeholder="Graduate GPA" autofocus>
-            <input ng-model="vm.highschoolGPA" id="highschoolGPA" type="text" class="form-control" placeholder="High School GPA" autofocus>
-            <input ng-model="vm.keyword" id="keyword" type="text" class="form-control" placeholder="Any Keyword..." autofocus>
-            <button id="searchbutton" class="btn btn-md btn-primary btn-block" type="button" data-ng-click="vm.getScholarships();" onclick="$('html,body').animate({ scrollTop: $('#scholarship').offset().top - 100 });">
-                <span ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span>
-                Search!
-            </button>
-            <div id="msg" data-ng-bind="vm.message" data-ng-hide="vm.message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'"></div>
-        </form>
+﻿<div class="bodybg">
+    <form class="form-login" role="form">
+        <h2 class="form-login-heading">Search Here...</h2>
+        <input ng-model="vm.title" id="title" type="text" class="form-control" placeholder="Title" autofocus>
+        <span id="loadingdeptspinner"><i class="fa fa-spinner fa-spin"></i></span>
+        <!--
+        <select ng-model="vm.department" class="form-control" id="department" required="required">
+            <option value="{department.FUND_DEPT_ATTRB}}" ng-repeat="department in vm.departments">{department.FUND_DEPT_DESCR}}</option>
+        </select>
+            -->
+        <!--
+            making college list manual due to jennifer's email comm. implying not exact same as database
+            removing department from search because this is a backend kind of parameter. the departments are tied to the fund accounts and not used by students to searchs
+        <select ng-model="vm.college" class="form-control" id="college" required="required">
+            <option value="{college.FUND_COLL_ATTRB}}" ng-repeat="college in vm.colleges">{college.FUND_COLL_DESCR}}</option>
+        </select>
+        -->        
+        <select ng-model="vm.college" class="form-control" id="college" required="required">
+            <option value="01">Applied Science and Technology</option>
+            <option value="02">Arts and Sciences</option>
+            <option value="03">Business</option>
+            <option value="04">Education</option>
+            <option value="05">Fine Arts</option>
+            <option value="07">Mennonite College of Nursing</option>
+        </select>
+
+
+        
+        <select ng-model="vm.schoolyear" class="form-control" id="schoolyear" required="required">
+            <option value="{{schoolyear.USER_CD}}" ng-repeat="schoolyear in vm.schoolyears">{{schoolyear.USER_CD_DESCR}}</option>
+        </select>
+        <!--<input ng-model="vm.major" id="major" type="text" class="form-control" placeholder="Major" autofocus>-->
+        <!--<input auto-complete ui-items="vm.majors" ng-model="major" class="form-control" placeholder="Major">-->
+        <input type="text" class="form-control" ng-model="vm.major" ng-options="major for major in vm.majors" placeholder="Enter major" bs-typeahead>
+        <input ng-model="vm.undergradGPA" id="undergradGPA" type="text" class="form-control" placeholder="Undergraduate GPA" autofocus>
+        <input ng-model="vm.gradGPA" id="gradGPA" type="text" class="form-control" placeholder="Graduate GPA" autofocus>
+        <input ng-model="vm.highschoolGPA" id="highschoolGPA" type="text" class="form-control" placeholder="High School GPA" autofocus>
+        <input ng-model="vm.keyword" id="keyword" type="text" class="form-control" placeholder="Any Keyword..." autofocus>
+        <button id="searchbutton" class="btn btn-md btn-primary btn-block" type="button" data-ng-click="vm.getScholarships();" onclick="$('html,body').animate({ scrollTop: $('#scholarship').offset().top - 100 });">
+            <span ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span>
+            Search!
+        </button>
+        <div id="msg" data-ng-bind="vm.message" data-ng-hide="vm.message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'"></div>
+    </form>
 </div>
 <div>
-       <h3  id="searchinfo" class="form-login-heading">{{vm.searchstring}}
-       </h3>   
+    <h3 id="searchinfo" class="form-login-heading">
+        {{vm.searchstring}}
+    </h3>
     <div data-ng-show="vm.scholarships.length>0" class="col-md-8">
         <div class="text-center">
             <!--page-header -->
@@ -57,7 +77,7 @@
 
 
     </div>
-</div>        
+</div>
 
 
 

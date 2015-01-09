@@ -5,10 +5,10 @@
         .module('app')
         .controller('searchController', searchController);
 
-    searchController.$inject = ['searchService','$location','$anchorScroll','authService','$routeParams'];
+    searchController.$inject = ['searchService', '$location', '$anchorScroll', 'authService', '$routeParams'];
 
     /* @ngInject */
-    function searchController(searchService,$location,$anchorScroll,authService,$routeParams) {
+    function searchController(searchService, $location, $anchorScroll, authService, $routeParams) {
         /* jshint validthis: true */
         var vm = this;
         vm.activate = activate;
@@ -19,7 +19,7 @@
         vm.toggleFavorite = toggleFavorite;
         //vm.registerClient = registerClientApp;
         vm.scholarships = [];
-        if ($routeParams !== undefined && $routeParams !== null && $routeParams.collegecode!==undefined) {
+        if ($routeParams !== undefined && $routeParams !== null && $routeParams.collegecode !== undefined) {
             vm.college = $routeParams.collegecode;
             vm.collegename = $routeParams.collegename;
             if (vm.collegename.indexOf("College") == -1) {
@@ -30,29 +30,28 @@
             activate();
         }
 
-        //activate();
-
-        ////////////////
         function activate() {
             vm.isAuthorized = authService.authentication.isAuth;  //need this also in this ctrlr for use in displaying fav star
-            var promise=searchService.getDropDowns();
-            promise.then(function(data){
-                console.log(data);
-                vm.colleges=data.colleges;    
-                vm.departments=data.departments;
-                vm.schoolyears=data.schoolyears;
-            }, function(reason){
+            var promise = searchService.getDropDowns();
+            promise.then(function (data) {
+                
+                vm.majors = data.majors;
+                console.log(vm.majors);
+                vm.colleges = data.colleges;
+                vm.departments = data.departments;
+                vm.schoolyears = data.schoolyears;
+            }, function (reason) {
                 console.log(reason)
-            }, function(update){
+            }, function (update) {
                 console.log("got notification" + update);
             });
-            
+
         }
 
         function getScholarships() {
             console.log("controller title:" + vm.title);
             vm.spinnerdisplay = "showme";
-            var promise=searchService.getScholarships(vm);
+            var promise = searchService.getScholarships(vm);
             promise.then(function (results) {
                 console.log("scholarships retrieved via controller");
                 vm.scholarships = results;
@@ -61,11 +60,11 @@
             }, function (err) {
                 console.log("error here");
                 vm.spinnerdisplay = "hideme";
-            }, function(update){
+            }, function (update) {
                 console.log("update here");
                 vm.spinnerdisplay = "hideme";
             });
-            
+
         }
         function toggleFavorite(fundacct, schlrshpname) {
             console.log("togglefav " + fundacct + ":" + schlrshpname);

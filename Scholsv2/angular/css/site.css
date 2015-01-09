@@ -11,7 +11,11 @@ body {
       padding-top: 40px;
   padding-bottom: 10px;
 }
-
+.bodybg{
+    background-image:url(../views/bg_body.jpg);
+    background-repeat:repeat;
+    background-color: #cccccc;
+}
 
 
 #footer {

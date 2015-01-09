@@ -101,8 +101,9 @@ namespace Schols.Models
         public DropDownData GetDropDownData()
         {
             DropDownData dropdownData = new DropDownData();
-            dropdownData.colleges = GetColleges();
-            dropdownData.departments = GetDepartments();
+            dropdownData.majors = GetDistinctMajors();
+            //dropdownData.colleges = GetColleges();
+            //dropdownData.departments = GetDepartments();
             dropdownData.schoolyears = GetSchoolYears();
             return dropdownData;
         }
@@ -167,6 +168,31 @@ namespace Schols.Models
             }
             return schoolYears;
         }
+        public List<string> GetDistinctMajors()
+        {
+            string sqlstr = "SELECT DISTINCT USER_CD_DESCR FROM UHELP.USER_CD WHERE UHELP.USER_CD.USER_GRP='SCHMJ' ORDER BY USER_CD_DESCR";
+            DataTable dt = query(sqlstr, null);
+            List<string> majorsList = new List<string>();
+            Major major ;
+            string strMajor;
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                major = new Major();
+                strMajor = "";
+                Type t = major.GetType();
+                foreach (PropertyInfo info in t.GetProperties())
+                {
+                    if (!DBNull.Value.Equals(dt.Rows[i][info.Name]))
+                    {
+                        info.SetValue(major, dt.Rows[i][info.Name]);
+                        strMajor = major.USER_CD_DESCR;
+                    }
+                }
+                majorsList.Add(strMajor);
+            }
+            return majorsList;
+        }
+
         public ScholarshipData GetScholarshipData(string fundAcct, string scholarNum)
         {
             string sqlstr = "SELECT * FROM summit.schlrshp s inner join SUMMIT.FUND f ON S.FUND_ACCT=F.FUND_ACCT LEFT OUTER JOIN UHELP.FUND_COLL_ATTRB coll on f.FUND_COLL_ATTRB=coll.FUND_COLL_ATTRB LEFT OUTER JOIN UHELP.FUND_DEPT_ATTRB dept on f.FUND_COLL_ATTRB=dept.FUND_DEPT_ATTRB ";
@@ -560,7 +586,7 @@ namespace Schols.Models
                 //aScholarship.SCHLRSHP_NUM = dt.Rows[i]["schlrshp_num"].ToString().Trim();  //TODO: Confirm relevance of this column
                 aScholarship.FUND_ACCT = dt.Rows[i]["fund_acct"].ToString().Trim();
                 aScholarship.FRML_SCHLRSHP_NAME = dt.Rows[i]["frml_schlrshp_name"].ToString().Trim();
-                System.Diagnostics.Debug.WriteLine("Row : " + i.ToString() + ":" + aScholarship.FRML_SCHLRSHP_NAME);
+                //System.Diagnostics.Debug.WriteLine("Row : " + i.ToString() + ":" + aScholarship.FRML_SCHLRSHP_NAME);
                 //System.Diagnostics.Debug.WriteLine("Row : " + i.ToString());
                 ScholarshipList.Add(aScholarship);
 

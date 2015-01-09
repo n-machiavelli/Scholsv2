@@ -20,7 +20,7 @@
                 url: serviceBaseApi + "Search",
                 data: {
                 title: vm.title,
-                department: vm.department,
+                //department: vm.department,
                 college: vm.college,
                 schoolYear: vm.schoolYear,
                 major: vm.major,

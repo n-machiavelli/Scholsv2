@@ -252,6 +252,7 @@
     <Compile Include="Models\ScholarshipApp.cs" />
     <Compile Include="Models\ScholarshipData.cs" />
     <Compile Include="Models\ScholarshipLink.cs" />
+    <Compile Include="Models\Major.cs" />
     <Compile Include="Models\SchoolYear.cs" />
     <Compile Include="Models\SearchObject.cs" />
     <Compile Include="Models\UserDatabase.cs" />
@@ -263,9 +264,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="angular\app.js" />
-    <Content Include="angular\controllers\activeTokensController.js" />
     <Content Include="angular\controllers\appRegistrationController.js" />
-    <Content Include="angular\controllers\clientTokensController.js" />
     <Content Include="angular\controllers\homeController.js" />
     <Content Include="angular\controllers\loginController.js" />
     <Content Include="angular\controllers\modalController.js" />
@@ -304,8 +303,8 @@
     <Content Include="angular\services\searchService.js" />
     <Content Include="angular\services\tokensManagerService.js" />
     <Content Include="angular\views\activeTokens.html" />
+    <Content Include="angular\views\bg_body.jpg" />
     <Content Include="angular\views\clients.html" />
-    <Content Include="angular\views\clientTokens.html" />
     <Content Include="angular\views\home.html" />
     <Content Include="angular\views\login.html" />
     <Content Include="angular\views\modal.html" />

@@ -1,5 +1,5 @@
 ﻿var app = angular.module('app',
-    ['ngRoute', 'LocalStorageModule', 'ngSanitize', 'angularFileUpload']);
+    ['ngRoute', 'LocalStorageModule', 'ngSanitize', 'angularFileUpload', 'mgcrea.ngStrap']);
 
 
 app.config(function ($routeProvider, $locationProvider, $logProvider) {
@@ -68,6 +68,8 @@ app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
 });
 
+
 app.run(['authService', function (authService) {
     authService.fillAuthData();
 }]);
+

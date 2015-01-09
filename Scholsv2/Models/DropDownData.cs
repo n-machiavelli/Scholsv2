@@ -10,6 +10,6 @@ namespace Schols.Models
         public List<Department> departments;
         public List<College> colleges;
         public List<SchoolYear> schoolyears;
-
+        public List<string> majors;
     }
 }
