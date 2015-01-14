@@ -263,6 +263,20 @@ namespace Schols.Models
             ScholarshipApp application=retrieveApplicationData(dt);
             return application;
         }
+        internal Message SaveApplication(ScholarshipApp app)
+        {
+            DBObject db = new DBObject();
+            String sqlstr = "UPDATE applications SET remark=@remark, status=@status WHERE id= @id";
+            List<SqlParameter> parameters = new List<SqlParameter>();
+            parameters.Add(new SqlParameter("@id", app.id));
+            parameters.Add(new SqlParameter("@remark", app.remark));
+            parameters.Add(new SqlParameter("@status", app.status));
+            db.queryExecuteSQLServer(sqlstr, parameters);
+            Message message = new Message();
+            message.title = "Application Status saved";
+            message.body= "Application Status saved";
+            return message;
+        }
         private ScholarshipApp retrieveApplicationData(DataTable dt ){
             ScholarshipApp application=null;
             if (dt.Rows.Count != 0)

@@ -15,12 +15,13 @@
         vm.message = "";
         vm.profile = {};
         vm.getProfile = getProfile;
+        vm.saveProfile = saveProfile;
         getProfile();
 
 
 
         function getProfile() {
-            console.log(vm.profile, "before call save");
+            console.log(vm.profile, "before call get");
             console.log(vm.message);
             var promise = authService.getProfile(); //vm.login_username, vm.login_password);
             promise.then(function (result) {
@@ -40,6 +41,21 @@
             })
 
         }
-
+        function saveProfile() {
+            console.log(vm.profile, "before call save");
+            console.log(vm.message);
+            var promise = authService.saveProfile(vm.profile); //vm.login_username, vm.login_password);
+            promise.then(function (result) {
+                    console.log(result);
+                    vm.message = result;
+                    vm.savedSuccessfully = true;
+                    vm.mode = "viewprofile";
+            }, function (reason) {
+                vm.message = "Failed : " + reason + ":";//+  authService.message;
+                console.log(reason);
+            }, function (update) {
+                vm.message = "updated";
+            })
+        }
     }
 })();

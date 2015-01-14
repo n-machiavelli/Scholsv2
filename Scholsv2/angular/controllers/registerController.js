@@ -58,7 +58,6 @@
             }, function (update) {
                 vm.message = "updated";
             })
-
         }
 
         function login() {

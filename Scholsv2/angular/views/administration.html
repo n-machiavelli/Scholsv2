@@ -1,16 +1,16 @@
 ﻿<div class="admin">
     <div class="text-center">
         <!--page-header -->
-        <h3>List of Applications ({{vm.applications.length}})</h3>
+        <h3><span data-ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span> List of Applications ({{vm.applications.length}})</h3>
     </div>
     <table id="appstable" class="table table-condensed table-hover table-bordered">
         <thead>
             <tr>
-                <th colspan="12">Applications List<span id="loadingspinner"><i class="fa fa-spinner fa-spin"></i></span></th>
+                <th colspan="12">Applications List</th>
             </tr>
         </thead>
         <tbody id="appstbody">
-            <tr data-ng-repeat="application in vm.applications" class="pointer" data-id={{application.id}}>
+            <tr data-ng-repeat="application in vm.applications" class="pointer" data-id={{application.id}} data-ng-click="vm.openModal(application.id)">
                 <td>
                     {{$index + 1}}
                 </td>
@@ -28,4 +28,6 @@
             </tr>
         </tbody>
     </table>
+    <button class="btn btn-default btn-file btn-sm" data-ng-click="vm.generateExcel()"><span ng-class="vm.tickcompleted"><i class="fa fa-check"></i></span>Generate Excel</button>
+    <a data-ng-show="vm.excelLink!=''" data-ng-href={{vm.excelLink}}>Download Excel List</a>
 </div>

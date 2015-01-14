@@ -36,7 +36,7 @@
             promise.then(function (data) {
                 
                 vm.majors = data.majors;
-                console.log(vm.majors);
+                //console.log(vm.majors);
                 vm.colleges = data.colleges;
                 vm.departments = data.departments;
                 vm.schoolyears = data.schoolyears;

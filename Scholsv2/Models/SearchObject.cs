@@ -17,5 +17,6 @@ namespace Schols.Models
         public string gradGPA { get; set; }
         public string highschoolGPA { get; set; }
         public string keyword { get; set; }
+        
     }
 }

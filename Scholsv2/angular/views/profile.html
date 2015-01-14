@@ -1,21 +1,82 @@
 ﻿<div>
-<form class="form-login" role="form">
+    <form class="form-horizontal" role="form">
+        <h2 class="form-login-heading">Your Profile...</h2>
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">First Name</label>
+            <div class="col-sm-4">
+                <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.FirstName" class="form-control" id="firstname" placeholder="First Name">
+                <span data-ng-show="vm.mode!='editprofile'" class="form-control" data-ng-bind="vm.profile.FirstName" id="firstnameview"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="middlename" class="col-sm-2 control-label">Middle Name</label>
+            <div class="col-sm-4">
+                <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.MiddleName" class="form-control" id="middlename" placeholder="Middle Name">
+                <span data-ng-show="vm.mode!='editprofile'" class="form-control" data-ng-bind="vm.profile.MiddleName" id="middlenameview"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastname" class="col-sm-2 control-label">Last Name</label>
+            <div class="col-sm-4">
+                <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.LastName" class="form-control" id="lastname" placeholder="Last Name">
+                <span data-ng-show="vm.mode!='editprofile'" class="form-control" data-ng-bind="vm.profile.LastName" id="lastnameview"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="lastname" class="col-sm-2 control-label">User Major</label>
+            <div class="col-sm-4">
+                <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.UserMajor" class="form-control" id="usermajor" placeholder="User Major">
+                <span data-ng-show="vm.mode!='editprofile'" class="form-control" data-ng-bind="vm.profile.UserMajor" id="usermajorview"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="lastname" class="col-sm-2 control-label">Phone Number</label>
+            <div class="col-sm-4">
+                <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.PhoneNumber" class="form-control" id="phonenumber" placeholder="Phone Number">
+                <span data-ng-show="vm.mode!='editprofile'" class="form-control" data-ng-bind="vm.profile.PhoneNumber" id="phonenumberview"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastname" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-4">
+                <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.Email" class="form-control" id="email" placeholder="Email">
+                <span data-ng-show="vm.mode!='editprofile'" class="form-control" data-ng-bind="vm.profile.Email" id="emailview"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastname" class="col-sm-2 control-label">University ID</label>
+            <div class="col-sm-4">
+                <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.UniversityId" class="form-control" id="universityid" placeholder="University ID">
+                <span data-ng-show="vm.mode!='editprofile'" class="form-control" data-ng-bind="vm.profile.UniversityId" id="universityidview"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success" data-ng-show="vm.mode=='editprofile'" data-ng-click="vm.saveProfile()">Save Profile</button>
+                <button type="submit" class="btn btn-success" data-ng-show="vm.mode!='editprofile'" data-ng-click="vm.mode='editprofile'">Edit Profile</button>
+            </div>
+        </div>
+    </form>
+    <!--
+<form role="form">
     <h2 class="form-login-heading">Your Profile...</h2>
+
     <ul class="list-group">
-        <!--<li class="list-group-item text-muted" contenteditable="false">Profile</li>-->
-        <li class="list-group-item text-right"><span class="pull-left"><strong class="">First Name</strong></span><span data-ng-bind="vm.profile.FirstName" id="fullname"></span></li>
-        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Middle Name</strong></span> <span data-ng-bind="vm.profile.MiddleName" id="MiddleName"></span></li>
-        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last Name</strong></span> <span data-ng-bind="vm.profile.LastName" id="lastname"></span></li>
-        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Major</strong></span><span data-ng-bind="vm.profile.UserMajor" id="usermajor"> </span></li>
-        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Phone Number</strong></span><span data-ng-bind="vm.profile.PhoneNumber" id="phone"></span></li>
-        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Email</strong></span> <span data-ng-bind="vm.profile.Email" id="email"></span></li>
-        <li class="list-group-item text-right"><span class="pull-left"><strong class="">University ID</strong></span> <span data-ng-bind="vm.profile.UniversityId" id="universityId"></span></li>
+        <li class="list-group-item text-right"><span class="pull-left"><strong class="">First Name</strong></span><span class="pull-right" data-ng-bind="vm.profile.FirstName" id="fullname"></span></li>
+        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Middle Name</strong></span> <span class="pull-right" data-ng-bind="vm.profile.MiddleName" id="MiddleName"></span></li>
+        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last Name</strong></span> <span class="pull-right" data-ng-bind="vm.profile.LastName" id="lastname"></span></li>
+        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Major</strong></span><span class="pull-right" data-ng-bind="vm.profile.UserMajor" id="usermajor"> </span></li>
+        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Phone Number</strong></span><span class="pull-right" data-ng-bind="vm.profile.PhoneNumber" id="phone"></span></li>
+        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Email</strong></span> <span class="pull-right" data-ng-bind="vm.profile.Email" id="email"></span></li>
+        <li class="list-group-item text-right"><span class="pull-left"><strong class="">University ID</strong></span> <span class="pull-right" data-ng-bind="vm.profile.UniversityId" id="universityId"></span></li>
     </ul>
 
         <div id="message" data-ng-model="vm.message" data-ng-hide="vm.message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'"></div>
         <div class="col-md-10 col-md-offset-2">
-            <!--<button class="btn btn-default">Cancel</button>
-            <button class="btn btn-primary" data-ng-click="vm.register()">Register</button>-->
         </div>
 </form>
+    -->
 </div>

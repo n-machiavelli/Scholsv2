@@ -267,7 +267,7 @@
     <Content Include="angular\controllers\appRegistrationController.js" />
     <Content Include="angular\controllers\homeController.js" />
     <Content Include="angular\controllers\loginController.js" />
-    <Content Include="angular\controllers\modalController.js" />
+    <Content Include="angular\controllers\adminmodalController.js" />
     <Content Include="angular\controllers\navBarController.js" />
     <Content Include="angular\controllers\profileController.js" />
     <Content Include="angular\controllers\registerController.js" />
@@ -303,6 +303,7 @@
     <Content Include="angular\services\searchService.js" />
     <Content Include="angular\services\tokensManagerService.js" />
     <Content Include="angular\views\activeTokens.html" />
+    <Content Include="angular\views\adminmodal.html" />
     <Content Include="angular\views\bg_body.jpg" />
     <Content Include="angular\views\clients.html" />
     <Content Include="angular\views\home.html" />

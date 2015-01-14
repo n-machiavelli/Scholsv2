@@ -36,6 +36,9 @@ namespace Scholsv2.Controllers
                     //TODO: LATER GUID AND FILE.EXIST...AND EXCEPTION
                     ext = Path.GetExtension(file.FileName);
                     fname = Guid.NewGuid() + ext;
+                    System.Diagnostics.Debug.WriteLine(fname);
+                    System.Diagnostics.Debug.WriteLine(ext);
+                    
                     fnamepath = serverPath + "\\" + fname ;
                     //fname = serverPath + "\\" + file.FileName;
                     file.SaveAs(fnamepath);
@@ -43,7 +46,10 @@ namespace Scholsv2.Controllers
             }
             //context.Response.ContentType = "text/plain";
             //context.Response.Write("File/s uploaded successfully!");
-            return Ok(fname);
+            Message message = new Message();
+            message.title = "File Uploaded";
+            message.body = fname;
+            return Ok(message);
         }
         [Route("api/apply")]
         [HttpPost]
@@ -68,6 +74,35 @@ namespace Scholsv2.Controllers
             List<Schols.Models.ScholarshipApp> applications;
             applications = db.GetApplications();
             return Ok(applications);
+        }
+        [Route("api/generateexcel")]
+        [HttpPost]
+        public IHttpActionResult GenerateAppsExcel()
+        {
+            string username = User.Identity.Name;
+            DBObject db = new DBObject();
+            Message message = db.GenerateAppsExcel();
+            return Json(message);
+        }
+        [Route("api/applicationforid")]
+        [HttpPost]
+        public IHttpActionResult GetApplicationWithID(GenericObject posted)
+        {
+            //using generic object because of issues posting strings and integers directly into native params
+            UserDatabase udb = new UserDatabase();
+            string user = User.Identity.Name;
+            ScholarshipApp application = udb.GetApplication(long.Parse(posted.id));
+            return Json(application);
+        }
+        [Route("api/saveappstatus")]
+        [HttpPost]
+        public IHttpActionResult SaveApplicationWithID(ScholarshipApp app)
+        {
+            //using generic object because of issues posting strings and integers directly into native params
+            UserDatabase udb = new UserDatabase();
+            string user = User.Identity.Name;
+            Message message= udb.SaveApplication(app);
+            return Json(message);
         }
     }
 }

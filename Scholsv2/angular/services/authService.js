@@ -18,13 +18,15 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     };
 
     var _saveRegistration = function (registration) {
-
         _logOut();
-
-        return $http.post(serviceBase + 'api/account/register', registration).then(function (response) {
+        return $http.post(serviceBaseApi + 'account/register', registration).then(function (response) {
             return response;
         });
-
+    };
+    var _saveProfile = function (profile) {
+        return $http.post(serviceBaseApi + 'account/saveprofile', profile).then(function (response) {
+            return response;
+        });
     };
     var _getProfile = function () {
         var deferred = $q.defer();
@@ -180,6 +182,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     authServiceFactory.authentication = _authentication;
     authServiceFactory.refreshToken = _refreshToken;
     authServiceFactory.getProfile = _getProfile;
+    authServiceFactory.saveProfile = _saveProfile;
 
     authServiceFactory.obtainAccessToken = _obtainAccessToken;
     authServiceFactory.externalAuthData = _externalAuthData;

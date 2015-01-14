@@ -16,7 +16,9 @@ body {
     background-repeat:repeat;
     background-color: #cccccc;
 }
-
+.bodynobg{
+    background-color: #ffffff;
+}
 
 #footer {
     position: absolute;

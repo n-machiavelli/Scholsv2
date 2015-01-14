@@ -297,7 +297,7 @@ namespace Schols.Models
 
             if (searchObject.college != null && !searchObject.college.Equals("-1"))
             {
-                sqlstr += " and regexp_like(f.FUND_COLL_ATTRB, :college)  or f.FUND_COLL_ATTRB IS NULL OR f.FUND_COLL_ATTRB=''"; 
+                sqlstr += " and regexp_like(f.FUND_COLL_ATTRB, :college)" ; //  or f.FUND_COLL_ATTRB IS NULL OR f.FUND_COLL_ATTRB=''"; 
                 //no need regex since we have dropdown for these
                 //changed "like :college to =college" bcos like needs exact in case of '01        '. i need to be able to use '01'
                 parameters.Add(new OracleParameter("college", searchObject.college));
@@ -335,7 +335,7 @@ namespace Schols.Models
             if (searchObject.keyword != null && !searchObject.keyword.Trim().Equals(""))
             {
                 sqlstr += " and (regexp_like(FRML_SCHLRSHP_NAME, :keyword,'i') or regexp_like(SCHLRSHP_PRPS, :keyword,'i') or regexp_like(SCHLRSHP_CRTRIA,:keyword,'i')";
-                sqlstr += " or regexp_like(uu.USER_CD_DESCR, :keyword,'i') )";
+                sqlstr += " or regexp_like(uu.USER_CD_DESCR, :keyword,'i') or regexp_like(f.FUND_DEPT_ATTRB, :keyword,'i') or regexp_like(f.FUND_COLL_ATTRB, :keyword,'i') )";
                 parameters.Add(new OracleParameter("keyword", searchObject.keyword));
             }
             System.Diagnostics.Debug.WriteLine(sqlstr);
@@ -471,10 +471,13 @@ namespace Schols.Models
                         border.Right.Style = ExcelBorderStyle.Thin;
 
                     //Setting Value in cell
-                    cell.Value = "Heading " + dc.ColumnName;
+                    cell.Value = dc.ColumnName;
 
                     colIndex++;
                 }
+                var namedStyle = p.Workbook.Styles.CreateNamedStyle("HyperLink");   //This one is language dependent
+                namedStyle.Style.Font.UnderLine = true;
+                namedStyle.Style.Font.Color.SetColor(Color.Blue);
                 foreach (DataRow dr in dt.Rows) // Adding Data into rows
                 {
                     colIndex = 1;
@@ -483,7 +486,19 @@ namespace Schols.Models
                     {
                         var cell = ws.Cells[rowIndex, colIndex];
                         //Setting Value in cell
-                        cell.Value = dr[dc.ColumnName];//Convert.ToInt32(dr[dc.ColumnName]);
+                        
+                        if (dc.ColumnName.Equals("reffilename") || dc.ColumnName.Equals("essayfilename"))
+                        {
+                            cell.Hyperlink = new Uri("http://localhost:2382/api/Upload/" + dr["username"] + "/" + dr[dc.ColumnName].ToString());
+                            cell.Value = dr[dc.ColumnName];
+                            cell.StyleName = "HyperLink";
+                            System.Diagnostics.Debug.WriteLine(cell.Text);
+                            //ws.Cells[rowIndex, colIndex].Hyperlink = new ExcelHyperLink(, dr[dc.ColumnName].ToString());
+                            //cell.Value = dr[dc.ColumnName];
+                        }else{
+                            cell.Value = dr[dc.ColumnName];//Convert.ToInt32(dr[dc.ColumnName]);
+                        }
+                        
 
                         //Setting borders of cell
                         var border = cell.Style.Border;
@@ -514,7 +529,7 @@ namespace Schols.Models
                     //Generate A File with Random name
                     Byte[] bin = p.GetAsByteArray();
                     HttpContext httpContext = HttpContext.Current;
-                    string Serverpath = httpContext.Server.MapPath("Upload");
+                    string Serverpath = httpContext.Server.MapPath("ExcelUploads");
                     if (!Directory.Exists(Serverpath))
                         Directory.CreateDirectory(Serverpath);
 
@@ -542,7 +557,7 @@ namespace Schols.Models
                     */
             }
             Message message=new Message();
-            message.body="File saved " + file;
+            message.body=file;
             message.title="Successful";
             return message;
         }
@@ -636,6 +651,7 @@ namespace Schols.Models
                 conn.Open(); // open the oracle connection
                 using (SqlCommand comm = new SqlCommand(sqlstr, conn)) // create the oracle sql command
                 {
+                    System.Diagnostics.Debug.Write(sqlstr);
                     if (parameters != null)
                     {
                         foreach (SqlParameter parameter in parameters)

@@ -366,7 +366,49 @@ namespace Scholsv2.Controllers
 
             return Ok();
         }
+        [AllowAnonymous]
+        [Route("saveprofile")]
+        public async Task<IHttpActionResult> SaveProfile(UserModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var userId = User.Identity.GetUserId();
+            //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var manager = new UserManager<ApplicationUser>(store);
+            var currentUser = await UserManager.FindByIdAsync(userId);
+            //var currentUser = manager.FindById(userId);
+            currentUser.UserMajor = model.UserMajor;
+            currentUser.Email = model.Email;
+            currentUser.FirstName = model.FirstName;
+            currentUser.MiddleName = model.MiddleName;
+            currentUser.LastName = model.LastName;
+            currentUser.UniversityId = model.UniversityId;
+            currentUser.PhoneNumber = model.PhoneNumber;
+            /*
+            var user = new ApplicationUser()
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                UserMajor = model.UserMajor,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                MiddleName = model.MiddleName,
+                PhoneNumber = model.PhoneNumber,
+                UniversityId = model.UniversityId
+            };
+            */
+            IdentityResult result = await UserManager.UpdateAsync(currentUser);
+            var ctx = store.Context;
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
 
+            return Ok();
+        }
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]

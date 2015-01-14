@@ -1,5 +1,5 @@
 ﻿var app = angular.module('app',
-    ['ngRoute', 'LocalStorageModule', 'ngSanitize', 'angularFileUpload', 'mgcrea.ngStrap']);
+    ['ngRoute', 'LocalStorageModule', 'ngSanitize', 'angularFileUpload', 'ui.bootstrap']);
 
 
 app.config(function ($routeProvider, $locationProvider, $logProvider) {

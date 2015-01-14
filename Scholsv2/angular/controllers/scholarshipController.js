@@ -49,12 +49,13 @@
             }).success(function (data, status, headers, config) {
                 console.log('Uploaded successfully ' + file.name);
                 console.log(data);
-
+                console.log(data.body);
+                console.log(data.title);
                 if (uploadtype == "Essay") {
-                    vm.essayfilename = data;
+                    vm.essayfilename = data.body;
                     vm.filenamelabel1 = "&nbsp;&nbsp;&nbsp;" + uploadtype + " Uploaded <i class='fa fa-check'></i>";
                 } else if (uploadtype == "Reference") {
-                    vm.reffilename = data;
+                    vm.reffilename = data.body;
                     vm.filenamelabel2 = "&nbsp;&nbsp;&nbsp;" + uploadtype + " Uploaded <i class='fa fa-check'></i>";
                 }
             }).error(function (err) {
@@ -62,6 +63,8 @@
             });
         }
         vm.apply = function () {
+            console.log("apply data");
+            console.log(vm);
             var promise = scholarshipService.apply(vm);
             promise.then(function (data) {
                 console.log(data);
