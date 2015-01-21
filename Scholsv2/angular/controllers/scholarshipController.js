@@ -98,6 +98,7 @@
                         vm.email = vm.profile.Email;
                         vm.universityid = vm.profile.UniversityId
                         console.log(vm.profile);
+                        vm.message = "Profile details loaded";
                     } else {
                         vm.message = "Empty auth";//AuthFactory.message;
                     }

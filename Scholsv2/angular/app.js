@@ -56,12 +56,10 @@ app.config(function ($routeProvider, $locationProvider, $logProvider) {
     //$locationProvider.html5Mode(true);
 });
 
-//var serviceBase = 'http://localhost:26264/';
-//var serviceBase = 'http://ngauthenticationapi.azurewebsites.net/';
-var serviceBase = 'http://localhost:2382/';
+var serviceBase = "../";        // see below comment'http://localhost:2382/';
 app.constant('ngAuthSettings', {
     serviceBase: serviceBase,
-    serviceBaseApi: serviceBase + "api/"
+    serviceBaseApi: "../api/" //changed from serviceBase + "api/" to use relative to make consistent when run on iwss server
 });
 
 app.config(function ($httpProvider) {

@@ -16,6 +16,7 @@
         </select>
         -->        
         <select ng-model="vm.college" class="form-control" id="college" required="required">
+            <option value="" disabled selected>College</option>
             <option value="01">Applied Science and Technology</option>
             <option value="02">Arts and Sciences</option>
             <option value="03">Business</option>
@@ -25,12 +26,13 @@
         </select>
         
         <select ng-model="vm.schoolyear" class="form-control" id="schoolyear" required="required">
+            <option value="" disabled selected>School Year</option>
             <option value="{{schoolyear.USER_CD}}" ng-repeat="schoolyear in vm.schoolyears">{{schoolyear.USER_CD_DESCR}}</option>
         </select>
         <!--<input ng-model="vm.major" id="major" type="text" class="form-control" placeholder="Major" autofocus>-->
         <!--<input auto-complete ui-items="vm.majors" ng-model="major" class="form-control" placeholder="Major">-->
         <!--<input type="text" class="form-control" ng-model="vm.major" ng-options="major for major in vm.majors" placeholder="Enter major" bs-typeahead>-->
-        <input type="text" ng-model="selected" typeahead="major for major in vm.majors | filter:$viewValue | limitTo:8" class="form-control">
+        <input type="text" ng-model="vm.major" typeahead="major for major in vm.majors | filter:$viewValue | limitTo:8" class="form-control" placeholder="Major">
         <input ng-model="vm.undergradGPA" id="undergradGPA" type="text" class="form-control" placeholder="Undergraduate GPA" autofocus>
         <input ng-model="vm.gradGPA" id="gradGPA" type="text" class="form-control" placeholder="Graduate GPA" autofocus>
         <input ng-model="vm.highschoolGPA" id="highschoolGPA" type="text" class="form-control" placeholder="High School GPA" autofocus>
@@ -44,19 +46,19 @@
 </div>
 <div>
     <h3 id="searchinfo" class="form-login-heading">
-        {{vm.searchstring}}
+        {{vm.searchString}}
     </h3>
     <div data-ng-show="vm.scholarships.length>0" class="col-md-8">
         <div class="text-center">
             <!--page-header -->
-            <h3>Scholarships search result ({{vm.scholarships.length}})</h3>
+            <h3><span ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span>Scholarships search result ({{vm.scholarships.length}})</h3>
         </div>
         <table id="scholarship" class="table table-condensed table-hover table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Scholarship Page</th>
-                    <th data-ng-hide="vm.isAuthorized">Fav</th>
+                    <th data-ng-hide="!vm.authentication.isAuth">Fav</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,7 +69,7 @@
                     <td>
                         <a data-ng-href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
                     </td>
-                    <td data-ng-hide="vm.isAuthorized">
+                    <td data-ng-hide="!vm.authentication.isAuth">
                         <span class='glyphicon pointer' id='favbutton' data-ng-click="vm.toggleFavorite(scholarship.FUND_ACCT,scholarship.FRML_SCHLRSHP_NAME);scholarship.fav=scholarship.fav=='yes'?'no':'yes'; console.log('made fav');" data-ng-class="scholarship.fav=='yes' ?'glyphicon-star':'glyphicon-star-empty'"></span>
                     </td>
                 </tr>

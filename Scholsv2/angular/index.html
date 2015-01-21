@@ -43,14 +43,14 @@
                     <li data-ng-hide="!vm.authentication.isAuth"><a href="" data-ng-click="vm.logOut()">Logout</a></li>
 
                     <!-- hide when authorized -->
-                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="login">Login</a></li>
-                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="register">Register</a></li>
+                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="#/login">Login</a></li>
+                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="#/register">Register</a></li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="container bodynobg">
+    <div class="container">
         <div data-ng-view>
         </div>
     </div>
