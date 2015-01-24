@@ -196,9 +196,11 @@ namespace Schols.Models
         public ScholarshipData GetScholarshipData(string fundAcct, string scholarNum)
         {
             string sqlstr = "SELECT * FROM summit.schlrshp s inner join SUMMIT.FUND f ON S.FUND_ACCT=F.FUND_ACCT LEFT OUTER JOIN UHELP.FUND_COLL_ATTRB coll on f.FUND_COLL_ATTRB=coll.FUND_COLL_ATTRB LEFT OUTER JOIN UHELP.FUND_DEPT_ATTRB dept on f.FUND_COLL_ATTRB=dept.FUND_DEPT_ATTRB ";
-            sqlstr += "LEFT OUTER JOIN Summit.USER_CODE su on (s.audit_tran_id=su.parent_audit_tran_id and (su.USER_GRP='SCHMJ' or su.USER_GRP='SCHYR'))";
-            sqlstr += "LEFT OUTER JOIN UHELP.USER_CD uu on su.USER_CD=UU.USER_CD ";
+            sqlstr += " LEFT OUTER JOIN Summit.USER_CODE su on s.audit_tran_id=su.parent_audit_tran_id";
+            sqlstr += " LEFT OUTER JOIN UHELP.USER_CD uu on su.USER_CD=UU.USER_CD ";
             sqlstr += " WHERE regexp_like(s.FUND_ACCT, :fundAcct, 'i')  AND regexp_like(s.SCHLRSHP_NUM, :scholarNum, 'i') AND s.SCHLR_USER_VARBL2 = 'Y' and f.FUND_OPEN_ATTRB='O'";
+            //sqlstr += " AND (uu.USER_GRP='SCHMJ' or uu.USER_GRP='SCHYR' or uu.USER_GRP='SCHOT')";
+            sqlstr += "AND ((s.audit_tran_id is not null and (uu.USER_GRP='SCHMJ' or uu.USER_GRP='SCHYR' or uu.USER_GRP='SCHOT' or uu.USER_GRP='SCHCO')) or s.audit_tran_id is null)";
             List<OracleParameter> parameters = new List<OracleParameter>();
             parameters.Add(new OracleParameter("fundAcct", fundAcct));
             parameters.Add(new OracleParameter("scholarNum", scholarNum));
@@ -206,63 +208,96 @@ namespace Schols.Models
             DataTable dt = query(sqlstr, parameters);
             List<Scholarship> ScholarshipList = new List<Scholarship>();
             Scholarship aScholarship;
+            aScholarship = new Scholarship();
+            aScholarship.Majors = new List<string>();
+            aScholarship.SchoolYears = new List<string>();
+            aScholarship.Miscellaneous = new List<string>();
+            aScholarship.Counties = new List<string>();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                aScholarship = new Scholarship();
                 Type t = aScholarship.GetType();
                 foreach (FieldInfo info in t.GetFields())
                 {
-                    if (!DBNull.Value.Equals(dt.Rows[i][info.Name]))
+                    if (!info.Name.Equals("Majors") && !info.Name.Equals("SchoolYears") && !info.Name.Equals("Miscellaneous") && !info.Name.Equals("Counties"))
                     {
-                        if (info.FieldType == typeof(string))
+                        if (!DBNull.Value.Equals(dt.Rows[i][info.Name]))
                         {
-                            info.SetValue(aScholarship, dt.Rows[i][info.Name].ToString().Trim());
+                            if (info.FieldType == typeof(string))
+                            {
+                                info.SetValue(aScholarship, dt.Rows[i][info.Name].ToString().Trim());
+                            }
+                            else
+                            {
+                                info.SetValue(aScholarship, dt.Rows[i][info.Name]);
+                            }
                         }
                         else
                         {
-                            info.SetValue(aScholarship, dt.Rows[i][info.Name]);
+                            if (info.FieldType == typeof(string)) info.SetValue(aScholarship, "");
                         }
                     }
-                    else
-                    {
-                        if (info.FieldType == typeof(string)) info.SetValue(aScholarship, "");
-                    }
                 }
+                if (dt.Rows[i]["USER_GRP"].ToString().Equals("SCHMJ") && !aScholarship.Majors.Contains(dt.Rows[i]["USER_CD_DESCR"].ToString().Trim()))
+                {
+                    aScholarship.Majors.Add(dt.Rows[i]["USER_CD_DESCR"].ToString().Trim());
+                }
+                if (dt.Rows[i]["USER_GRP"].ToString().Equals("SCHOT") && !aScholarship.Miscellaneous.Contains(dt.Rows[i]["NOTE"].ToString().Trim()))
+                {
+                    aScholarship.Miscellaneous.Add(dt.Rows[i]["NOTE"].ToString().Trim());
+                }
+                if (dt.Rows[i]["USER_GRP"].ToString().Equals("SCHYR") && !aScholarship.SchoolYears.Contains(dt.Rows[i]["USER_CD_DESCR"].ToString().Trim()))
+                {
+                    aScholarship.SchoolYears.Add(dt.Rows[i]["USER_CD_DESCR"].ToString().Trim());
+                }
+                if (dt.Rows[i]["USER_GRP"].ToString().Equals("SCHCO") && !aScholarship.Counties.Contains(dt.Rows[i]["USER_CD_DESCR"].ToString().Trim()))
+                {
+                    aScholarship.Counties.Add(dt.Rows[i]["USER_CD_DESCR"].ToString().Trim());
+                }
+
                 System.Diagnostics.Debug.WriteLine("Row : " + i.ToString() + ":" + aScholarship.FRML_SCHLRSHP_NAME);
-                ScholarshipList.Add(aScholarship);
-                data.title = aScholarship.FRML_SCHLRSHP_NAME;
-                data.purpose = aScholarship.SCHLRSHP_PRPS;
-                data.gradGPA = aScholarship.SCHLR_USER_VARBL13;
-                data.undergradGPA = aScholarship.SCHLR_USER_VARBL14;
-                data.highschoolGPA = aScholarship.SCHLR_USER_VARBL15;
-                data.financialneed = aScholarship.SCHLR_USER_VARBL4.Length == 0 ? "" : "<b>Financial Need</b> : This scholarship requires a student to have a Financial Need to be eligible to receive the scholarship. In order to establish \"Financial Need\", a student must file the Free Application for Federal Student Aid (FAFSA). You can file the FAFSA at <a target='_blank' href=\"http://www.fafsa.ed.gov/\">www.fafsa.ed.gov</a>.";
-                data.essay = (aScholarship.SCHLR_USER_VARBL11.Length == 0) ? "There is no essay required for this scholarship" : "An Essay is required towards applying for this scholarship";
-                data.international = (aScholarship.SCHLR_USER_VARBL3.ToLower().Equals("n")) ? "This scholarship is not open to International Students" : "";
-                data.referenceletter = (aScholarship.SCHLR_USER_VARBL31.Length == 0) ? "" : ("<b>Reference Letters : </b>" + aScholarship.SCHLR_USER_VARBL31 + " reference letter(s) needed.");
+                //ScholarshipList.Add(aScholarship);
+            }
+                data.Title = aScholarship.FRML_SCHLRSHP_NAME;
+                data.Purpose = aScholarship.SCHLRSHP_PRPS;
+                data.GradGPA = aScholarship.SCHLR_USER_VARBL14;
+                data.UndergradGPA = aScholarship.SCHLR_USER_VARBL13;
+                data.HighSchoolGPA = aScholarship.SCHLR_USER_VARBL15;
+                data.FinancialNeed = aScholarship.SCHLR_USER_VARBL4.Length == 0 ? "" : "<b>Financial Need</b> : This scholarship requires a student to have a Financial Need to be eligible to receive the scholarship. In order to establish \"Financial Need\", a student must file the Free Application for Federal Student Aid (FAFSA). You can file the FAFSA at <a target='_blank' href=\"http://www.fafsa.ed.gov/\">www.fafsa.ed.gov</a>.";
+                data.Essay = (aScholarship.SCHLR_USER_VARBL11.Length == 0) ? "There is no essay required for this scholarship" : "An Essay is required towards applying for this scholarship";
+                data.International = (aScholarship.SCHLR_USER_VARBL3.ToLower().Equals("n")) ? "This scholarship is not open to International Students" : "";
+                data.ReferenceLetter = (aScholarship.SCHLR_USER_VARBL31.Length == 0) ? "" : ("<b>Reference Letters : </b>" + aScholarship.SCHLR_USER_VARBL31 + " reference letter(s) needed.");
+                data.IsuHours = aScholarship.SCHLR_USER_VARBL18;
+                data.Leadership = ((aScholarship.SCHLR_USER_VARBL9.Length == 0 && !aScholarship.SCHLR_USER_VARBL9.Equals("N")) ? "" : "Leadership experience is required to apply for this scholarship");
+                data.College=aScholarship.FUND_DEPT_DESCR;
+                data.Department=aScholarship.FUND_COLL_DESCR;
                 if (aScholarship.SCHLR_USER_VARBL32.Length > 0)
                 {
                     String deadline = aScholarship.SCHLR_USER_VARBL32;
-                    int x = Convert.ToInt16(deadline);
+                    int x = Convert.ToInt32(deadline);
                     String y = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(x);
-                    data.deadline = "<p><b>Application Deadline: </b>" + y + "</p>";
+                    data.Deadline = "<p><b>Application Deadline: </b>" + y + "</p>";
                 }
                 else
                 {
-                    data.deadline = "<p><b>Application Deadline: </b> No deadline has been specified. </p>";
+                    data.Deadline = "<p><b>Application Deadline: </b> No deadline has been specified. </p>";
                 }
-                data.communityservice = aScholarship.SCHLR_USER_VARBL8.Length == 0 ? "" : "<p><b>Community Service: </b>  There is a community service requirement in applying for this scholarship.</p>";
-                if (!DBNull.Value.Equals(dt.Rows[i]["FUND_DEPT_DESCR"])) data.department = dt.Rows[i]["FUND_DEPT_DESCR"].ToString();
-                else data.department = "";
-                if (!DBNull.Value.Equals(dt.Rows[i]["FUND_COLL_DESCR"])) data.college = dt.Rows[i]["FUND_COLL_DESCR"].ToString();
-                else data.college = "";
+                data.CommunityService = aScholarship.SCHLR_USER_VARBL8.Length == 0 ? "" : "<p><b>Community Service: </b>  There is a community service requirement in applying for this scholarship.</p>";
+                data.Majors = aScholarship.Majors;
+                data.SchoolYears = aScholarship.SchoolYears;
+                data.Miscellaneous = aScholarship.Miscellaneous;
+                data.Counties = aScholarship.Counties;
+                //if (!DBNull.Value.Equals(dt.Rows[i]["FUND_DEPT_DESCR"])) data.department = dt.Rows[i]["FUND_DEPT_DESCR"].ToString();
+                //else data.department = "";
+                //if (!DBNull.Value.Equals(dt.Rows[i]["FUND_COLL_DESCR"])) data.college = dt.Rows[i]["FUND_COLL_DESCR"].ToString();
+                //else data.college = "";
                 //if (!DBNull.Value.Equals(dt.Rows[i]["FUND_DEPT_DESC"])) data.communityservice = dt.Rows[i]["FUND_DEPT_DESC"];
                 //if (!DBNull.Value.Equals(dt.Rows[i]["FUND_DEPT_DESC"])) data.deadline = dt.Rows[i]["FUND_DEPT_DESC"];
 
                 ///county...
-            }
+            
             System.Diagnostics.Debug.WriteLine("sql : " + sqlstr);
             System.Diagnostics.Debug.WriteLine("params : " + fundAcct + ":" + scholarNum);
-            System.Diagnostics.Debug.WriteLine("Data : " + data.title);
+            System.Diagnostics.Debug.WriteLine("Data : " + data.Title);
             return data;
 
         }

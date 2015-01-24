@@ -7,21 +7,27 @@ namespace Schols.Models
 {
     public class ScholarshipData
     {
-        public String title { get; set; }
-        public String purpose { get; set; }
-        public String department { get; set; }
-        public String college { get; set; }
-        public String schoolYear { get; set; }
-        public String major { get; set; }
-        public String undergradGPA { get; set; }
-        public String gradGPA { get; set; }
-        public String highschoolGPA { get; set; }
-        public String essay { get; set; }
-        public String deadline { get; set; }
-        public String financialneed { get; set; }
-        public String international { get; set; }
-        public String communityservice { get; set; }
-        public String referenceletter { get; set; }
+        public string Title { get; set; }
+        public string Purpose { get; set; }
+        public string Department { get; set; }
+        public string College { get; set; }
+        public string SchoolYear { get; set; }
+        public string Major { get; set; }
+        public string UndergradGPA { get; set; }
+        public string GradGPA { get; set; }
+        public string HighSchoolGPA { get; set; }
+        public string Essay { get; set; }
+        public string Deadline { get; set; }
+        public string FinancialNeed { get; set; }
+        public string International { get; set; }
+        public string CommunityService { get; set; }
+        public string ReferenceLetter { get; set; }
+        public string IsuHours { get; set; }
+        public string Leadership { get; set; }
+        public List<string> Majors;
+        public List<string> Miscellaneous;
+        public List<string> SchoolYears;
+        public List<string> Counties;
 
     }
 }

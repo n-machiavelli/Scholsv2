@@ -53,6 +53,13 @@ namespace Schols.Models
         public string FNCL_AID_ACCT_CD ;
         public string FRML_SCHLRSHP_NAME ;
         public Nullable<long> AUDIT_TRAN_ID ;
+
+        public string FUND_COLL_DESCR;
+        public string FUND_DEPT_DESCR;
+        public List<string> Majors;
+        public List<string> Miscellaneous;
+        public List<string> SchoolYears;
+        public List<string> Counties;
         //public string FUNDFUND_ACCT ;
 
 

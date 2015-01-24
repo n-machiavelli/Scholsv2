@@ -1,18 +1,41 @@
-﻿<div>
-        <h2 id="title" data-ng-bind-html="vm.scholarship.title"></h2>
-        <p><b>Scholarship Purpose: </b><span id="purpose" data-ng-bind-html="vm.scholarship.purpose"></span></p>
-        <p><b>Department: </b><span id="department" data-ng-bind-html="vm.scholarship.department">Financial Aid Office - Provost</span>.</p>
-        <p><b>College: </b><span id="department" data-ng-bind-html="vm.scholarship.college">Financial Aid Office - Provost</span>.</p>
+﻿<div class="bodynobg">
+        <h2 id="title" data-ng-bind-html="vm.scholarship.Title"></h2>
+        <p><b>Scholarship Purpose: </b><span id="purpose" data-ng-bind-html="vm.scholarship.Purpose"></span></p>
+        <p><b>Department: </b><span id="department" data-ng-bind-html="vm.scholarship.Department"></span>.</p>
+        <p><b>College: </b><span id="department" data-ng-bind-html="vm.scholarship.College"></span>.</p>
         <h2>Requirements</h2>
-        <p><b>Minimum Undergraduate GPA: </b><span id="undergradGPA" data-ng-bind-html="vm.scholarship.undergradGPA">2.75</span>
-        <p><b>High School GPA: </b><span id="highschoolGPA" data-ng-bind-html="vm.scholarship.highschoolGPA">2.75</span>
-        <p><b>Essay: </b> <span id="essay" data-ng-bind-html="vm.scholarship.essay">An Essay is required towards applying for this scholarship</span>.</p>
-    <p id="deadline" data-ng-bind-html="vm.scholarship.deadline"></p>
-    <p id="financialneed" data-ng-bind-html="vm.scholarship.financialneed"><b>Financial Need: </b>This scholarship requires a student to have a Financial Need to be eligible to receive the scholarship. In order to establish "Financial Need", a student must file the Free Application for Federal Student Aid (FAFSA). You can file the FAFSA at <a target='_blank' href="http://www.fafsa.ed.gov/">www.fafsa.ed.gov</a>.</p>
-    <p id="international" data-ng-bind-html="vm.scholarship.international">This scholarship is not open to International Students.</p>
-        <p><b></b>  <span id="communityservice" data-ng-bind-html="vm.scholarship.communityservice">There is a community service requirement in applying for this scholarship</span>.</p>
-        <p><b>Leadership: </b>  <span id="leadership" data-ng-bind-html="vm.scholarship.leadership">There is a leadership experience requirement in applying for this scholarship</span>.</p>
-    <p id="referenceletter" data-ng-bind-html="vm.scholarship.referenceletter">There is no reference letter required for this scholarship</p>
+        <p><b>Minimum Undergraduate GPA: </b><span id="undergradGPA" data-ng-bind-html="vm.scholarship.UndergradGPA"></span>
+        <p><b>High School GPA: </b><span id="highschoolGPA" data-ng-bind-html="vm.scholarship.HighSchoolGPA"></span>
+        <p><b>Essay: </b> <span id="essay" data-ng-bind-html="vm.scholarship.Essay"></span>.</p>
+    <p id="deadline" data-ng-bind-html="vm.scholarship.Deadline"></p>
+    <p id="financialneed" data-ng-bind-html="vm.scholarship.Financialneed"></p>
+    <p id="international" data-ng-bind-html="vm.scholarship.International"></p>
+
+        <p><b></b>  <span id="communityservice" data-ng-bind-html="vm.scholarship.CommunityService"></span></p>
+    <p data-ng-show="vm.scholarship.Leadership!=''"><b>Leadership: </b>  <span id="leadership" data-ng-bind-html="vm.scholarship.Leadership"></span>.</p>
+    <p id="referenceletter" data-ng-bind-html="vm.scholarship.ReferenceLetter"></p>
+    <p id="miscellaneous">
+        <h2 data-ng-show="vm.scholarship.Miscellaneous.length>0">Miscellaneous </h2>
+        <ul>
+            <li data-ng-repeat="miscellaneous in vm.scholarship.Miscellaneous" data-ng-bind-html="miscellaneous"></li>
+        </ul>
+    </p>
+    <p id="majors">
+        <h2 data-ng-show="vm.scholarship.Majors.length>0">Majors</h2>
+        <ul><li data-ng-repeat="major in vm.scholarship.Majors" data-ng-bind-html="major"></li></ul>
+    </p>
+    <p id="schoolYears">
+        <h2 data-ng-show="vm.scholarship.SchoolYears.length>0">School Years</h2>
+        <ul>
+            <li data-ng-repeat="schoolYear in vm.scholarship.SchoolYears" data-ng-bind-html="schoolYear"></li>
+        </ul>
+    </p>
+    <p id="counties">
+        <h2 data-ng-show="vm.scholarship.Counties.length>0">County of Residence</h2>
+        <ul>
+            <li data-ng-repeat="county in vm.scholarship.Counties" data-ng-bind-html="county"></li>
+        </ul>
+    </p>
 
         <div id="applicationform">
             <form class="form-login" role="form" id="myform">
