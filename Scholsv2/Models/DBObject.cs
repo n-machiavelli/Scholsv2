@@ -37,7 +37,7 @@ namespace Schols.Models
         public DataTable query(string sqlstr, List<OracleParameter> parameters)
         {
 
-            ConnectionString = OracleConnString("atoraagilon01.at.illinoisstate.edu", "1521", "ONEPRD", "BUAJOKU", "Hu481919");
+            ConnectionString = OracleConnString("atoraagilon01.at.illinoisstate.edu", "1521", "ONEPRD", "BUAJOKU", "Scholar@123");
             //ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ScholarshipsEntities"].ConnectionString;
             DataTable dt = new DataTable();
             //TODO: Catch connection exceptions
@@ -72,7 +72,7 @@ namespace Schols.Models
         public int queryExecute(string sqlstr, List<OracleParameter> parameters)
         {
 
-            ConnectionString = OracleConnString("atoraagilon01.at.illinoisstate.edu", "1521", "ONEPRD", "BUAJOKU", "Hu481919");
+            ConnectionString = OracleConnString("atoraagilon01.at.illinoisstate.edu", "1521", "ONEPRD", "BUAJOKU", "Scholar@123");
             //ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ScholarshipsEntities"].ConnectionString;
             int result = 0;
 
@@ -301,14 +301,25 @@ namespace Schols.Models
             return data;
 
         }
-        public DataTable GetApplicationsTable()
+        public DataTable GetApplicationsTable(string fund_acct="")
         {
-            string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,fund_acct,essayfilename,username,reffilename,scholarshipyear FROM applications "; //TODO: WHERE
-            DataTable dt = querySQLServer(sqlstr, null);
+            string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,fund_acct,essayfilename,username,reffilename,scholarshipyear FROM scholarshipcenter.applications "; //TODO: WHERE
+            if (!(fund_acct==null) && !fund_acct.Equals(""))
+            {
+                sqlstr += " WHERE fund_acct='" + fund_acct + "'";
+            }
+            DataTable dt = query(sqlstr, null);
             return dt;
         }
-
-        public DataTable GetFavoritesTable(string user)
+        public DataTable GetDistinctScholarshipNamesTable()
+        {
+            //string sqlstr = "SELECT DISTINCT fund_acct,frml_schlrshp_name FROM scholarshipcenter.applications a INNER JOIN fund f ON a.fund_acct=f.fund_acct";
+            //use regex bcos the join was not returning rows. maybe some padding exist... making not exactly equal
+            string sqlstr = "SELECT DISTINCT * FROM scholarshipcenter.applications a LEFT OUTER JOIN summit.schlrshp s ON regexp_like(s.fund_acct,a.fund_acct,'i')";
+            DataTable dt = query(sqlstr, null);
+            return dt;
+        }
+        public DataTable GetFavoritesTableSQLServer(string user)
         {
             string sqlstr = "SELECT username, fund_acct,frml_schlrshp_name FROM favorites WHERE username=@username";
             List<SqlParameter> selectParameters = new List<SqlParameter>();
@@ -316,17 +327,34 @@ namespace Schols.Models
             DataTable dt = querySQLServer(sqlstr, selectParameters);
             return dt;
         }
-        public DataTable GetScholarshipsTable(SearchObject searchObject)
+        public DataTable GetFavoritesTable(string user)
         {
-            //string sqlstr = "SELECT * FROM summit.schlrshp s inner join SUMMIT.FUND f ON S.FUND_ACCT=F.FUND_ACCT WHERE (FRML_SCHLRSHP_NAME like @title )";
-            string sqlstr = "SELECT DISTINCT FRML_SCHLRSHP_NAME,s.FUND_ACCT,s.SCHLRSHP_NUM FROM summit.schlrshp s inner join SUMMIT.FUND f ON S.FUND_ACCT=F.FUND_ACCT LEFT OUTER JOIN UHELP.FUND_COLL_ATTRB coll on f.FUND_COLL_ATTRB=coll.FUND_COLL_ATTRB LEFT OUTER JOIN UHELP.FUND_DEPT_ATTRB dept on f.FUND_COLL_ATTRB=dept.FUND_DEPT_ATTRB ";
-            sqlstr += "LEFT OUTER JOIN Summit.USER_CODE su on (s.audit_tran_id=su.parent_audit_tran_id and (su.USER_GRP='SCHMJ' or su.USER_GRP='SCHYR'))";
-            sqlstr += "LEFT OUTER JOIN UHELP.USER_CD uu on su.USER_CD=UU.USER_CD ";
-            sqlstr += " WHERE s.SCHLR_USER_VARBL2 = 'Y' and f.FUND_OPEN_ATTRB='O' AND rownum<3000 "; //explain this number later. choosing 3 cols also allows me have DISTINCT
+            string sqlstr = "SELECT username, fund_acct,frml_schlrshp_name FROM scholarshipcenter.favorites WHERE username=:username";
+            List<OracleParameter> selectParameters = new List<OracleParameter>();
+            selectParameters.Add(new OracleParameter("username", user));
+            DataTable dt = query(sqlstr, selectParameters);
+            return dt;
+        }
+
+        public DataTable GetScholarshipsTable(SearchObject searchObject, string user=null)
+        {
             List<OracleParameter> parameters = new List<OracleParameter>();
+            string sqlstr = "SELECT DISTINCT s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num,'' as fav FROM summit.schlrshp s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct LEFT OUTER JOIN uhelp.fund_coll_attrb coll on f.fund_coll_attrb=coll.fund_coll_attrb LEFT OUTER JOIN uhelp.fund_dept_attrb dept on f.fund_coll_attrb=dept.fund_dept_attrb ";
+            string sqlstr2 = "LEFT OUTER JOIN summit.user_code su on (s.audit_tran_id=su.parent_audit_tran_id and (su.user_grp='SCHMJ' or su.user_grp='SCHYR'))";
+            sqlstr2 += "LEFT OUTER JOIN uhelp.user_cd uu on su.user_cd=uu.user_cd ";
+            if (user!=null)
+            {
+                sqlstr = "SELECT DISTINCT s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num,fv.frml_schlrshp_name as fav FROM summit.schlrshp s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct LEFT OUTER JOIN uhelp.fund_coll_attrb coll on f.fund_coll_attrb=coll.fund_coll_attrb LEFT OUTER JOIN uhelp.fund_dept_attrb dept on f.fund_coll_attrb=dept.fund_dept_attrb ";
+                sqlstr += sqlstr2;
+                sqlstr += "LEFT OUTER JOIN scholarshipcenter.favorites fv ON (regexp_like(s.fund_acct,fv.fund_acct,'i') AND fv.username=:username) ";
+                parameters.Add(new OracleParameter("username", user));
+            }
+            sqlstr += " WHERE s.schlr_user_varbl2 = 'Y' and f.fund_open_attrb='O' AND rownum<3000 "; //explain this number later. choosing 3 cols also allows me have DISTINCT
+            //string sqlstr = "SELECT * FROM summit.schlrshp s inner join SUMMIT.FUND f ON S.FUND_ACCT=F.FUND_ACCT WHERE (FRML_SCHLRSHP_NAME like @title )";
+
             if (searchObject.title != null && !searchObject.title.Trim().Equals("")) //decided to allow for empty title after testing performance with toad. satisfactory for 1000 rows if selecting 3 cols
             {
-                sqlstr += " AND regexp_like(FRML_SCHLRSHP_NAME, :title, 'i') ";
+                sqlstr += " AND regexp_like(s.FRML_SCHLRSHP_NAME, :title, 'i') ";
                 parameters.Add(new OracleParameter("title", searchObject.title));
             }
 
@@ -369,7 +397,7 @@ namespace Schols.Models
             }
             if (searchObject.keyword != null && !searchObject.keyword.Trim().Equals(""))
             {
-                sqlstr += " and (regexp_like(FRML_SCHLRSHP_NAME, :keyword,'i') or regexp_like(SCHLRSHP_PRPS, :keyword,'i') or regexp_like(SCHLRSHP_CRTRIA,:keyword,'i')";
+                sqlstr += " and (regexp_like(s.FRML_SCHLRSHP_NAME, :keyword,'i') or regexp_like(s.SCHLRSHP_PRPS, :keyword,'i') or regexp_like(s.SCHLRSHP_CRTRIA,:keyword,'i')";
                 sqlstr += " or regexp_like(uu.USER_CD_DESCR, :keyword,'i') or regexp_like(f.FUND_DEPT_ATTRB, :keyword,'i') or regexp_like(f.FUND_COLL_ATTRB, :keyword,'i') )";
                 parameters.Add(new OracleParameter("keyword", searchObject.keyword));
             }
@@ -378,9 +406,10 @@ namespace Schols.Models
             System.Diagnostics.Debug.WriteLine(dt.Rows.Count);
             return dt;
         }
-        public List<ScholarshipLink> GetScholarshipsWithFavorites(SearchObject searchObject, string user)
+        public List<ScholarshipLink> GetScholarshipsWithFavoritesOld(SearchObject searchObject, string user)
         {
             /* This temporary ineffective fxn will be replaced when favorites table is moved to oracle db to allow joins... */
+            /* deprecated due to join in GetScholarshipsTable */
             DataTable dtScholarships = GetScholarshipsTable(searchObject);
             DataTable dtFavorites = GetFavoritesTable(user);
             List<ScholarshipLink> ScholarshipList = new List<ScholarshipLink>();
@@ -445,9 +474,9 @@ namespace Schols.Models
              * */
         }
 
-        public List<ScholarshipLink> GetScholarships(SearchObject searchObject)
+        public List<ScholarshipLink> GetScholarships(SearchObject searchObject, string user=null)
         {
-            DataTable dt = GetScholarshipsTable(searchObject);
+            DataTable dt = GetScholarshipsTable(searchObject,user);
             List<ScholarshipLink> ScholarshipList = new List<ScholarshipLink>();
             ScholarshipLink aScholarship;
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -457,6 +486,7 @@ namespace Schols.Models
                 aScholarship.SCHLRSHP_NUM = dt.Rows[i]["SCHLRSHP_NUM"].ToString().Trim();
                 aScholarship.FUND_ACCT = dt.Rows[i]["FUND_ACCT"].ToString().Trim();
                 aScholarship.FRML_SCHLRSHP_NAME = dt.Rows[i]["FRML_SCHLRSHP_NAME"].ToString().Trim();
+                aScholarship.fav = dt.Rows[i]["fav"].ToString().Trim();
                 //System.Diagnostics.Debug.WriteLine("Row : " + i.ToString() + ":" + aScholarship.FRML_SCHLRSHP_NAME);
                 //System.Diagnostics.Debug.WriteLine("Row : " + i.ToString());
                 ScholarshipList.Add(aScholarship);
@@ -596,9 +626,24 @@ namespace Schols.Models
             message.title="Successful";
             return message;
         }
-        public List<ScholarshipApp> GetApplications()
+        public List<ScholarshipLink> GetDistinctScholarshipNames()
         {
-            DataTable dt = GetApplicationsTable();
+            DataTable dt=GetDistinctScholarshipNamesTable();
+            List<ScholarshipLink> scholarshipLinks = new List<ScholarshipLink>();
+            ScholarshipLink scholarshipLink = null;
+            for (int i = 0; i < dt.Rows.Count; i++ )
+            {
+                scholarshipLink = new ScholarshipLink();
+                scholarshipLink.FRML_SCHLRSHP_NAME = dt.Rows[i]["FRML_SCHLRSHP_NAME"].ToString().Trim();
+                scholarshipLink.FUND_ACCT = dt.Rows[i]["FUND_ACCT"].ToString().Trim();
+                scholarshipLinks.Add(scholarshipLink);
+            }
+            return scholarshipLinks;
+        }
+
+        public List<ScholarshipApp> GetApplications(string fund_acct="")
+        {
+            DataTable dt = GetApplicationsTable(fund_acct);
             List<ScholarshipApp> applications = new List<ScholarshipApp>();
             ScholarshipApp application;
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -616,7 +661,7 @@ namespace Schols.Models
                 application.username = dt.Rows[i]["username"].ToString().Trim();
                 application.essayfilename = dt.Rows[i]["essayfilename"].ToString().Trim();
                 application.reffilename = dt.Rows[i]["reffilename"].ToString().Trim();
-                application.scholarshipyear = dt.Rows[i]["scholarshipyear"].ToString().Trim();
+                application.ScholarshipYear = dt.Rows[i]["scholarshipyear"].ToString().Trim();
                 //System.Diagnostics.Debug.WriteLine("Row : " + i.ToString());
                 applications.Add(application);
 

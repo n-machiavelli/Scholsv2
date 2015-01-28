@@ -14,6 +14,7 @@ namespace Schols.Models
     {
         public UserModel ValidUser(UserModel user)
         {
+            /* TODO: Deprecate since we using asp.net identity */
             DBObject db = new DBObject();
 
             string sqlstr = "SELECT passwordhash,salt,fullname,usermajor FROM users where username= @username";
@@ -105,32 +106,42 @@ namespace Schols.Models
                 return "Could not create user.";
             }
         }
+        /*TODO: All above deprecated due to .net identity */
+
         public string Apply(ScholarshipApp app, string username) //UserModel user)
         {
-            string sqlstr = "SELECT * FROM applications WHERE username=@username AND fund_acct=@fund_acct";
+            string sqlstr = "SELECT * FROM scholarshipcenter.applications WHERE username=:username AND fund_acct=:fund_acct";
             string message = "";
             DBObject db = new DBObject();
-            List<SqlParameter> parameters = new List<SqlParameter>();
-            parameters.Add(new SqlParameter("@username", username));
-            parameters.Add(new SqlParameter("@fund_acct", app.fund_acct));
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            parameters.Add(new OracleParameter("username", username));
+            parameters.Add(new OracleParameter("fund_acct", app.fund_acct));
 
-            DataTable dt = db.querySQLServer(sqlstr, parameters);
+            DataTable dt = db.query(sqlstr, parameters);
             if (dt.Rows.Count == 0)
             {
-                sqlstr = "INSERT INTO applications (universityid,firstname,middlename,lastname,address,phonenumber,email,username,fund_acct,essayfilename,reffilename) VALUES (@universityid,@firstname,@middlename,@lastname,@address,@phonenumber,@email,@username,@fund_acct,@essayfilename,@reffilename)";
-                List<SqlParameter> insertParameters = new List<SqlParameter>();
-                insertParameters.Add(new SqlParameter("@universityid", app.universityid));
-                insertParameters.Add(new SqlParameter("@firstname", app.firstname));
-                insertParameters.Add(new SqlParameter("@middlename", app.middlename));
-                insertParameters.Add(new SqlParameter("@lastname", app.lastname));
-                insertParameters.Add(new SqlParameter("@address", app.address));
-                insertParameters.Add(new SqlParameter("@phonenumber", app.phonenumber));
-                insertParameters.Add(new SqlParameter("@email", app.email));
-                insertParameters.Add(new SqlParameter("@username", username));
-                insertParameters.Add(new SqlParameter("@fund_acct", app.fund_acct));
-                insertParameters.Add(new SqlParameter("@essayfilename", app.essayfilename));
-                insertParameters.Add(new SqlParameter("@reffilename", app.reffilename));
-                int count = db.queryExecuteSQLServer(sqlstr, insertParameters);
+
+                sqlstr = "INSERT INTO scholarshipcenter.applications (universityid,firstname,middlename,lastname,address,phonenumber,email,username,fund_acct,essayfilename,reffilename,scholarshipyear,expectedgraduation,presentgpa,highschoolgpa,communityservice,extracurricular,awardshonors) VALUES (:universityid,:firstname,:middlename,:lastname,:address,:phonenumber,:email,:username,:fund_acct,:essayfilename,:reffilename,:scholarshipyear,:expectedgraduation,:presentgpa,:highschoolgpa,:communityservice,:extracurricular,:awardshonors)";
+                List<OracleParameter> insertParameters = new List<OracleParameter>();
+                insertParameters.Add(new OracleParameter("universityid", app.universityid));
+                insertParameters.Add(new OracleParameter("firstname", app.firstname));
+                insertParameters.Add(new OracleParameter("middlename", app.middlename));
+                insertParameters.Add(new OracleParameter("lastname", app.lastname));
+                insertParameters.Add(new OracleParameter("address", app.address));
+                insertParameters.Add(new OracleParameter("phonenumber", app.phonenumber));
+                insertParameters.Add(new OracleParameter("email", app.email));
+                insertParameters.Add(new OracleParameter("username", username));
+                insertParameters.Add(new OracleParameter("fund_acct", app.fund_acct));
+                insertParameters.Add(new OracleParameter("essayfilename", app.essayfilename));
+                insertParameters.Add(new OracleParameter("reffilename", app.reffilename));
+                insertParameters.Add(new OracleParameter("scholarshipyear", app.ScholarshipYear));
+                insertParameters.Add(new OracleParameter("expectedgraduation", app.ExpectedGraduation));
+                insertParameters.Add(new OracleParameter("presentgpa", app.PresentGPA));
+                insertParameters.Add(new OracleParameter("highschoolgpa", app.HighSchoolGPA));
+                insertParameters.Add(new OracleParameter("communityservice", app.CommunityService));
+                insertParameters.Add(new OracleParameter("extracurricular", app.ExtraCurricular));
+                insertParameters.Add(new OracleParameter("awardshonors", app.AwardsHonors));
+                int count = db.queryExecute(sqlstr, insertParameters);
                 message = "Application Submitted";
             }
             else
@@ -139,7 +150,8 @@ namespace Schols.Models
             }
             return message;
         }
-        public string ToggleFavorite(Favorite fav, string user)
+
+        public string ToggleFavoriteSQLServer(Favorite fav, string user)
         {
             string sqlstr = "SELECT * FROM favorites WHERE username=@username AND fund_acct=@fundacct";
             string message = "";
@@ -173,8 +185,44 @@ namespace Schols.Models
             }
             return message;
         }
+        public string ToggleFavorite(Favorite fav, string user)
+        {
+            string sqlstr = "SELECT * FROM scholarshipcenter.favorites WHERE username=:username AND fund_acct=:fundacct";
+            string message = "";
+            DBObject db = new DBObject();
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            parameters.Add(new OracleParameter("username", user));
+            parameters.Add(new OracleParameter("fundacct", fav.fundacct));
+
+            DataTable dt = db.query(sqlstr, parameters);
+            if (dt.Rows.Count == 0) //not a favorite, add it
+            {
+                sqlstr = "INSERT INTO scholarshipcenter.favorites (username,fund_acct,frml_schlrshp_name) VALUES (:username,:fundacct, :schlrshpname)";
+                List<OracleParameter> insertParameters = new List<OracleParameter>();
+                insertParameters.Add(new OracleParameter("username", user));
+                insertParameters.Add(new OracleParameter("fundacct", fav.fundacct));
+                insertParameters.Add(new OracleParameter("schlrshpname", fav.schlrshpname));
+                //same parameter list applies
+                int count = db.queryExecute(sqlstr, insertParameters);
+                message = "Added to Favorites";
+            }
+            else
+            { // a favorite already, delete it
+                sqlstr = "DELETE FROM scholarshipcenter.favorites WHERE username=:username AND fund_acct=:fundacct AND frml_schlrshp_name=:schlrshpname";
+                List<OracleParameter> insertParameters = new List<OracleParameter>();
+                insertParameters.Add(new OracleParameter("username", user));
+                insertParameters.Add(new OracleParameter("fundacct", fav.fundacct));
+                insertParameters.Add(new OracleParameter("schlrshpname", fav.schlrshpname));
+                //same parameter list applies
+                int count = db.queryExecute(sqlstr, insertParameters);
+                message = "Removed from Favorites";
+            }
+            return message;
+        }
+
         public string RemoveFavorite(Favorite fav, UserModel user)
         {
+            /* TODO: Deprecated due to toggle */
             string sqlstr = "DELETE FROM favorites WHERE username=@username AND fund_acct=@fundacct";
             string message = "";
             DBObject db = new DBObject();
@@ -186,7 +234,7 @@ namespace Schols.Models
             message = "Deleted.";
             return message;
         }
-
+        /*TODO: Deprecate below due to .net identity */
         public string generateToken(UserModel user)
         {
             string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
@@ -240,15 +288,16 @@ namespace Schols.Models
             string hashedPwd = Convert.ToBase64String(sha.ComputeHash(Convert.FromBase64String(Convert.ToBase64String(saltAndPwdbytes)))); //FormsAuthentication.HashPasswordForStoringInConfigFile(saltAndPwd, "sha1");
             return hashedPwd;
         }
+        /*TODO END DEPRECATE */
 
         internal ScholarshipApp GetApplication(string fund_acct, UserModel user)
         {
             DBObject db = new DBObject();
-            String sqlstr = "SELECT * FROM applications where username= @username and fund_acct=@fund_acct";
-            List<SqlParameter> parameters = new List<SqlParameter>();
-            parameters.Add(new SqlParameter("@username", user.UserName));
-            parameters.Add(new SqlParameter("@fund_acct", fund_acct));
-            DataTable dt = db.querySQLServer(sqlstr, parameters);
+            String sqlstr = "SELECT * FROM scholarshipcenter.applications WHERE username= ;username AND fund_acct=:fund_acct";
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            parameters.Add(new OracleParameter("username", user.UserName));
+            parameters.Add(new OracleParameter("fund_acct", fund_acct));
+            DataTable dt = db.query(sqlstr, parameters);
             ScholarshipApp application=retrieveApplicationData(dt);
             return application;
         }
@@ -256,22 +305,22 @@ namespace Schols.Models
         internal ScholarshipApp GetApplication(long id)
         {
             DBObject db = new DBObject();
-            String sqlstr = "SELECT * FROM applications where id= @id";
-            List<SqlParameter> parameters = new List<SqlParameter>();
-            parameters.Add(new SqlParameter("@id", id));
-            DataTable dt = db.querySQLServer(sqlstr, parameters);
+            String sqlstr = "SELECT * FROM scholarshipcenter.applications where id= :id";
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            parameters.Add(new OracleParameter("id", id));
+            DataTable dt = db.query(sqlstr, parameters);
             ScholarshipApp application=retrieveApplicationData(dt);
             return application;
         }
         internal Message SaveApplication(ScholarshipApp app)
         {
             DBObject db = new DBObject();
-            String sqlstr = "UPDATE applications SET remark=@remark, status=@status WHERE id= @id";
-            List<SqlParameter> parameters = new List<SqlParameter>();
-            parameters.Add(new SqlParameter("@id", app.id));
-            parameters.Add(new SqlParameter("@remark", app.remark));
-            parameters.Add(new SqlParameter("@status", app.status));
-            db.queryExecuteSQLServer(sqlstr, parameters);
+            String sqlstr = "UPDATE scholarshipcenter.applications SET remark=:remark, status=:status WHERE id=" + app.id.ToString(); //TODO: WHY "invalid number" error in oracle if i use :id
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            //parameters.Add(new OracleParameter("appid", "1"));
+            parameters.Add(new OracleParameter("remark", app.remark));
+            parameters.Add(new OracleParameter("status", app.status));
+            db.queryExecute(sqlstr, parameters);
             Message message = new Message();
             message.title = "Application Status saved";
             message.body= "Application Status saved";
@@ -295,9 +344,15 @@ namespace Schols.Models
                 application.username = dt.Rows[i]["username"].ToString().Trim();
                 application.essayfilename = dt.Rows[i]["essayfilename"].ToString().Trim();
                 application.reffilename = dt.Rows[i]["reffilename"].ToString().Trim();
-                application.scholarshipyear = dt.Rows[i]["scholarshipyear"].ToString().Trim();
+                application.ScholarshipYear = dt.Rows[i]["scholarshipyear"].ToString().Trim();
                 application.remark = dt.Rows[i]["remark"].ToString().Trim();
                 application.status = dt.Rows[i]["status"].ToString().Trim();
+                application.ExpectedGraduation = dt.Rows[i]["expectedgraduation"].ToString().Trim();
+                application.PresentGPA = dt.Rows[i]["presentgpa"].ToString().Trim();
+                application.HighSchoolGPA= dt.Rows[i]["highschoolgpa"].ToString().Trim();
+                application.CommunityService = dt.Rows[i]["communityservice"].ToString().Trim();
+                application.ExtraCurricular = dt.Rows[i]["extracurricular"].ToString().Trim();
+                application.AwardsHonors = dt.Rows[i]["awardshonors"].ToString().Trim();                
                 //System.Diagnostics.Debug.WriteLine("Row : " + i.ToString());
             }
             return application;

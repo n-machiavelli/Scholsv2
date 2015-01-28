@@ -5,10 +5,10 @@
         .module('app')
         .controller('registerController', registerController);
 
-    registerController.$inject = ['$location', 'authService'];
+    registerController.$inject = ['$location', 'authService','searchService'];
 
     /* @ngInject */
-    function registerController($location, authService) {
+    function registerController($location, authService, searchService) {
         /* jshint validthis: true */
         var vm = this;
 
@@ -35,6 +35,13 @@
         activate();
 
         function activate() {
+            var promise = searchService.getDropDowns();
+            promise.then(function (data) {
+                vm.majors = data.majors;
+                //console.log(vm.majors);
+            }, function (reason) {
+                console.log(reason);
+            });
         }
 
         function register() {

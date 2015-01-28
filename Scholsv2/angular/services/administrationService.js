@@ -11,17 +11,29 @@
 
     function administrationService($http, $q, ngAuthSettings) {
         var serviceBaseApi = ngAuthSettings.serviceBaseApi;
+        this.getScholarshipNames = function getScholarshipNames(vm) { //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
+            var deferred = $q.defer();
+            var request = $http({
+                method: 'POST',
+                url: serviceBaseApi + "distinctscholarships"
+            });
+            /* Check whether the HTTP Request is Successfull or not. */
+            request.success(function (data) {
+                console.log("Scholarship Names retrieved via service");
+                console.log(data);
+                deferred.resolve(data);
+            })
+                .error(function (error) {
+                    console.log(error);
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
         this.getApplications = function getApplications(vm) { //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
             var deferred=$q.defer();            
             var request = $http({
                 method: 'POST',
                 url: serviceBaseApi + "applications"
-            /*    data: {
-                title: vm.title,
-                department: vm.department,
-                college: vm.college,
-            }
-            */
             });
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {
@@ -35,6 +47,25 @@
                 });
             return deferred.promise;            
         };
+        this.filterApplications = function filterApplications(fund_acct) { //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
+            var deferred = $q.defer();
+            var request = $http({
+                method: 'GET',
+                url: serviceBaseApi + "filteredapplications?f=" + fund_acct
+            });
+            /* Check whether the HTTP Request is Successfull or not. */
+            request.success(function (data) {
+                console.log("Applications retrieved via service");
+                console.log(data);
+                deferred.resolve(data);
+            })
+                .error(function (error) {
+                    console.log(error);
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+
         this.getStatusData = function getStatusData(appId) { //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
             var deferred = $q.defer();
             var request = $http({

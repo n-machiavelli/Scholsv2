@@ -4,7 +4,8 @@
                     <input data-ng-model="vm.registration.email" id="email" type="text" class="form-control" placeholder="Email" required autofocus>
                     <input data-ng-model="vm.registration.password" id="password" type="password" class="form-control" placeholder="Password" required>
                     <input data-ng-model="vm.registration.confirmPassword" id="confirmpassword" type="password" class="form-control" placeholder="Confirm Password" required>
-                    <input data-ng-model="vm.registration.UserMajor" id="usermajor" type="text" class="form-control" placeholder="Major" required>
+                    <!--<input data-ng-model="vm.registration.UserMajor" id="usermajor" type="text" class="form-control" placeholder="Major" required>-->
+                    <input data-ng-model="vm.registration.UserMajor" id="usermajor" type="text"  typeahead="major for major in vm.majors | filter:$viewValue | limitTo:8" class="form-control" placeholder="Major" required>
                     <input data-ng-model="vm.registration.FirstName" id="FirstName" type="text" class="form-control" placeholder="First Name" required>
                     <input data-ng-model="vm.registration.MiddleName" id="MiddleName" type="text" class="form-control" placeholder="Middle Name" required>
                     <input data-ng-model="vm.registration.LastName" id="LastName" type="text" class="form-control" placeholder="Last Name" required>

@@ -63,11 +63,27 @@ namespace Scholsv2.Controllers
             //return "{Message" + ":" + "You-accessed-this-message-with-authorization" + "}"; return Ok(headers.ToString());
             return Json(message);
         }
+        [Route("api/distinctscholarships")]
+        [HttpPost]
+        public IHttpActionResult GetDistinctScholarships()
+        {
+            DBObject db = new DBObject();
+            List<ScholarshipLink> scholarshipLinks;
+            scholarshipLinks = db.GetDistinctScholarshipNames();
+            return Ok(scholarshipLinks);
+        }
+        [Route("api/filteredapplications")]
+        public IHttpActionResult GetFilteredApplications([FromUri]string f)
+        {
+            DBObject db = new DBObject();
+            List<Schols.Models.ScholarshipApp> applications;
+            applications = db.GetApplications(f);
+            return Ok(applications);
+        }
         [Route("api/applications")]
         [HttpPost]
         public IHttpActionResult GetApplications()
         {
-            //TODO: move token code to another fxn... repetition 
             string username = User.Identity.Name;
             UserDatabase udb = new UserDatabase();
             DBObject db = new DBObject();

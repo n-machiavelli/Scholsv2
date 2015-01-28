@@ -52,6 +52,7 @@
                 <input id="phonenumber" data-ng-model="vm.phonenumber" type="text" class="form-control" placeholder="Phone Number">
                 <input id="email" data-ng-model="vm.email" type="text" class="form-control" placeholder="Email Address">
                 <select id="scholarshipyear" data-ng-model="vm.scholarshipyear" class="form-control">
+                    <option value="" disabled selected>Scholarship Year</option>
                     <option value="Fall 2014">Fall 2014</option>
                     <option value="Spring 2015">Spring 2015</option>
                     <option value="Fall 2015">Fall 2015</option>
@@ -62,6 +63,27 @@
                     <option value="Spring 2018">Spring 2018</option>
                     <option value="Fall 2018">Fall 2018</option>
                 </select>
+                <select id="expectedgraduation" data-ng-model="vm.expectedGraduation" class="form-control">
+                    <option value="" disabled selected>Expected Graduation Year</option>
+                    <option value="Fall 2014">Fall 2014</option>
+                    <option value="Spring 2015">Spring 2015</option>
+                    <option value="Fall 2015">Fall 2015</option>
+                    <option value="Spring 2016">Spring 2016</option>
+                    <option value="Fall 2016">Fall 2016</option>
+                    <option value="Spring 2017">Spring 2017</option>
+                    <option value="Fall 2017">Fall 2017</option>
+                    <option value="Spring 2018">Spring 2018</option>
+                    <option value="Fall 2018">Fall 2018</option>
+                    <option value="Spring 2019">Spring 2019</option>
+                    <option value="Fall 2019">Fall 2019</option>
+                    <option value="Spring 2020">Spring 2020</option>
+                    <option value="Fall 2020">Fall 2020</option>
+                </select>
+                <input id="presentGPA" data-ng-model="vm.presentGPA" type="text" class="form-control" placeholder="Present GPA">
+                <input id="highschoolGPA" data-ng-model="vm.highschoolGPA" type="text" class="form-control" placeholder="High School GPA">
+                <input id="communityService" data-ng-model="vm.communityService" type="text" class="form-control" placeholder="Community Service"><span>Separate with commas</span>
+                <input id="extraCurricular" data-ng-model="vm.extraCurricular" type="text" class="form-control" placeholder="Extra-curricular activities"><span>Separate with commas</span>
+                <input id="awards" data-ng-model="vm.awardsHonors" type="text" class="form-control" placeholder="Awards/Honors"><span>Separate with commas</span>
                 <textarea id="address" data-ng-model="vm.address" class="form-control" placeholder="Mailing Address"></textarea>
                 <br />
                 

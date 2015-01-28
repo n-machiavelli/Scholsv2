@@ -77,7 +77,14 @@
                 vm.email =         "";
                 vm.universityid = "";
                 vm.address = "";
-                vm.schoolyear = "";
+                vm.scholarshipyear = "";
+                vm.expectedGraduation = "";
+                vm.presentGPA = "";
+                vm.highschoolGPA = "";
+                vm.communityService = "";
+                vm.extraCurricular = "";
+                vm.awardsHonors = "";
+
                 vm.loadprofile = false;
                 vm.savedSuccessfully = true;
             }, function (reason) {

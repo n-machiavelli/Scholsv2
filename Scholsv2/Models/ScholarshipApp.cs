@@ -19,8 +19,15 @@ namespace Schols.Models
         public string essayfilename { get; set; }
         public string reffilename { get; set; }
         public string username { get; set; }
-        public string scholarshipyear { get; set; }
+        public string ScholarshipYear { get; set; }
         public string remark { get; set; }
         public string status { get; set; }
+        public string ExpectedGraduation { get; set; }
+        public string PresentGPA { get; set; }
+        public string HighSchoolGPA { get; set; }
+        public string CommunityService { get; set; }
+        public string ExtraCurricular { get; set; }
+        public string AwardsHonors { get; set; }
+
     }
 }

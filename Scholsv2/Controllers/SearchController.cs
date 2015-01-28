@@ -108,14 +108,7 @@ namespace Scholarship.Controllers
             List<Schols.Models.ScholarshipLink> scholarships;
             //scholarships = db.GetScholarships(searchObject);
             //scholarships = db.GetScholarshipsWithFavorites(searchObject, user);
-            if (user == null)
-            {
-                scholarships= db.GetScholarships(searchObject);
-            }
-            else
-            {
-                scholarships = db.GetScholarshipsWithFavorites(searchObject, user);
-            }
+            scholarships = db.GetScholarships(searchObject, user);
             return scholarships;
             //Request.CreateResponse(HttpStatusCode.Created,scholarship);
             //String idString = id.ToString();

@@ -14,12 +14,15 @@
         vm.activate = activate;
         vm.spinnerdisplay = "hideme";
         vm.tickcompleted = "hideme";
+        vm.filterspinner = "hideme";
         //vm.title = 'searchController';
 
         vm.getApplications = getApplications;
+        vm.filterApplications=filterApplications;
         vm.generateExcel = generateExcel;
         vm.excelLink = "";
         vm.applications = [];
+        getScholarshipNames();
         getApplications();
         activate();
 
@@ -58,7 +61,22 @@
                 vm.spinnerdisplay = "hideme";
             });            
         }
-
+        function getScholarshipNames() {
+            vm.spinnerdisplay = "showme";
+            var promise = administrationService.getScholarshipNames();
+            promise.then(function (results) {
+                console.log("scholarship names retrieved via controller");
+                vm.scholarships = results;
+                console.log(vm.scholarships);
+                vm.spinnerdisplay = "hideme";
+            }, function (err) {
+                console.log("error here");
+                vm.spinnerdisplay = "hideme";
+            }, function (update) {
+                console.log("update here");
+                vm.spinnerdisplay = "hideme";
+            });
+        }
         function generateExcel() {
             vm.spinnerdisplay = "showme";
             var promise = administrationService.generateExcel();
@@ -77,6 +95,23 @@
                 console.log("update here");
                 vm.tickcompleted = "hideme";
                 vm.spinnerdisplay = "hideme";
+            });
+        }
+        function filterApplications() {
+            vm.filterspinner = "showme";
+            if (vm.fund_acct == undefined || vm.fund_acct ==null) vm.fund_acct ="";
+            console.log(vm.fund_acct);
+            var promise = administrationService.filterApplications(vm.fund_acct);
+            promise.then(function (response) {
+                console.log("Filtered Applications");
+                vm.applications = response; 
+                vm.filterspinner = "hideme";
+            }, function (err) {
+                console.log("error here");
+                vm.filterspinner = "hideme";
+            }, function (update) {
+                console.log("update here");
+                vm.filterspinner = "hideme";
             });
         }
         vm.openModal = function (id) {

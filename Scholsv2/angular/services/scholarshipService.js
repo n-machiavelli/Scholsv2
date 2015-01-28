@@ -37,7 +37,7 @@
         };
         this.apply = function apply(vm) {
             var deferred = $q.defer();
-            //console.log(vm);
+            console.log(vm);
             var request = $http({
                 method: 'POST',
                 url: serviceBaseApi + "apply",
@@ -52,7 +52,13 @@
                     essayfilename: vm.essayfilename,
                     reffilename: vm.reffilename,
                     fund_acct: vm.fund_acct,
-                    scholarshipyear: vm.scholarshipyear
+                    ScholarshipYear: vm.scholarshipyear,
+                    ExpectedGraduation: vm.expectedGraduation,
+                    PresentGPA: vm.presentGPA,
+                    HighSchoolGPA: vm.highschoolGPA,
+                    CommunityService: vm.communityService,
+                    ExtraCurricular: vm.extraCurricular,
+                    AwardsHonors: vm.awardsHonors
                 }
                 //,headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
