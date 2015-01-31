@@ -17,7 +17,7 @@
             //console.log(vm);
             var request = $http({
                 method: 'GET',
-                url: serviceBaseApi + "scholarshipdetails?f=" + fund_acct + "&s=" + schlrshp_num 
+                url: serviceBaseApi + "scholarshipdetails?fundAcct=" + fund_acct + "&scholarNum=" + schlrshp_num 
             });
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {

@@ -86,14 +86,33 @@ namespace Scholarship.Controllers
 
         //public IEnumerable<SCHLRSHP> Post([FromBody] SearchObject searchObject)
         [Route("api/scholarshipdetails")]
-        public IHttpActionResult GetScholarshipData([FromUri]string f, [FromUri]string s)
+        public IHttpActionResult GetScholarshipData([FromUri]string fundAcct, [FromUri]string scholarNum)
         {
             DBObject db = new DBObject();
-            ScholarshipData data = db.GetScholarshipData(f, s);
-            System.Diagnostics.Debug.WriteLine("URI : " + f + ":" + s);
+            string user=User.Identity.Name;
+            ScholarshipData data;
+            if (scholarNum != null && scholarNum.StartsWith("HDN"))
+            {
+                //this is hidden scholarship. search different table and also use join to confirm user was granted the access to apply
+                data = db.GetHiddenScholarshipData(fundAcct, scholarNum, user);
+            }
+            else
+            {
+                data = db.GetScholarshipData(fundAcct, scholarNum);
+            }
+            System.Diagnostics.Debug.WriteLine("URI : " + fundAcct + ":" + fundAcct);
             return Ok(data);
         }
 
+        [Route("api/favorites")]
+        public IHttpActionResult GetScholarshipData()
+        {
+            DBObject db = new DBObject();
+            string user = User.Identity.Name;
+            List<Schols.Models.ScholarshipLink> scholarships;
+            scholarships = db.GetScholarships(null,user,true);
+            return Ok(scholarships);
+        }
         public List<Schols.Models.ScholarshipLink> Post([FromBody] SearchObject searchObject)
         {
             HttpContext httpContext = HttpContext.Current;

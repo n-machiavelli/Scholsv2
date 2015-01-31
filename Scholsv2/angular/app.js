@@ -22,7 +22,11 @@ app.config(function ($routeProvider, $locationProvider, $logProvider) {
         controllerAs: "vm",
         templateUrl: "views/searchresults.html"
     });
-
+    $routeProvider.when("/favorites/:favorites", {
+        controller: "searchController",
+        controllerAs: "vm",
+        templateUrl: "views/searchresults.html"
+    });
     $routeProvider.when("/login", {
         controller: "loginController",
         controllerAs: "vm",
@@ -38,6 +42,7 @@ app.config(function ($routeProvider, $locationProvider, $logProvider) {
         controllerAs: "vm",
         templateUrl: "views/scholarship.html"
     });
+
 
     $routeProvider.when("/register", {
         controller: "registerController",

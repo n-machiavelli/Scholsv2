@@ -48,6 +48,25 @@
             //console.log("Review has been added");
             return deferred.promise;            
         };
+
+        this.getFavoriteScholarships = function getFavoriteScholarships() { //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
+            var deferred = $q.defer();
+            //console.log(vm);
+            var request = $http({
+                method: 'GET',
+                url: serviceBaseApi + "favorites",
+            });
+            request.success(function (data) {
+                console.log("Scholarships retrieved via service");
+                console.log(data);
+                deferred.resolve(data);
+            })
+                .error(function (error) {
+                    console.log(error);
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
         this.getDropDowns=function getDropDowns(){
             var deferred=$q.defer();
             var request = $http({

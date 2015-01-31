@@ -120,7 +120,22 @@ namespace Schols.Models
             DataTable dt = db.query(sqlstr, parameters);
             if (dt.Rows.Count == 0)
             {
-
+                if (app.SCHLRSHP_NUM != null && app.SCHLRSHP_NUM.Contains("HDN"))
+                {
+                    sqlstr = "SELECT hs.fund_acct, hs.frml_schlrshp_name, hs.schlrshp_prps FROM scholarshipcenter.hiddenschlrshp hs INNER JOIN scholarshipcenter.usersforhidden uh ON hs.fund_acct=uh.fund_acct";
+                    sqlstr += " WHERE regexp_like(hs.fund_acct,:fund_acct,'i') AND regexp_like(uh.username,:username,'i')";
+                    //sqlstr += " WHERE regexp_like(hs.fund_acct,'" + fundAcct + "','i') AND regexp_like(uh.username,'" + user + "','i')";
+                    List<OracleParameter> parameters2 = new List<OracleParameter>();
+                    parameters2.Add(new OracleParameter("fund_acct", app.fund_acct));
+                    parameters2.Add(new OracleParameter("username", username));
+                    ScholarshipData data = new ScholarshipData();
+                    dt = db.query(sqlstr, parameters2);
+                    if (dt.Rows.Count == 0)
+                    {
+                        message = "You need permission to submit this application";
+                        return message;
+                    }
+                }
                 sqlstr = "INSERT INTO scholarshipcenter.applications (universityid,firstname,middlename,lastname,address,phonenumber,email,username,fund_acct,essayfilename,reffilename,scholarshipyear,expectedgraduation,presentgpa,highschoolgpa,communityservice,extracurricular,awardshonors) VALUES (:universityid,:firstname,:middlename,:lastname,:address,:phonenumber,:email,:username,:fund_acct,:essayfilename,:reffilename,:scholarshipyear,:expectedgraduation,:presentgpa,:highschoolgpa,:communityservice,:extracurricular,:awardshonors)";
                 List<OracleParameter> insertParameters = new List<OracleParameter>();
                 insertParameters.Add(new OracleParameter("universityid", app.universityid));

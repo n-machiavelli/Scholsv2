@@ -19,9 +19,15 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
     var _saveRegistration = function (registration) {
         _logOut();
-        return $http.post(serviceBaseApi + 'account/register', registration).then(function (response) {
-            return response;
-        });
+        var deferred = $q.defer();
+        $http.post(serviceBaseApi + 'account/register', registration)
+            .success(function (response) {
+                deferred.resolve(response);
+            })
+            .error(function (err, status) {
+                deferred.reject(err);
+            });
+        return deferred.promise;
     };
     var _saveProfile = function (profile) {
         return $http.post(serviceBaseApi + 'account/saveprofile', profile).then(function (response) {

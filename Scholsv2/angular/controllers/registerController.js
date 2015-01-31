@@ -60,7 +60,7 @@
                     vm.message = "Empty auth";//AuthFactory.message;
                 }
             }, function (reason) {
-                vm.message = "Failed : " + reason + ":";//+  authService.message;
+                vm.message = "Failed : " + reason.Message; // + ":" +  authService.message;
                 console.log(reason);
             }, function (update) {
                 vm.message = "updated";

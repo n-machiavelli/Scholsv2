@@ -301,6 +301,42 @@ namespace Schols.Models
             return data;
 
         }
+
+        public ScholarshipData GetHiddenScholarshipData(string fundAcct, string scholarNum, string user)
+        {
+            string sqlstr = "SELECT hs.fund_acct, hs.frml_schlrshp_name, hs.schlrshp_prps FROM scholarshipcenter.hiddenschlrshp hs INNER JOIN scholarshipcenter.usersforhidden uh ON hs.fund_acct=uh.fund_acct";
+            sqlstr += " WHERE regexp_like(hs.fund_acct,:fund_acct,'i') AND regexp_like(uh.username,:username,'i')";
+            //sqlstr += " WHERE regexp_like(hs.fund_acct,'" + fundAcct + "','i') AND regexp_like(uh.username,'" + user + "','i')";
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            parameters.Add(new OracleParameter("fund_acct", fundAcct));
+            parameters.Add(new OracleParameter("username", user));
+            ScholarshipData data = new ScholarshipData();
+            DataTable dt = query(sqlstr, parameters);
+            System.Diagnostics.Debug.WriteLine("sql : " + sqlstr);
+            System.Diagnostics.Debug.WriteLine("username : " + user);
+            System.Diagnostics.Debug.WriteLine("fundAcct : " + fundAcct);
+            System.Diagnostics.Debug.WriteLine("count : " + dt.Rows.Count.ToString());
+
+            List<Scholarship> ScholarshipList = new List<Scholarship>();
+            Scholarship aScholarship;
+            aScholarship = new Scholarship();
+            aScholarship.Majors = new List<string>();
+            aScholarship.SchoolYears = new List<string>();
+            aScholarship.Miscellaneous = new List<string>();
+            aScholarship.Counties = new List<string>();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                aScholarship.FUND_ACCT = dt.Rows[i]["FUND_ACCT"].ToString().Trim();
+                aScholarship.FRML_SCHLRSHP_NAME = dt.Rows[i]["FRML_SCHLRSHP_NAME"].ToString().Trim();
+                aScholarship.SCHLRSHP_PRPS = dt.Rows[i]["SCHLRSHP_PRPS"].ToString().Trim();
+            }
+            data.Title = aScholarship.FRML_SCHLRSHP_NAME;
+            data.Purpose = aScholarship.SCHLRSHP_PRPS;
+            System.Diagnostics.Debug.WriteLine("sql : " + sqlstr);
+            System.Diagnostics.Debug.WriteLine("params : " + fundAcct + ":" + scholarNum);
+            System.Diagnostics.Debug.WriteLine("Data : " + data.Title);
+            return data;            
+        }
         public DataTable GetApplicationsTable(string fund_acct="")
         {
             string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,fund_acct,essayfilename,username,reffilename,scholarshipyear FROM scholarshipcenter.applications "; //TODO: WHERE
@@ -315,7 +351,13 @@ namespace Schols.Models
         {
             //string sqlstr = "SELECT DISTINCT fund_acct,frml_schlrshp_name FROM scholarshipcenter.applications a INNER JOIN fund f ON a.fund_acct=f.fund_acct";
             //use regex bcos the join was not returning rows. maybe some padding exist... making not exactly equal
-            string sqlstr = "SELECT DISTINCT * FROM scholarshipcenter.applications a LEFT OUTER JOIN summit.schlrshp s ON regexp_like(s.fund_acct,a.fund_acct,'i')";
+            string sqlstr = "SELECT DISTINCT * FROM scholarshipcenter.applications a JOIN summit.schlrshp s ON regexp_like(s.fund_acct,a.fund_acct,'i')";
+            DataTable dt = query(sqlstr, null);
+            return dt;
+        }
+        public DataTable GetHiddenScholarshipNamesTable()
+        {
+            string sqlstr = "SELECT DISTINCT * FROM scholarshipcenter.applications a JOIN scholarshipcenter.hiddenschlrshp hs ON regexp_like(hs.fund_acct,a.fund_acct,'i')";
             DataTable dt = query(sqlstr, null);
             return dt;
         }
@@ -329,7 +371,7 @@ namespace Schols.Models
         }
         public DataTable GetFavoritesTable(string user)
         {
-            string sqlstr = "SELECT username, fund_acct,frml_schlrshp_name FROM scholarshipcenter.favorites WHERE username=:username";
+            string sqlstr = "SELECT username, fund_acct,frml_schlrshp_name,frml_schlrshp_name as fav FROM scholarshipcenter.favorites WHERE username=:username";
             List<OracleParameter> selectParameters = new List<OracleParameter>();
             selectParameters.Add(new OracleParameter("username", user));
             DataTable dt = query(sqlstr, selectParameters);
@@ -474,16 +516,24 @@ namespace Schols.Models
              * */
         }
 
-        public List<ScholarshipLink> GetScholarships(SearchObject searchObject, string user=null)
+        public List<ScholarshipLink> GetScholarships(SearchObject searchObject, string user=null, bool favorites=false)
         {
-            DataTable dt = GetScholarshipsTable(searchObject,user);
+            DataTable dt;
+            if (!favorites)
+            {
+                dt = GetScholarshipsTable(searchObject, user);
+            }
+            else
+            {
+                dt = GetFavoritesTable(user);
+            }
             List<ScholarshipLink> ScholarshipList = new List<ScholarshipLink>();
             ScholarshipLink aScholarship;
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 aScholarship = new ScholarshipLink();
                 Type t = aScholarship.GetType();
-                aScholarship.SCHLRSHP_NUM = dt.Rows[i]["SCHLRSHP_NUM"].ToString().Trim();
+                if (!favorites) aScholarship.SCHLRSHP_NUM = dt.Rows[i]["SCHLRSHP_NUM"].ToString().Trim(); //TODO: Yet to implement schlrshp_num for favorites
                 aScholarship.FUND_ACCT = dt.Rows[i]["FUND_ACCT"].ToString().Trim();
                 aScholarship.FRML_SCHLRSHP_NAME = dt.Rows[i]["FRML_SCHLRSHP_NAME"].ToString().Trim();
                 aScholarship.fav = dt.Rows[i]["fav"].ToString().Trim();
@@ -492,6 +542,7 @@ namespace Schols.Models
                 ScholarshipList.Add(aScholarship);
 
             }
+
             return ScholarshipList;
         }
 
@@ -638,6 +689,16 @@ namespace Schols.Models
                 scholarshipLink.FUND_ACCT = dt.Rows[i]["FUND_ACCT"].ToString().Trim();
                 scholarshipLinks.Add(scholarshipLink);
             }
+            dt = GetHiddenScholarshipNamesTable();
+            scholarshipLink = null;
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                scholarshipLink = new ScholarshipLink();
+                scholarshipLink.FRML_SCHLRSHP_NAME = dt.Rows[i]["FRML_SCHLRSHP_NAME"].ToString().Trim();
+                scholarshipLink.FUND_ACCT = dt.Rows[i]["FUND_ACCT"].ToString().Trim();
+                scholarshipLinks.Add(scholarshipLink);
+            }
+
             return scholarshipLinks;
         }
 

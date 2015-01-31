@@ -343,7 +343,17 @@ namespace Scholsv2.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                //it doesnt come here when u type non-complex password
+                string errors = "";
+                System.Diagnostics.Debug.WriteLine("modelstate.invalid");
+                foreach (ModelState modelState in ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        errors += error.ErrorMessage + ".";
+                    }
+                }
+                return BadRequest(errors); 
             }
 
             var user = new ApplicationUser() { 
@@ -361,6 +371,7 @@ namespace Scholsv2.Controllers
 
             if (!result.Succeeded)
             {
+                //comes here when u type non complex password
                 return GetErrorResult(result);
             }
 
@@ -372,6 +383,7 @@ namespace Scholsv2.Controllers
         {
             if (!ModelState.IsValid)
             {
+                System.Diagnostics.Debug.WriteLine("I am here lollipop");
                 return BadRequest(ModelState);
             }
             var userId = User.Identity.GetUserId();
@@ -462,6 +474,7 @@ namespace Scholsv2.Controllers
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
+            string errors = "";
             if (result == null)
             {
                 return InternalServerError();
@@ -473,6 +486,7 @@ namespace Scholsv2.Controllers
                 {
                     foreach (string error in result.Errors)
                     {
+                        System.Diagnostics.Debug.WriteLine(error);
                         ModelState.AddModelError("", error);
                     }
                 }
@@ -482,8 +496,15 @@ namespace Scholsv2.Controllers
                     // No ModelState errors are available to send, so just return an empty BadRequest.
                     return BadRequest();
                 }
+                foreach (ModelState modelState in ModelState.Values)
+                {
+                    foreach (ModelError error in modelState.Errors)
+                    {
+                        errors += error.ErrorMessage + ".";
+                    }
+                }
 
-                return BadRequest(ModelState);
+                return BadRequest(errors);
             }
 
             return null;

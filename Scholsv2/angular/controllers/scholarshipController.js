@@ -84,7 +84,8 @@
                 vm.communityService = "";
                 vm.extraCurricular = "";
                 vm.awardsHonors = "";
-
+                vm.filenamelabel1 = "&nbsp;&nbsp;&nbsp;Essay";
+                vm.filenamelabel2 = "&nbsp;&nbsp;&nbsp;Reference";
                 vm.loadprofile = false;
                 vm.savedSuccessfully = true;
             }, function (reason) {

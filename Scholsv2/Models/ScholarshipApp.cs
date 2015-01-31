@@ -28,6 +28,7 @@ namespace Schols.Models
         public string CommunityService { get; set; }
         public string ExtraCurricular { get; set; }
         public string AwardsHonors { get; set; }
+        public string SCHLRSHP_NUM { get; set; }
 
     }
 }

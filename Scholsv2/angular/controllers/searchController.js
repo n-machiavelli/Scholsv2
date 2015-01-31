@@ -20,6 +20,8 @@
         vm.toggleFavorite = toggleFavorite;
         //vm.registerClient = registerClientApp;
         vm.scholarships = [];
+        vm.authentication = authService.authentication;
+        vm.isAuthorized = authService.authentication.isAuth;  //need this also in this ctrlr for use in displaying fav star
         if ($routeParams !== undefined && $routeParams !== null && $routeParams.collegecode !== undefined) {
             vm.college = $routeParams.collegecode;
             vm.collegename = $routeParams.collegename;
@@ -27,13 +29,14 @@
                 vm.collegename = "College of " + $routeParams.collegename;
             }
             getScholarships();
+        } else if ($routeParams !== undefined && $routeParams !== null && $routeParams.favorites !== undefined && $routeParams.favorites == 'favorites') {
+            vm.collegename = "Favorites";
+                getFavoriteScholarships();
         } else {
             activate();
         }
 
         function activate() {
-            vm.authentication = authService.authentication;
-            vm.isAuthorized = authService.authentication.isAuth;  //need this also in this ctrlr for use in displaying fav star
             var promise = searchService.getDropDowns();
             promise.then(function (data) {
                 vm.majors = data.majors;
@@ -66,7 +69,25 @@
                 console.log("update here");
                 vm.spinnerdisplay = "hideme";
             });
-
+        }
+        function getFavoriteScholarships() {
+            console.log("controller title:" + vm.title);
+            vm.spinnerdisplay = "showme";
+            var promise = searchService.getFavoriteScholarships();
+            promise.then(function (results) {
+                console.log("favorite scholarships retrieved via controller");
+                vm.scholarships = results;
+                vm.searchString = "Your Favorite scholarships...";
+                console.log(vm.searchString);
+                console.log(vm.scholarships);
+                vm.spinnerdisplay = "hideme";
+            }, function (err) {
+                console.log("error here");
+                vm.spinnerdisplay = "hideme";
+            }, function (update) {
+                console.log("update here");
+                vm.spinnerdisplay = "hideme";
+            });
         }
         function getSearchString(num) {
             var search = "";
@@ -98,9 +119,18 @@
             return ((strg == null || strg == "-1" || strg == "") ? "" : strg);
         }
         function toggleFavorite(fundacct, schlrshpname) {
-            console.log("togglefav " + fundacct + ":" + schlrshpname);
+            console.log("togglefav " + fundacct + ":" + schlrshpname + " in " + $routeParams.favorites);
+            console.log(vm.scholarships);
             var promise = searchService.toggleFavorite(fundacct, schlrshpname);
             promise.then(function (response) {
+                if ($routeParams.favorites != undefined && $routeParams.favorites == "favorites") {
+                    for (var i=0; i<vm.scholarships.length; i++){
+                        if (vm.scholarships[i].FUND_ACCT == fundacct) {
+                            vm.scholarships.splice(i, 1);
+                        }
+                    }
+                    console.log(vm.scholarships);
+                }
                 console.log(response);
             }, function (err) {
                 console.log("error here");
