@@ -128,8 +128,19 @@ namespace Scholarship.Controllers
         [Route("api/featured")]
         public IHttpActionResult GetFeaturedScholarships()
         {
-            DBObject db = new DBObject();
-            List<ScholarshipLink> featuredScholarships = db.GetFeaturedScholarships();
+            List<ScholarshipLink> featuredScholarships;
+            try
+            {
+                DBObject db = new DBObject();
+                featuredScholarships = db.GetFeaturedScholarships();
+            }
+            catch (OracleException oracleException)
+            {
+                System.Diagnostics.Debug.WriteLine(oracleException.Message);
+                System.Diagnostics.Debug.WriteLine(oracleException.Data);
+                System.Diagnostics.Debug.WriteLine(oracleException.ToString());
+                return InternalServerError(oracleException);
+            }
             return Ok(featuredScholarships);
         }
         public List<Schols.Models.ScholarshipLink> Post([FromBody] SearchObject searchObject)
