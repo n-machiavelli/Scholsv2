@@ -1,15 +1,15 @@
-﻿<div class="bodynobg">
-        <h2 id="title" data-ng-bind-html="vm.scholarship.Title"></h2>
-        <p data-ng-show="vm.scholarship.Purpose!=null"><b>Scholarship Purpose: </b><span id="purpose" data-ng-bind-html="vm.scholarship.Purpose"></span></p>
-        <p data-ng-show="vm.scholarship.Department!=null"><b>Department: </b><span id="department" data-ng-bind-html="vm.scholarship.Department"></span>.</p>
-        <p data-ng-show="vm.scholarship.College!=null"><b>College: </b><span id="department" data-ng-bind-html="vm.scholarship.College"></span>.</p>
-        <h2>Requirements</h2>
-        <p data-ng-show="vm.scholarship.UndergradGPA!=null"><b>Minimum Undergraduate GPA: </b><span id="undergradGPA" data-ng-bind-html="vm.scholarship.UndergradGPA"></span>
-        <p data-ng-show="vm.scholarship.HighSchoolGPA!=null"><b>High School GPA: </b><span id="highschoolGPA" data-ng-bind-html="vm.scholarship.HighSchoolGPA"></span>
-        <p data-ng-show="vm.scholarship.Essay!=null"><b>Essay: </b> <span id="essay" data-ng-bind-html="vm.scholarship.Essay"></span>.</p>
-        <p data-ng-show="vm.scholarship.Deadline!=null" id="deadline" data-ng-bind-html="vm.scholarship.Deadline"></p>
-        <p data-ng-show="vm.scholarship.Financialneed!=null" id="financialneed" data-ng-bind-html="vm.scholarship.Financialneed"></p>
-        <p data-ng-show="vm.scholarship.International!=null" id="international" data-ng-bind-html="vm.scholarship.International"></p>
+﻿<div class="form3">
+    <h2 id="title" data-ng-bind-html="vm.scholarship.Title"></h2>
+    <p data-ng-show="vm.scholarship.Purpose!=null"><b>Scholarship Purpose: </b><span id="purpose" data-ng-bind-html="vm.scholarship.Purpose"></span></p>
+    <p data-ng-show="vm.scholarship.Department!=null"><b>Department: </b><span id="department" data-ng-bind-html="vm.scholarship.Department"></span>.</p>
+    <p data-ng-show="vm.scholarship.College!=null"><b>College: </b><span id="department" data-ng-bind-html="vm.scholarship.College"></span>.</p>
+    <h2>Requirements</h2>
+    <p data-ng-show="vm.scholarship.UndergradGPA!=null"><b>Minimum Undergraduate GPA: </b><span id="undergradGPA" data-ng-bind-html="vm.scholarship.UndergradGPA"></span>
+    <p data-ng-show="vm.scholarship.HighSchoolGPA!=null"><b>High School GPA: </b><span id="highschoolGPA" data-ng-bind-html="vm.scholarship.HighSchoolGPA"></span>
+    <p data-ng-show="vm.scholarship.Essay!=null"><b>Essay: </b> <span id="essay" data-ng-bind-html="vm.scholarship.Essay"></span>.</p>
+    <p data-ng-show="vm.scholarship.Deadline!=null" id="deadline" data-ng-bind-html="vm.scholarship.Deadline"></p>
+    <p data-ng-show="vm.scholarship.Financialneed!=null" id="financialneed" data-ng-bind-html="vm.scholarship.Financialneed"></p>
+    <p data-ng-show="vm.scholarship.International!=null" id="international" data-ng-bind-html="vm.scholarship.International"></p>
 
     <p data-ng-show="vm.scholarship.CommunityService!=null"><b></b>  <span id="communityservice" data-ng-bind-html="vm.scholarship.CommunityService"></span></p>
     <p data-ng-show="vm.scholarship.Leadership!=null"><b>Leadership: </b>  <span id="leadership" data-ng-bind-html="vm.scholarship.Leadership"></span>.</p>
@@ -36,90 +36,147 @@
             <li data-ng-repeat="county in vm.scholarship.Counties" data-ng-bind-html="county"></li>
         </ul>
     </p>
-
-        <div id="applicationform" data-ng-show="vm.scholarship.Title!='' && vm.scholarship.Title!=null">
-            <form class="form-login" role="form" id="myform">
-                <h2 class="form-login-heading">Apply Here...</h2>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" data-ng-model="vm.loadprofile" data-ng-click="vm.getProfile();"> Load my profile information
-                    </label>
+</div>
+<div class="form">
+    <div id="applicationform" data-ng-show="vm.scholarship.Title!='' && vm.scholarship.Title!=null">
+        <form>
+            <h1>Apply Here...</h1>
+            <button type="button" class="btn-default" data-ng-click="vm.getProfile();" data-ng-model="vm.loadprofile">Load My Profile</button>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="firstname">First Name</label>
+                    <div>
+                        <input id="firstname" data-ng-model="vm.firstname" type="text" autofocus>
+                    </div>
                 </div>
-                <input id="universityid" data-ng-model="vm.universityid" type="text" class="form-control" placeholder="University ID Number" autofocus>
-                <input id="firstname" data-ng-model="vm.firstname" type="text" class="form-control" placeholder="First Name" autofocus>
-                <input id="middlename" data-ng-model="vm.middlename" type="text" class="form-control" placeholder="Middle Name">
-                <input id="lastname" data-ng-model="vm.lastname" type="text" class="form-control" placeholder="Last Name">
-                <input id="phonenumber" data-ng-model="vm.phonenumber" type="text" class="form-control" placeholder="Phone Number">
-                <input id="email" data-ng-model="vm.email" type="text" class="form-control" placeholder="Email Address">
-                <select id="scholarshipyear" data-ng-model="vm.scholarshipyear" class="form-control">
-                    <option value="" disabled selected>Scholarship Year</option>
-                    <option value="Fall 2014">Fall 2014</option>
-                    <option value="Spring 2015">Spring 2015</option>
-                    <option value="Fall 2015">Fall 2015</option>
-                    <option value="Spring 2016">Spring 2016</option>
-                    <option value="Fall 2016">Fall 2016</option>
-                    <option value="Spring 2017">Spring 2017</option>
-                    <option value="Fall 2017">Fall 2017</option>
-                    <option value="Spring 2018">Spring 2018</option>
-                    <option value="Fall 2018">Fall 2018</option>
-                </select>
-                <select id="expectedgraduation" data-ng-model="vm.expectedGraduation" class="form-control">
-                    <option value="" disabled selected>Expected Graduation Year</option>
-                    <option value="Fall 2014">Fall 2014</option>
-                    <option value="Spring 2015">Spring 2015</option>
-                    <option value="Fall 2015">Fall 2015</option>
-                    <option value="Spring 2016">Spring 2016</option>
-                    <option value="Fall 2016">Fall 2016</option>
-                    <option value="Spring 2017">Spring 2017</option>
-                    <option value="Fall 2017">Fall 2017</option>
-                    <option value="Spring 2018">Spring 2018</option>
-                    <option value="Fall 2018">Fall 2018</option>
-                    <option value="Spring 2019">Spring 2019</option>
-                    <option value="Fall 2019">Fall 2019</option>
-                    <option value="Spring 2020">Spring 2020</option>
-                    <option value="Fall 2020">Fall 2020</option>
-                </select>
-                <input id="presentGPA" data-ng-model="vm.presentGPA" type="text" class="form-control" placeholder="Present GPA">
-                <input id="highschoolGPA" data-ng-model="vm.highschoolGPA" type="text" class="form-control" placeholder="High School GPA">
-                <input id="communityService" data-ng-model="vm.communityService" type="text" class="form-control" placeholder="Community Service"><span>Separate with commas</span>
-                <input id="extraCurricular" data-ng-model="vm.extraCurricular" type="text" class="form-control" placeholder="Extra-curricular activities"><span>Separate with commas</span>
-                <input id="awards" data-ng-model="vm.awardsHonors" type="text" class="form-control" placeholder="Awards/Honors"><span>Separate with commas</span>
-                <textarea id="address" data-ng-model="vm.address" class="form-control" placeholder="Mailing Address"></textarea>
-                <br />
+                <div class="field-wrap">
+                    <label for="middlename">Middle Name</label>
+                    <div>
+                        <input id="middlename" data-ng-model="vm.middlename" type="text" >
+                    </div>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="lastname">Last Name</label>
+                    <div>
+                        <input id="lastname" data-ng-model="vm.lastname" type="text" >
+                    </div>
+                </div>
+                <div class="field-wrap">
+                    <label for="usermajor">User Major</label>
+                    <div>
+                        <input data-ng-model="vm.usermajor" id="usermajor"  type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="phonenumber">Phone Number</label>
+                    <div>
+                        <input id="phonenumber" data-ng-model="vm.phonenumber" type="text" >
+                    </div>
+                </div>
+                <div class="field-wrap">
+                    <label for="email">Email Address</label>
+                    <div>
+                        <input id="email" data-ng-model="vm.email" type="text" >
+                    </div>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="email">Scholarship Year</label>
+                    <select id="scholarshipyear" data-ng-model="vm.scholarshipyear">
+                        <option value="" disabled selected>Scholarship Year</option>
+                        <option value="Fall 2014">Fall 2014</option>
+                        <option value="Spring 2015">Spring 2015</option>
+                        <option value="Fall 2015">Fall 2015</option>
+                        <option value="Spring 2016">Spring 2016</option>
+                        <option value="Fall 2016">Fall 2016</option>
+                        <option value="Spring 2017">Spring 2017</option>
+                        <option value="Fall 2017">Fall 2017</option>
+                        <option value="Spring 2018">Spring 2018</option>
+                        <option value="Fall 2018">Fall 2018</option>
+                    </select>
+                </div>
+                <div class="field-wrap">
+                    <label for="email">Expected Graduation Year</label>
+                    <select id="expectedgraduation" data-ng-model="vm.expectedGraduation">
+                        <option value="" disabled selected>Expected Graduation Year</option>
+                        <option value="Fall 2014">Fall 2014</option>
+                        <option value="Spring 2015">Spring 2015</option>
+                        <option value="Fall 2015">Fall 2015</option>
+                        <option value="Spring 2016">Spring 2016</option>
+                        <option value="Fall 2016">Fall 2016</option>
+                        <option value="Spring 2017">Spring 2017</option>
+                        <option value="Fall 2017">Fall 2017</option>
+                        <option value="Spring 2018">Spring 2018</option>
+                        <option value="Fall 2018">Fall 2018</option>
+                        <option value="Spring 2019">Spring 2019</option>
+                        <option value="Fall 2019">Fall 2019</option>
+                        <option value="Spring 2020">Spring 2020</option>
+                        <option value="Fall 2020">Fall 2020</option>
+                    </select>
+                </div>
+            </div>
+            <div class="top-row">
                 
-                <button class="btn btn-default btn-sm" ng-model="vm.essayfiles"  ng-file-select="vm.onFileSelect($files,'Essay')">Browse Essay</button>
-                <label id="filenamelabel1" ng-bind-html="vm.filenamelabel1">&nbsp;&nbsp;&nbsp;Essay </label><br /><br />
-                <button class="btn btn-default btn-sm" ng-file-select ng-model="vm.referencefiles" ng-file-change="vm.onFileSelect($files,'Reference')">Browse Reference</button>
-                <label id="filenamelabel2" ng-bind-html="vm.filenamelabel2">&nbsp;&nbsp;&nbsp;Reference </label>   
-
-<!--
-    the bootstrap button class "btn-file" cause the file browse to display twice so u select the file twice
-
-                <button class="btn btn-default btn-file btn-sm" ng-file-select ng-model="referencefiles" ng-file-change="vm.onFileSelect($files,'Reference')">Browse</button>
-                <label id="filenamelabel2" ng-bind-html="vm.filenamelabel2">&nbsp;&nbsp;&nbsp;Reference </label>    
-
-    removed multiple="true" from above
-
-                <span class="btn btn-default btn-file btn-sm">
-                    Browse  <input type="file" ng-file-select="vm.onFileSelect($files)" multiple>
-                </span><label id="filenamelabel1">&nbsp;&nbsp;&nbsp;Essay </label>
-                <br /><br />
-                <span class="btn btn-default btn-file btn-sm">
-                    Browse  <input type="file" name="myfile2" id="myfile2" />
-                </span><label id="filenamelabel2">&nbsp;&nbsp;&nbsp;Reference Letter </label>
-    -->
-                <span id="filenamespan"></span>
-                <div id="progressbar" style="width:100px;display:none;">
-                    <input type="hidden" id="essayfilename" data-ng-model="vm.essayfilename" />
-                    <input type="hidden" id="reffilename" data-ng-model="vm.reffilename" />
-                    <input type="hidden" id="fund_acct" data-ng-model="vm.fund_acct" />
+                <div class="field-wrap">
+                    <label for="email">Present GPA</label>
+                    <input id="presentGPA" data-ng-model="vm.presentGPA" type="text" >
                 </div>
-                <div id="msg" data-ng-bind="vm.message" data-ng-hide="vm.message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'"></div>
-                <br />
-                <button id="applybutton" class="btn btn-md btn-primary btn-block" type="button" data-ng-click="vm.apply();">Apply!</button>
-            </form>
-        </div>
-    </div>        
+                <div class="field-wrap">
+                    <label for="email">High School GPA</label>
+                    <input id="highschoolGPA" data-ng-model="vm.highschoolGPA" type="text" >
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="email">Community Service</label>
+                    <input id="communityService" data-ng-model="vm.communityService" type="text" placeholder="Separate with commas">
+                </div>
+                <div class="field-wrap">
+                    <label for="email">Extra-curricular activities</label>
+                    <input id="extraCurricular" data-ng-model="vm.extraCurricular" type="text" placeholder="Separate with commas">
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="email">Awards/Honors</label>
+                    <input id="awards" data-ng-model="vm.awardsHonors" type="text" placeholder="Separate with commas">
+                </div>
+                <div class="field-wrap">
+                    <label for="email">Mailing Address</label>
+                    <textarea id="address" data-ng-model="vm.address" placeholder="Mailing Address"></textarea>
+                </div>
+            </div>
+            <br />
+            <div class="top-row">
+                <div class="field-wrap">
+                    <button type="button" class="btn-default" ng-model="vm.essayfiles" ng-file-select="vm.onFileSelect($files,'Essay')">Browse Essay</button>
+                </div>
+                <div class="field-wrap">
+                    <button type="button" class="btn-default" ng-file-select ng-model="vm.referencefiles" ng-file-change="vm.onFileSelect($files,'Reference')">Browse Reference</button>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label id="filenamelabel1" ng-bind-html="vm.filenamelabel1">Essay </label>
+                </div>
+                <div class="field-wrap">
+                    <label id="filenamelabel2" ng-bind-html="vm.filenamelabel2">Reference </label>
+                </div>
+            </div>
+            <div>
+                <input type="hidden" id="essayfilename" data-ng-model="vm.essayfilename" />
+                <input type="hidden" id="reffilename" data-ng-model="vm.reffilename" />
+                <input type="hidden" id="fund_acct" data-ng-model="vm.fund_acct" />
+            </div>
+            <button type="button" class="button button-block"  data-ng-click="vm.()">Apply</button>
+</form>
+    </div>
+</div>        
 
 
 

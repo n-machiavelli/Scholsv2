@@ -1,13 +1,14 @@
 ﻿
-<div >
-       <h3  id="searchinfo" class="form-login-heading">{{vm.searchString}}
-       </h3>   
-    <div data-ng-show="vm.scholarships.length>0" class="col-md-8 bodynobg">
+<div class="form2">
+    <h3 id="searchinfo" class="form-login-heading">
+        {{vm.searchString}}
+    </h3>
+    <div data-ng-show="vm.scholarships.length>0" >
         <div class="text-center">
             <!--page-header -->
             <h3>{{vm.scholarships.length}} Scholarship(s) in {{vm.collegename}}</h3>
         </div>
-        <table id="scholarship" class="table table-condensed table-hover table-bordered">
+        <table id="scholarship" class="table table-condensed table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -21,7 +22,7 @@
                         {{$index + 1}}
                     </td>
                     <td>
-                        <a data-ng-href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
+                        <a target="_blank" href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
                     </td>
                     <td data-ng-hide="!vm.isAuthorized">
                         <span class='glyphicon pointer' id='favbutton' data-ng-click="vm.toggleFavorite(scholarship.FUND_ACCT,scholarship.FRML_SCHLRSHP_NAME);scholarship.fav=scholarship.fav==scholarship.FRML_SCHLRSHP_NAME?'':scholarship.FRML_SCHLRSHP_NAME; console.log('made fav');" data-ng-class="scholarship.fav==scholarship.FRML_SCHLRSHP_NAME ?'glyphicon-star':'glyphicon-star-empty'"></span>

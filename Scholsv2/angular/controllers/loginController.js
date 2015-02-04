@@ -18,6 +18,7 @@
         vm.activate = activate;
         vm.title = 'loginController';
         vm.loginSuccessfully = false;
+        vm.spinnerdisplay = "hideme";
         //console.log("redirect to " + authService.redirectURI);
 
         vm.loginTitle = " for Application " + authService.appName;
@@ -41,6 +42,7 @@
             vm.loginData.userName = vm.login_username;
             vm.loginData.password = vm.login_password;
             console.log(vm.loginData);
+            vm.spinnerdisplay = "showme";
             var promise = authService.login(vm.loginData); //vm.login_username, vm.login_password);
             promise.then(function (authData) {
                 if (!(jQuery.isEmptyObject(authData))) {
@@ -48,21 +50,21 @@
                     //console.log("$location move");
                     console.log(authData);
                     vm.authData = authData;
-                    $location.path("/Home/Ng");
+                    vm.spinnerdisplay = "hideme";
+                    $location.path("/");
                 } else {
                     vm.msg = "Empty auth";//AuthFactory.message;
+                    vm.spinnerdisplay = "hideme";
                     console.log(vm.msg);
                 }
             }, function (reason) {
                 vm.message = "Failed : " + reason.error_description;
+                vm.spinnerdisplay = "hideme";
                 console.log(vm.message);
             }, function (update) {
                 vm.message = "updated";
             })
         }
 
-        function register(){
-            $location.path('/auth/register')
-        }
     }
 })();

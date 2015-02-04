@@ -1,21 +1,89 @@
-﻿<div>
-<form class="form-login" role="form">
-    <h2 class="form-login-heading">Register here...</h2>
-                    <input data-ng-model="vm.registration.email" id="email" type="text" class="form-control" placeholder="Email" required autofocus>
-                    <input data-ng-model="vm.registration.password" id="password" type="password" class="form-control" placeholder="Password" required>
-                    <input data-ng-model="vm.registration.confirmPassword" id="confirmpassword" type="password" class="form-control" placeholder="Confirm Password" required>
-                    <!--<input data-ng-model="vm.registration.UserMajor" id="usermajor" type="text" class="form-control" placeholder="Major" required>-->
-                    <input data-ng-model="vm.registration.UserMajor" id="usermajor" type="text"  typeahead="major for major in vm.majors | filter:$viewValue | limitTo:8" class="form-control" placeholder="Major" required>
-                    <input data-ng-model="vm.registration.FirstName" id="FirstName" type="text" class="form-control" placeholder="First Name" required>
-                    <input data-ng-model="vm.registration.MiddleName" id="MiddleName" type="text" class="form-control" placeholder="Middle Name" required>
-                    <input data-ng-model="vm.registration.LastName" id="LastName" type="text" class="form-control" placeholder="Last Name" required>
-                    <input data-ng-model="vm.registration.PhoneNumber" id="PhoneNumber" type="text" class="form-control" placeholder="Phone Number" required>
-                    <input data-ng-model="vm.registration.UniversityId" id="UniversityId" type="text" class="form-control" placeholder="University ID" required>
-                    <br />
-            <div id="message" data-ng-bind="vm.message" data-ng-hide="vm.message == ''" data-ng-class="(vm.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'"></div>
-            <div class="col-md-10 col-md-offset-2">
-                      <button class="btn btn-default">Cancel</button>
-                      <button class="btn btn-primary" data-ng-click="vm.register()">Register</button>
-                    </div>            
-</form>
-</div>
+﻿<div class="form">
+    <div class="tab-content">
+        <div id="search">
+            <h1>Register your profile...</h1>
+            <form name="registerForm" novalidate>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="firstname">First Name</label>
+                        <div>
+                            <input data-ng-model="vm.registration.FirstName" id="firstname" type="text">
+                        </div>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="middlename">Middle Name</label>
+                        <div>
+                            <input data-ng-model="vm.registration.MiddleName" id="middlename" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="lastname">Last Name</label>
+                        <div>
+                            <input data-ng-model="vm.registration.LastName" id="lastname" type="text">
+                        </div>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="usermajor">User Major</label>
+                        <div>
+                            <input data-ng-model="vm.registration.UserMajor" id="usermajor" type="text" typeahead="major for major in vm.majors | filter:$viewValue | limitTo:8" >
+                        </div>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="phonenumber">Phone Number</label>
+                        <div>
+                            <input data-ng-model="vm.registration.PhoneNumber" id="phonenumber" type="text">
+                        </div>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="UniversityId">University ID</label>
+                        <div>
+                            <input data-ng-model="vm.registration.UniversityId" id="UniversityId" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="email">Email/User Name</label>
+                        <div>
+                            <input data-ng-model="vm.registration.email" id="email" name="email" type="email" required>
+                        </div>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="presentGPA">Present GPA</label>
+                        <div>
+                            <input data-ng-model="vm.registration.presentGPA" id="presentGPA" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="password">Password</label>
+                        <div>
+                            <input data-ng-model="vm.registration.password" id="password" name="password" type="password" required>
+                        </div>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div>
+                            <input data-ng-model="vm.registration.confirmPassword" id="confirmPassword" name="confirmPassword" type="password">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="button button-block" data-ng-click="vm.register()">
+                    <span ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span>Register
+                </button>
+                <div id="message" data-ng-bind="vm.message" data-ng-hide="vm.message == ''" data-ng-class="(vm.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'"></div>
+            </form>
+        </div>
+        <div id="login">
+
+
+        </div>
+    </div><!-- tab-content -->
+</div> <!-- /form -->
+

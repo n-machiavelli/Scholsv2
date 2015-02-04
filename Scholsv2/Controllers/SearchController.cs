@@ -1,4 +1,5 @@
-﻿using Schols.Models;
+﻿using Oracle.ManagedDataAccess.Client;
+using Schols.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -49,8 +50,19 @@ namespace Scholarship.Controllers
         [Route("api/dropdowndata")]
         public IHttpActionResult GetDropDownData()
         {
-            DBObject db = new DBObject();
-            DropDownData dropdownData = db.GetDropDownData();
+            DropDownData dropdownData;
+            try
+            {
+                DBObject db = new DBObject();
+                 dropdownData = db.GetDropDownData();
+            }
+            catch (OracleException oracleException)
+            {
+                System.Diagnostics.Debug.WriteLine(oracleException.Message);
+                System.Diagnostics.Debug.WriteLine(oracleException.Data);
+                System.Diagnostics.Debug.WriteLine(oracleException.ToString());
+                return InternalServerError(oracleException);
+            }
             return Ok(dropdownData);
         }
 

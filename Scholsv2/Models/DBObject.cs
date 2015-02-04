@@ -34,7 +34,7 @@ namespace Schols.Models
               pass);
         }
         
-        public DataTable query(string sqlstr, List<OracleParameter> parameters)
+        public DataTable query(string sqlstr, List<OracleParameter> parameters) //throws OracleException to be handled by consumer if cant connect to db
         {
 
             ConnectionString = OracleConnString("atoraagilon01.at.illinoisstate.edu", "1521", "ONEPRD", "BUAJOKU", "Scholar@123");
@@ -43,9 +43,11 @@ namespace Schols.Models
             //TODO: Catch connection exceptions
             using (OracleConnection conn = new OracleConnection(ConnectionString)) // connect to oracle
             {
+                //try { 
                 conn.Open(); // open the oracle connection
                 using (OracleCommand comm = new OracleCommand(sqlstr, conn)) // create the oracle sql command
                 {
+                    comm.BindByName = true;
                     if (parameters != null)
                     {
                         foreach (OracleParameter parameter in parameters)
@@ -424,17 +426,17 @@ namespace Schols.Models
             }
             if (searchObject.undergradGPA != null && !searchObject.undergradGPA.Trim().Equals(""))
             {
-                sqlstr += " and CAST(SCHLR_USER_VARBL13 AS number) <= :undergradGPA ";
+                sqlstr += " and CAST(NVL(TRIM(SCHLR_USER_VARBL13),0) AS number) <= :undergradGPA ";
                 parameters.Add(new OracleParameter("undergradGPA", searchObject.undergradGPA));
             }
             if (searchObject.gradGPA != null && !searchObject.gradGPA.Trim().Equals(""))
             {
-                sqlstr += " and CAST(SCHLR_USER_VARBL14 AS number) <= :gradGPA ";
+                sqlstr += " and CAST(NVL(TRIM(SCHLR_USER_VARBL14),0) AS number) <= :gradGPA ";
                 parameters.Add(new OracleParameter("gradGPA", searchObject.gradGPA));
             }
             if (searchObject.highschoolGPA != null && !searchObject.highschoolGPA.Trim().Equals(""))
             {
-                sqlstr += " and CAST(SCHLR_USER_VARBL15 AS number) <= :highschoolGPA ";
+                sqlstr += " and CAST(NVL(TRIM(SCHLR_USER_VARBL15),0) AS number) <= :highschoolGPA ";
                 parameters.Add(new OracleParameter("highschoolGPA", searchObject.highschoolGPA));
             }
             if (searchObject.keyword != null && !searchObject.keyword.Trim().Equals(""))

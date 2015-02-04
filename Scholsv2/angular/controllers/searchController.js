@@ -15,6 +15,7 @@
         vm.spinnerdisplay = "hideme";
         vm.message = "";
         vm.searchString = "";
+        vm.errorFlag = false;
         //vm.title = 'searchController';
         vm.getScholarships = getScholarships;
         vm.toggleFavorite = toggleFavorite;
@@ -45,7 +46,9 @@
                 vm.departments = data.departments;
                 vm.schoolyears = data.schoolyears;
             }, function (reason) {
-                console.log(reason)
+                console.log(reason);
+                vm.message = "Unable to connect to the database. Please confirm connectivity and then refresh.";
+                vm.errorFlag = true;
             }, function (update) {
                 console.log("got notification" + update);
             });

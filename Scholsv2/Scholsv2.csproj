@@ -285,6 +285,9 @@
     <Content Include="angular\controllers\searchController - modal code.js" />
     <Content Include="angular\controllers\searchController.js" />
     <Content Include="angular\controllers\searchDataController.js" />
+    <Content Include="angular\css2\normalize.css" />
+    <Content Include="angular\css2\style3.css" />
+    <Content Include="angular\css2\style.css" />
     <Content Include="angular\css\bootstrap.min.css" />
     <Content Include="angular\css\fileupload.css" />
     <Content Include="angular\css\font-awesome.min.css" />
@@ -297,7 +300,9 @@
     <Content Include="angular\css\metro-bootstrap.css" />
     <Content Include="angular\css\site.css" />
     <Content Include="angular\css\social-buttons.css" />
+    <Content Include="angular\index1.html" />
     <Content Include="angular\index.html" />
+    <Content Include="angular\index2.html" />
     <Content Include="angular\scripts\angular-local-storage.min.js" />
     <Content Include="angular\scripts\authComplete.js" />
     <Content Include="angular\scripts\jquery.fileupload.js" />
@@ -322,8 +327,9 @@
     <Content Include="angular\views\register.html" />
     <Content Include="angular\views\scholarship.html" />
     <Content Include="angular\views\administration.html" />
-    <Content Include="angular\views\searchresults.html" />
     <Content Include="angular\views\search.html" />
+    <Content Include="angular\views\searchresults.html" />
+    <Content Include="angular\views\search1.html" />
     <Content Include="angular\views\uimodal.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
