@@ -125,6 +125,13 @@ namespace Scholarship.Controllers
             scholarships = db.GetScholarships(null,user,true);
             return Ok(scholarships);
         }
+        [Route("api/featured")]
+        public IHttpActionResult GetFeaturedScholarships()
+        {
+            DBObject db = new DBObject();
+            List<ScholarshipLink> featuredScholarships = db.GetFeaturedScholarships();
+            return Ok(featuredScholarships);
+        }
         public List<Schols.Models.ScholarshipLink> Post([FromBody] SearchObject searchObject)
         {
             HttpContext httpContext = HttpContext.Current;

@@ -15,7 +15,7 @@
                 </div>
                 <div class="top-row">
                     <div class="field-wrap">
-                        <select ng-model="vm.college" id="college" required="required">
+                        <select ng-model="vm.college" id="college" >
                             <option value="" disabled selected>College</option>
                             <option value="01">Applied Science and Technology</option>
                             <option value="02">Arts and Sciences</option>
@@ -26,7 +26,7 @@
                         </select>
                     </div>
                     <div class="field-wrap">
-                        <select ng-model="vm.schoolyear" id="schoolyear" required="required">
+                        <select ng-model="vm.schoolyear" id="schoolyear" >
                             <option value="" disabled selected>School Year</option>
                             <option value="{{schoolyear.USER_CD}}" ng-repeat="schoolyear in vm.schoolyears">{{schoolyear.USER_CD_DESCR}}</option>
                         </select>

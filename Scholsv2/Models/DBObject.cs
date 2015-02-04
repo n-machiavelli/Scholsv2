@@ -107,9 +107,29 @@ namespace Schols.Models
             //dropdownData.colleges = GetColleges();
             //dropdownData.departments = GetDepartments();
             dropdownData.schoolyears = GetSchoolYears();
+            //dropdownData.FeaturedScholarships = GetFeaturedScholarships();
             return dropdownData;
         }
-
+        public List<ScholarshipLink> GetFeaturedScholarships()
+        {
+            string sqlstr= "SELECT  * FROM    ( ";
+            sqlstr += "SELECT  s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num FROM summit.schlrshp  s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct ";
+            sqlstr += "WHERE s.schlr_user_varbl2 = 'Y' and f.fund_open_attrb='O' ORDER BY DBMS_RANDOM.VALUE)";
+            sqlstr += " WHERE ROWNUM<=10";
+            DataTable dt = query(sqlstr, null);
+            List<ScholarshipLink> featuredScholarships = new List<ScholarshipLink>();
+            ScholarshipLink featuredScholarship;
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                featuredScholarship = new ScholarshipLink();
+                featuredScholarship.SCHLRSHP_NUM = dt.Rows[i]["SCHLRSHP_NUM"].ToString().Trim(); 
+                featuredScholarship.FUND_ACCT = dt.Rows[i]["FUND_ACCT"].ToString().Trim();
+                featuredScholarship.FRML_SCHLRSHP_NAME = dt.Rows[i]["FRML_SCHLRSHP_NAME"].ToString().Trim();
+                featuredScholarship.fav = "";
+                featuredScholarships.Add(featuredScholarship);
+            }
+            return featuredScholarships;
+        }
         public List<Department> GetDepartments()
         {
             string sqlstr = "SELECT * FROM UHELP.FUND_DEPT_ATTRB";

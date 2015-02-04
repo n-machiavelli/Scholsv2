@@ -11,5 +11,6 @@ namespace Schols.Models
         public List<College> colleges;
         public List<SchoolYear> schoolyears;
         public List<string> majors;
+        //public List<ScholarshipLink> FeaturedScholarships; //TODO: should change name of class to MasterPageData 
     }
 }

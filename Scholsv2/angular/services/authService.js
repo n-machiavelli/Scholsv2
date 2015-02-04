@@ -16,6 +16,23 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         userName: "",
         externalAccessToken: ""
     };
+    var _getFeaturedScholarships = function () {
+        var deferred = $q.defer();
+        var request = $http({
+            method: 'GET',
+            url: serviceBaseApi + "featured",
+        });
+        request.success(function (data) {
+            console.log("Featured data retrieved");
+            console.log(data);
+            deferred.resolve(data);
+        })
+            .error(function (error) {
+                console.log(error);
+                deferred.reject(error);
+            });
+        return deferred.promise;
+    };
 
     var _saveRegistration = function (registration) {
         _logOut();
@@ -29,6 +46,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             });
         return deferred.promise;
     };
+
     var _saveProfile = function (profile) {
         return $http.post(serviceBaseApi + 'account/saveprofile', profile).then(function (response) {
             return response;
@@ -189,6 +207,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     authServiceFactory.refreshToken = _refreshToken;
     authServiceFactory.getProfile = _getProfile;
     authServiceFactory.saveProfile = _saveProfile;
+    authServiceFactory.getFeaturedScholarships = _getFeaturedScholarships;
 
     authServiceFactory.obtainAccessToken = _obtainAccessToken;
     authServiceFactory.externalAuthData = _externalAuthData;

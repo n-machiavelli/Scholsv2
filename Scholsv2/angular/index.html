@@ -11,18 +11,18 @@
     <link rel="stylesheet" href="css2/style3.css" media="screen" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
-<body>
+<body data-ng-controller="navBarController as vm">
     <style>
-body {
-    padding-bottom: 40px;
-    padding-top: 60px;
-}
+        body {
+            padding-bottom: 40px;
+            padding-top: 60px;
+        }
 
-.sidebar-nav-fixed {
-	width:20%;
-}
+        .sidebar-nav-fixed {
+            width: 20%;
+        }
     </style>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-controller="navBarController as vm">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
@@ -68,17 +68,8 @@ body {
                                     Featured Scholarships
                                 </h4>
                             </li>
-                            <li class="active">
-                                <a href="#/scholarship/2106032/001">Michael D. Schermer Student Leader Excellence Endowment Fund</a>
-                            </li>
-                            <li>
-                                <a href="#">Dora L. Munson Scholarship</a>
-                            </li>
-                            <li>
-                                <a href="#">James B. Sedgwick Memorial Scholarship in Chemistry</a>
-                            </li>
-                            <li>
-                                <a href="#">Taimi Ranta Childrens Literature Scholarship</a>
+                            <li data-ng-repeat="scholarship in vm.featuredScholarships" data-ng-show="$odd">
+                                <a target="_blank" href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
                             </li>
                         </ul>
                     </div>
@@ -87,7 +78,9 @@ body {
                 <!--/sidebar-nav-fixed -->
             </div>
             <!--/span-->
+
             <div class="col-md-6">
+                <div id="msg" data-ng-bind="vm.message" data-ng-hide="vm.message == '' || vm.message==undefined" class="alert alert-danger"></div>
                 <div data-ng-view>
                 </div>
             </div>
@@ -101,19 +94,9 @@ body {
                                     Featured Scholarships
                                 </h4>
                             </li>
-                            <li class="active">
-                                <a href="#/scholarship/2106032/001">Michael D. Schermer Student Leader Excellence Endowment Fund</a>
+                            <li data-ng-repeat="scholarship in vm.featuredScholarships" data-ng-show="$even">
+                                <a target="_blank" href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
                             </li>
-                            <li>
-                                <a href="#">Dora L. Munson Scholarship</a>
-                            </li>
-                            <li>
-                                <a href="#">James B. Sedgwick Memorial Scholarship in Chemistry</a>
-                            </li>
-                            <li>
-                                <a href="#">Taimi Ranta Childrens Literature Scholarship</a>
-                            </li>
-
                         </ul>
                     </div>
                     <!--/.well -->
