@@ -1,0 +1,21 @@
+            <div class="modal-header">
+                <!--<button type="button" class="close" ng-click="$hide()">&times;</button>-->
+                <h4 class="modal-title" ng-bind-html="vm.modaltitle"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-login" role="form" id="statusform" name="statusform">
+                    <h2 class="form-login-heading">Update status here...</h2>
+                    <span id="appdetails" data-ng-bind="vm.message"></span>
+                    <select id="status" class="form-control" data-ng-model="vm.status">
+                        <option value="Approved">Approved</option>
+                        <option value="Not Approved">Not Approved</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    <textarea id="remark" class="form-control" placeholder="Remark" data-ng-model="vm.remark"></textarea>
+                    <input type="hidden" data-ng-model="vm.id" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="vm.cancel()">Close</button>
+                <button id="statusbutton" type="button" ng-disabled="statusform.$invalid" class="btn btn-primary" data-ng-click="vm.ok()">Save!</button>
+            </div>

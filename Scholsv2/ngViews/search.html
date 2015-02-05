@@ -1,0 +1,91 @@
+﻿<div class="form padm">
+    <div class="tab-content">
+        <div id="search">
+            <h1>Search Here...</h1>
+            <form>
+                <div class="top-row">
+                    <div class="field-wrap">
+
+                        <input ng-model="vm.title" id="title" type="text" placeholder="Scholarship Title" autofocus>
+                    </div>
+                    <div class="field-wrap">
+
+                        <input type="text" ng-model="vm.major" typeahead="major for major in vm.majors | filter:$viewValue | limitTo:8" placeholder="Major">
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <select ng-model="vm.college" id="college" >
+                            <option value="" disabled selected>College</option>
+                            <option value="{{college.FUND_COLL_ATTRB}}" ng-repeat="college in vm.colleges">{{college.FUND_COLL_DESCR}}</option>
+                        </select>
+                    </div>
+                    <div class="field-wrap">
+                        <select ng-model="vm.schoolyear" id="schoolyear" >
+                            <option value="" disabled selected>School Year</option>
+                            <option value="{{schoolyear.USER_CD}}" ng-repeat="schoolyear in vm.schoolyears">{{schoolyear.USER_CD_DESCR}}</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+
+                        <input ng-model="vm.undergradGPA" id="undergradGPA" type="text" placeholder="Undergraduate GPA" autofocus>
+                    </div>
+                    <div class="field-wrap">
+
+                        <input ng-model="vm.gradGPA" id="gradGPA" type="text" placeholder="Graduate GPA" autofocus>
+                    </div>
+                </div>
+                <div class="field-wrap">
+
+                    <input ng-model="vm.keyword" id="keyword" type="text" placeholder="Keyword" autofocus>
+                </div>
+                <button id="searchbutton" class="button button-block" type="button" data-ng-click="vm.getScholarships();" onclick="$('html,body').animate({ scrollTop: $('#scholarship').offset().top - 100 });">
+                    <span ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span>
+                    Search!
+                </button>
+                <div id="msg" data-ng-bind="vm.message" data-ng-hide="vm.message == ''" data-ng-class="(vm.errorFlag) ? 'alert alert-danger' : 'alert alert-success'"></div>
+            </form>
+        </div>
+        <div id="login">
+
+
+        </div>
+    </div><!-- tab-content -->
+</div> <!-- /form -->
+<div class="form2" data-ng-show="vm.searchString!='' && vm.searchString!=undefined">
+    <h3 id="searchinfo" class="form-login-heading">
+        {{vm.searchString}}
+    </h3>
+    <div data-ng-show="vm.scholarships.length>0">
+        <!-- class="col-md-8 bodynobg"-->
+        <div class="text-center">
+            <!--page-header -->
+            <h3><span ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span>Scholarships search result ({{vm.scholarships.length}})</h3>
+        </div>
+        <table id="scholarship" class="table table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Scholarship Page</th>
+                    <th data-ng-hide="!vm.authentication.isAuth">Fav</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="scholarship in vm.scholarships">
+                    <td>
+                        {{$index + 1}}
+                    </td>
+                    <td>
+                        <a target="_blank" href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
+                    </td>
+                    <td data-ng-hide="!vm.authentication.isAuth">
+                        <span class='glyphicon pointer' id='favbutton' data-ng-click="vm.toggleFavorite(scholarship.FUND_ACCT,scholarship.FRML_SCHLRSHP_NAME);scholarship.fav=scholarship.fav==scholarship.FRML_SCHLRSHP_NAME?'':scholarship.FRML_SCHLRSHP_NAME; console.log('made fav');" data-ng-class="scholarship.fav==scholarship.FRML_SCHLRSHP_NAME ?'glyphicon-star':'glyphicon-star-empty'"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

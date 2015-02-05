@@ -1,0 +1,73 @@
+﻿<div class="form">
+    <div class="tab-content">
+        <div id="search">
+            <h1>Your Profile...</h1>
+            <form>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="firstname" >First Name</label>
+                        <div >
+                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.FirstName" id="firstname" type="text" >
+                            <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.FirstName" id="firstnameview" class="profilespan"></span>
+                        </div>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="middlename">Middle Name</label>
+                        <div>
+                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.MiddleName" id="middlename" type="text" >
+                            <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.MiddleName" id="middlenameview" class="profilespan"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="lastname">Last Name</label>
+                        <div>
+                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.LastName" id="lastname" type="text" >
+                            <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.LastName" id="lastnameview" class="profilespan"></span>
+                        </div>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="usermajor">User Major</label>
+                        <div>
+                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.UserMajor" id="usermajor" type="text" >
+                            <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.UserMajor" id="usermajorview" class="profilespan"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="phonenumber">Phone Number</label>
+                        <div>
+                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.PhoneNumber" id="phonenumber" type="text" >
+                            <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.PhoneNumber" id="phonenumberview" class="profilespan"></span>
+                        </div>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="email">Email</label>
+                        <div>
+                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.Email" id="email" type="text">
+                            <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.Email" id="emailview" class="profilespan"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="universityid">University ID</label>
+                        <div>
+                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.UniversityId" id="universityid" type="text">
+                            <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.UniversityId" id="universityidview" class="profilespan"></span>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <button type="button" class="button button-block" data-ng-show="vm.mode=='editprofile'" data-ng-click="vm.saveProfile()">Save Profile</button>
+                <button type="button" class="button button-block" data-ng-show="vm.mode!='editprofile'" data-ng-click="vm.mode='editprofile'">Edit Profile</button>
+            </form>
+        </div>
+        <div id="login">
+
+
+        </div>
+    </div><!-- tab-content -->
+</div> <!-- /form -->

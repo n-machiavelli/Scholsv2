@@ -104,7 +104,7 @@ namespace Schols.Models
         {
             DropDownData dropdownData = new DropDownData();
             dropdownData.majors = GetDistinctMajors();
-            //dropdownData.colleges = GetColleges();
+            dropdownData.colleges = GetColleges();
             //dropdownData.departments = GetDepartments();
             dropdownData.schoolyears = GetSchoolYears();
             //dropdownData.FeaturedScholarships = GetFeaturedScholarships();
@@ -152,7 +152,7 @@ namespace Schols.Models
         }
         public List<College> GetColleges()
         {
-            string sqlstr = "SELECT * FROM UHELP.FUND_COLL_ATTRB";
+            string sqlstr = "SELECT * FROM SCHOLARSHIPCENTER.COLLEGES";   //string sqlstr = "SELECT * FROM UHELP.FUND_COLL_ATTRB";
             DataTable dt = query(sqlstr, null);
             List<College> collegeList = new List<College>();
             College aCollege;

@@ -3,23 +3,33 @@
 <head>
     <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
     <title>Scholarship Center</title>
-    <base href="/angular/">
-    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css" rel="stylesheet">
-    <link href="css/site.css" rel="stylesheet" />
-    <link href="css/fontawesome420/css/font-awesome.min.css" rel="stylesheet" />
+    <base href="">
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/fontawesome420/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/css2/normalize.css">
+    <link rel="stylesheet" href="~/Content/css2/style3.css" media="screen" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
-<body class="bodybg">
+<body data-ng-controller="navBarController as vm">
+    <style>
+        body {
+            padding-bottom: 40px;
+            padding-top: 60px;
+        }
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-controller="navBarController as vm">
+        .sidebar-nav-fixed {
+            width: 20%;
+        }
+    </style>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
                     <span class="glyphicon glyphicon-chevron-down"></span>
                 </button>
-                <a class="navbar-brand" href="#/search">Find Scholarships</a>
+                <a class="navbar-brand" href="#/search">Scholarship Center Home</a>
             </div>
-
             <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -36,70 +46,107 @@
                         </ul>
                     </li>
                     <!-- Show when authorized -->
-                    <li data-ng-hide="!vm.authentication.isAuth"><a href="/">Welcome {{vm.authentication.userName}}</a></li>
+                    <li data-ng-hide="!vm.authentication.isAuth"><a href="#/profile">Welcome {{vm.authentication.userName}}</a></li>
                     <li data-ng-hide="!vm.authentication.isAuth"><a data-ng-href="#/profile">My Profile</a></li>
-                    <li data-ng-hide="!vm.authentication.isAuth"><a href="#">My Favorites</a></li>
-
+                    <li data-ng-hide="!vm.authentication.isAuth"><a href="#/favorites/favorites">My Favorites</a></li>
                     <li data-ng-hide="!vm.authentication.isAuth"><a href="" data-ng-click="vm.logOut()">Logout</a></li>
-
                     <!-- hide when authorized -->
-                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="login">Login</a></li>
-                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="register">Register</a></li>
+                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="#/login">Login</a></li>
+                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="#/register">Register</a></li>
                 </ul>
             </div>
         </div>
     </div>
-
     <div class="container">
-        <div data-ng-view>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="sidebar-nav-fixed affix">
+                    <div class="form3">
+                        <ul class="nav ">
+                            <li class="sidebar-brand">
+                                <h4 class="text-center">
+                                    Featured Scholarships
+                                </h4>
+                            </li>
+                            <li data-ng-repeat="scholarship in vm.featuredScholarships" data-ng-show="$odd">
+                                <a target="_blank" href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--/.well -->
+                </div>
+                <!--/sidebar-nav-fixed -->
+            </div>
+            <!--/span-->
+
+            <div class="col-md-6">
+                <div id="msg" data-ng-bind="vm.message" data-ng-hide="vm.message == '' || vm.message==undefined" class="alert alert-danger"></div>
+                <div data-ng-view>
+                </div>
+            </div>
+            <!--/span-->
+            <div class="col-md-3">
+                <div class="sidebar-nav-fixed pull-right affix">
+                    <div class="form3">
+                        <ul class="nav ">
+                            <li class="sidebar-brand">
+                                <h4 class="text-center">
+                                    Featured Scholarships
+                                </h4>
+                            </li>
+                            <li data-ng-repeat="scholarship in vm.featuredScholarships" data-ng-show="$even">
+                                <a target="_blank" href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--/.well -->
+                </div>
+                <!--/sidebar-nav-fixed -->
+            </div>
+            <!--/span-->
         </div>
+        <!--/row-->
+
+        <footer>
+            <p>© Scholarship Center 2015</p>
+        </footer>
     </div>
-
+    <!--/.fluid-container-->
     <!-- 3rd party libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="http://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>-->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-sanitize.js"></script>
-    <script src="scripts/angular-local-storage.min.js"></script>
+    <script src="~/Scripts/ng3rdparty/angular-local-storage.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
-
-    <!--
-        switched from angularstrap to angular ui bootstrap
-        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/2.1.2/angular-strap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/2.1.2/angular-strap.tpl.min.js"></script>
-        -->
-    <!-- need below for modal dialog, bootstrap -->
-
-    <script src="scripts/angular-file-upload-shim.js"></script>
-    <script src="scripts/angular-file-upload.js"></script>
+    <script src="~/Scripts/ng3rdparty/js2.js"></script>
+    <script src="~/Scripts/ng3rdparty/angular-file-upload-shim.js"></script>
+    <script src="~/Scripts/ng3rdparty/angular-file-upload.js"></script>
     <!-- Load app main script -->
-    <script src="app.js"></script>
+    <script src="~/Scripts/ngCore/app.js"></script>
 
     <!-- Load services -->
     <!--<script src="/ilstu/js/myTokenAuthentication.js"></script>-->
-    <script src="services/searchService.js"></script>
-    <script src="services/authInterceptorService.js?v=2"></script>
-    <script src="services/authService.js"></script>
-    <script src="services/scholarshipService.js"></script>
-    <script src="services/administrationService.js"></script>
+    <script src="~/Scripts/ngCore/services/searchService.js"></script>
+    <script src="~/Scripts/ngCore/services/authInterceptorService.js?v=2"></script>
+    <script src="~/Scripts/ngCore/services/authService.js"></script>
+    <script src="~/Scripts/ngCore/services/scholarshipService.js"></script>
+    <script src="~/Scripts/ngCore/services/administrationService.js"></script>
 
     <!-- Load controllers -->
-    <script src="controllers/navBarController.js"></script>
-    <script src="controllers/scholarshipController.js"></script>
-    <script src="controllers/loginController.js"></script>
-    <script src="controllers/registerController.js"></script>
-    <script src="controllers/searchController.js"></script>
-    <script src="controllers/administrationController.js"></script>
-    <script src="controllers/profileController.js"></script>
-    <script src="controllers/adminmodalController.js"></script>
-    <!-- Load custom filters -->
-    <!-- Load custom directives -->
-
+    <script src="~/Scripts/ngCore/controllers/navBarController.js"></script>
+    <script src="~/Scripts/ngCore/controllers/scholarshipController.js"></script>
+    <script src="~/Scripts/ngCore/controllers/loginController.js"></script>
+    <script src="~/Scripts/ngCore/controllers/registerController.js"></script>
+    <script src="~/Scripts/ngCore/controllers/searchController.js"></script>
+    <script src="~/Scripts/ngCore/controllers/administrationController.js"></script>
+    <script src="~/Scripts/ngCore/controllers/profileController.js"></script>
+    <script src="~/Scripts/ngCore/controllers/adminmodalController.js"></script>
 
 </body>
 </html>
