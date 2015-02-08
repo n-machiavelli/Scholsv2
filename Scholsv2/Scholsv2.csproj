@@ -332,6 +332,7 @@
     <Content Include="angular\views\search1.html" />
     <Content Include="angular\views\uimodal.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\bg_body.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css2\normalize.css" />
@@ -462,7 +463,6 @@
     <Content Include="Scripts\ngCore\app.js" />
     <Content Include="Scripts\ngCore\controllers\administrationController.js" />
     <Content Include="Scripts\ngCore\controllers\adminmodalController.js" />
-    <Content Include="Scripts\ngCore\controllers\appRegistrationController.js" />
     <Content Include="Scripts\ngCore\controllers\homeController.js" />
     <Content Include="Scripts\ngCore\controllers\loginController.js" />
     <Content Include="Scripts\ngCore\controllers\navBarController.js" />
@@ -477,7 +477,6 @@
     <Content Include="Scripts\ngCore\services\authService.js" />
     <Content Include="Scripts\ngCore\services\scholarshipService.js" />
     <Content Include="Scripts\ngCore\services\searchService.js" />
-    <Content Include="Scripts\ngCore\services\tokensManagerService.js" />
     <Content Include="Views\Index - Copy.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />

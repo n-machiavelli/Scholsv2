@@ -5,12 +5,13 @@
         .module('app')
         .controller('scholarshipController', scholarshipController);
 
-    scholarshipController.$inject = ['scholarshipService', '$location', 'authService', '$routeParams','$upload'];
+    scholarshipController.$inject = ['scholarshipService', '$location', 'authService', '$routeParams','$upload','$log'];
 
     /* @ngInject */
-    function scholarshipController(scholarshipService, $location, authService, $routeParams, $upload) {
+    function scholarshipController(scholarshipService, $location, authService, $routeParams, $upload,$log) {
         /* jshint validthis: true */
         var vm = this;
+        
         vm.activate = activate;
         vm.fund_acct = $routeParams.fund_acct;
         vm.schlrshp_num = $routeParams.schlrshp_num;
@@ -29,12 +30,14 @@
             vm.isAuthorized = authService.authentication.isAuth;  //need this also in this ctrlr for use in displaying apply form
             var promise = scholarshipService.getScholarshipDetails(vm.fund_acct, vm.schlrshp_num);
             promise.then(function (data) {
-                console.log(data);
+                $log.log(data);
+                $log.log(vm.isAuthorized);
+                $log.log(authService.authentication.isAuth);
                 vm.scholarship = data;
             }, function (reason) {
-                console.log(reason)
+                $log.error(reason)
             }, function (update) {
-                console.log("got notification" + update);
+                $log.log("got notification" + update);
             });
         }
         vm.onFileSelect = function ($files, uploadtype) {
@@ -47,10 +50,10 @@
             }).progress(function (evt) {
                 //console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
             }).success(function (data, status, headers, config) {
-                console.log('Uploaded successfully ' + file.name);
-                console.log(data);
-                console.log(data.body);
-                console.log(data.title);
+                $log.log('Uploaded successfully ' + file.name);
+                $log.log(data);
+                $log.log(data.body);
+                $log.log(data.title);
                 if (uploadtype == "Essay") {
                     vm.essayfilename = data.body;
                     vm.filenamelabel1 = "&nbsp;&nbsp;&nbsp;" + uploadtype + " Uploaded <i class='fa fa-check'></i>";
@@ -59,15 +62,15 @@
                     vm.filenamelabel2 = "&nbsp;&nbsp;&nbsp;" + uploadtype + " Uploaded <i class='fa fa-check'></i>";
                 }
             }).error(function (err) {
-                console.log('Error occured during upload');
+                $log.error('Error occured during upload');
             });
         }
         vm.apply = function () {
-            console.log("apply data");
-            console.log(vm);
+            $log.log("apply data");
+            $log.log(vm);
             var promise = scholarshipService.apply(vm);
             promise.then(function (data) {
-                console.log(data);
+                $log.log(data);
                 vm.message = data.body;
                 vm.firstname =     "";
                 vm.middlename  =    "";
@@ -89,7 +92,7 @@
                 vm.loadprofile = false;
                 vm.savedSuccessfully = true;
             }, function (reason) {
-                console.log(reason);
+                $log.error(reason);
             });
         }
         vm.getProfile = function () {
@@ -105,19 +108,19 @@
                         vm.phonenumber = vm.profile.PhoneNumber;
                         vm.email = vm.profile.Email;
                         vm.universityid = vm.profile.UniversityId
-                        console.log(vm.profile);
+                        $log.log(vm.profile);
                         vm.message = "Profile details loaded";
                     } else {
                         vm.message = "Empty auth";//AuthFactory.message;
                     }
                 }, function (reason) {
                     vm.message = "Failed : " + reason + ":";//+  authService.message;
-                    console.log(reason);
+                    $log.error(reason);
                 }, function (update) {
                     vm.message = "updated";
                 })
             } else {
-                console.log("was checked. unchecking");
+                $log.log("was checked. unchecking");
                 vm.firstname =     "";
                 vm.middlename  =    "";
                 vm.lastname =      "";
@@ -129,7 +132,6 @@
         }
         vm.onFileSelect1 = function ($files, uploadtype) {
             //$files: an array of files selected, each file has name, size, and type.
-            console.log("here");
             for (var i = 0; i < $files.length; i++) {
                 var file = $files[i];
                 vm.upload = $upload.upload({
@@ -139,8 +141,8 @@
                 }).progress(function (evt) {
                     //console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
                 }).success(function (data, status, headers, config) {
-                    console.log('Uploaded successfully ' + file.name);
-                    console.log(data);
+                    $log.log('Uploaded successfully ' + file.name);
+                    $log.log(data);
                     vm.filenamelabel1 = "&nbsp;&nbsp;&nbsp;" + uploadtype + " Uploaded <i class='fa fa-check'></i>";
                     if (uploadtype == "Essay") {
                         vm.essayfilename = data;
@@ -148,7 +150,7 @@
                         vm.reffilename = data;
                     }
                 }).error(function (err) {
-                    console.log('Error occured during upload');
+                    $log.error('Error occured during upload');
                 });
             }
         }

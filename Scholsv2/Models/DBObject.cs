@@ -252,6 +252,10 @@ namespace Schols.Models
                             {
                                 info.SetValue(aScholarship, dt.Rows[i][info.Name]);
                             }
+                            if (info.GetValue(aScholarship) == null)
+                            {
+                                info.SetValue(aScholarship, "");
+                            }
                         }
                         else
                         {
@@ -284,10 +288,10 @@ namespace Schols.Models
                 data.GradGPA = aScholarship.SCHLR_USER_VARBL14;
                 data.UndergradGPA = aScholarship.SCHLR_USER_VARBL13;
                 data.HighSchoolGPA = aScholarship.SCHLR_USER_VARBL15;
-                data.FinancialNeed = aScholarship.SCHLR_USER_VARBL4.Length == 0 ? "" : "<b>Financial Need</b> : This scholarship requires a student to have a Financial Need to be eligible to receive the scholarship. In order to establish \"Financial Need\", a student must file the Free Application for Federal Student Aid (FAFSA). You can file the FAFSA at <a target='_blank' href=\"http://www.fafsa.ed.gov/\">www.fafsa.ed.gov</a>.";
+                data.FinancialNeed = (aScholarship.SCHLR_USER_VARBL4.Length == 0) ? "" : "<b>Financial Need</b> : This scholarship requires a student to have a Financial Need to be eligible to receive the scholarship. In order to establish \"Financial Need\", a student must file the Free Application for Federal Student Aid (FAFSA). You can file the FAFSA at <a target='_blank' href=\"http://www.fafsa.ed.gov/\">www.fafsa.ed.gov</a>.";
                 data.Essay = (aScholarship.SCHLR_USER_VARBL11.Length == 0) ? "There is no essay required for this scholarship" : "An Essay is required towards applying for this scholarship";
                 data.International = (aScholarship.SCHLR_USER_VARBL3.ToLower().Equals("n")) ? "This scholarship is not open to International Students" : "";
-                data.ReferenceLetter = (aScholarship.SCHLR_USER_VARBL31.Length == 0) ? "" : ("<b>Reference Letters : </b>" + aScholarship.SCHLR_USER_VARBL31 + " reference letter(s) needed.");
+                data.ReferenceLetter = ( aScholarship.SCHLR_USER_VARBL31.Length == 0) ? "" : ("<b>Reference Letters : </b>" + aScholarship.SCHLR_USER_VARBL31 + " reference letter(s) needed.");
                 data.IsuHours = aScholarship.SCHLR_USER_VARBL18;
                 data.Leadership = ((aScholarship.SCHLR_USER_VARBL9.Length == 0 && !aScholarship.SCHLR_USER_VARBL9.Equals("N")) ? "" : "Leadership experience is required to apply for this scholarship");
                 data.College=aScholarship.FUND_DEPT_DESCR;
@@ -373,7 +377,7 @@ namespace Schols.Models
         {
             //string sqlstr = "SELECT DISTINCT fund_acct,frml_schlrshp_name FROM scholarshipcenter.applications a INNER JOIN fund f ON a.fund_acct=f.fund_acct";
             //use regex bcos the join was not returning rows. maybe some padding exist... making not exactly equal
-            string sqlstr = "SELECT DISTINCT * FROM scholarshipcenter.applications a JOIN summit.schlrshp s ON regexp_like(s.fund_acct,a.fund_acct,'i')";
+            string sqlstr = "SELECT DISTINCT * FROM scholarshipcenter.applications a JOIN summit.schlrshp s ON (regexp_like(s.fund_acct,a.fund_acct,'i') and s.SCHLR_USER_VARBL2 = 'Y')";
             DataTable dt = query(sqlstr, null);
             return dt;
         }
@@ -555,7 +559,14 @@ namespace Schols.Models
             {
                 aScholarship = new ScholarshipLink();
                 Type t = aScholarship.GetType();
-                if (!favorites) aScholarship.SCHLRSHP_NUM = dt.Rows[i]["SCHLRSHP_NUM"].ToString().Trim(); //TODO: Yet to implement schlrshp_num for favorites
+                if (!favorites)
+                {
+                    aScholarship.SCHLRSHP_NUM = dt.Rows[i]["SCHLRSHP_NUM"].ToString().Trim(); //TODO: Yet to implement schlrshp_num for favorites
+                }
+                else
+                {
+                    aScholarship.SCHLRSHP_NUM = "001"; //default for fav so as to make angular routing still work. ^^^^^^
+                }
                 aScholarship.FUND_ACCT = dt.Rows[i]["FUND_ACCT"].ToString().Trim();
                 aScholarship.FRML_SCHLRSHP_NAME = dt.Rows[i]["FRML_SCHLRSHP_NAME"].ToString().Trim();
                 aScholarship.fav = dt.Rows[i]["fav"].ToString().Trim();
@@ -764,6 +775,7 @@ namespace Schols.Models
                 //aScholarship.SCHLRSHP_NUM = dt.Rows[i]["schlrshp_num"].ToString().Trim();  //TODO: Confirm relevance of this column
                 aScholarship.FUND_ACCT = dt.Rows[i]["fund_acct"].ToString().Trim();
                 aScholarship.FRML_SCHLRSHP_NAME = dt.Rows[i]["frml_schlrshp_name"].ToString().Trim();
+                aScholarship.SCHLRSHP_NUM = "001"; //TODO: default used due to angular route for favorites requiring last param
                 //System.Diagnostics.Debug.WriteLine("Row : " + i.ToString() + ":" + aScholarship.FRML_SCHLRSHP_NAME);
                 //System.Diagnostics.Debug.WriteLine("Row : " + i.ToString());
                 ScholarshipList.Add(aScholarship);

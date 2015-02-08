@@ -21,38 +21,38 @@
 
 
         function getProfile() {
-            console.log(vm.profile, "before call get");
-            console.log(vm.message);
+            $log.log(vm.profile, "before call get");
+            $log.log(vm.message);
             var promise = authService.getProfile(); //vm.login_username, vm.login_password);
             promise.then(function (result) {
                 if (!(jQuery.isEmptyObject(result))) {
                     //vm.msg=AuthFactory.message;
                     //console.log("$location move");
                     vm.profile = result;
-                    console.log(vm.profile);
+                    $log.log(vm.profile);
                 } else {
                     vm.message = "Empty auth";//AuthFactory.message;
                 }
             }, function (reason) {
                 vm.message = "Failed : " + reason + ":";//+  authService.message;
-                console.log(reason);
+                $log.error(reason);
             }, function (update) {
                 vm.message = "updated";
             })
 
         }
         function saveProfile() {
-            console.log(vm.profile, "before call save");
-            console.log(vm.message);
+            $log.log(vm.profile, "before call save");
+            $log.log(vm.message);
             var promise = authService.saveProfile(vm.profile); //vm.login_username, vm.login_password);
             promise.then(function (result) {
-                    console.log(result);
+                $log.log(result);
                     vm.message = result;
                     vm.savedSuccessfully = true;
                     vm.mode = "viewprofile";
             }, function (reason) {
                 vm.message = "Failed : " + reason + ":";//+  authService.message;
-                console.log(reason);
+                $log.error(reason);
             }, function (update) {
                 vm.message = "updated";
             })

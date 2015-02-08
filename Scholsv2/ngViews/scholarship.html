@@ -38,7 +38,10 @@
     </p>
 </div>
 <div class="form">
-    <div id="applicationform" data-ng-show="vm.scholarship.Title!='' && vm.scholarship.Title!=null">
+    <div data-ng-show="!vm.isAuthorized">
+        <h4>You need to login or register to be able to apply</h4>
+    </div>
+    <div id="applicationform" data-ng-show="vm.scholarship.Title!='' && vm.scholarship.Title!=null && vm.isAuthorized">
         <form>
             <h1>Apply Here...</h1>
             <button type="button" class="btn-default" data-ng-click="vm.getProfile();" data-ng-model="vm.loadprofile">Load My Profile</button>
@@ -52,7 +55,7 @@
                 <div class="field-wrap">
                     <label for="middlename">Middle Name</label>
                     <div>
-                        <input id="middlename" data-ng-model="vm.middlename" type="text" >
+                        <input id="middlename" data-ng-model="vm.middlename" type="text">
                     </div>
                 </div>
             </div>
@@ -60,13 +63,13 @@
                 <div class="field-wrap">
                     <label for="lastname">Last Name</label>
                     <div>
-                        <input id="lastname" data-ng-model="vm.lastname" type="text" >
+                        <input id="lastname" data-ng-model="vm.lastname" type="text">
                     </div>
                 </div>
                 <div class="field-wrap">
                     <label for="usermajor">User Major</label>
                     <div>
-                        <input data-ng-model="vm.usermajor" id="usermajor"  type="text">
+                        <input data-ng-model="vm.usermajor" id="usermajor" type="text">
                     </div>
                 </div>
             </div>
@@ -74,13 +77,13 @@
                 <div class="field-wrap">
                     <label for="phonenumber">Phone Number</label>
                     <div>
-                        <input id="phonenumber" data-ng-model="vm.phonenumber" type="text" >
+                        <input id="phonenumber" data-ng-model="vm.phonenumber" type="text">
                     </div>
                 </div>
                 <div class="field-wrap">
                     <label for="email">Email Address</label>
                     <div>
-                        <input id="email" data-ng-model="vm.email" type="text" >
+                        <input id="email" data-ng-model="vm.email" type="text">
                     </div>
                 </div>
             </div>
@@ -121,14 +124,14 @@
                 </div>
             </div>
             <div class="top-row">
-                
+
                 <div class="field-wrap">
                     <label for="email">Present GPA</label>
-                    <input id="presentGPA" data-ng-model="vm.presentGPA" type="text" >
+                    <input id="presentGPA" data-ng-model="vm.presentGPA" type="text">
                 </div>
                 <div class="field-wrap">
                     <label for="email">High School GPA</label>
-                    <input id="highschoolGPA" data-ng-model="vm.highschoolGPA" type="text" >
+                    <input id="highschoolGPA" data-ng-model="vm.highschoolGPA" type="text">
                 </div>
             </div>
             <div class="top-row">
@@ -173,8 +176,9 @@
                 <input type="hidden" id="reffilename" data-ng-model="vm.reffilename" />
                 <input type="hidden" id="fund_acct" data-ng-model="vm.fund_acct" />
             </div>
-            <button type="button" class="button button-block"  data-ng-click="vm.()">Apply</button>
-</form>
+            <div id="msg" data-ng-bind="vm.message" data-ng-hide="vm.message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'"></div>
+            <button type="button" class="button button-block" data-ng-click="vm.apply()">Apply</button>
+        </form>
     </div>
 </div>        
 

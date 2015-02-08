@@ -5,11 +5,11 @@
         .module('app')
         .service('searchService', searchService);
 
-    searchService.$inject = ['$http','$q','ngAuthSettings'];
+    searchService.$inject = ['$http','$q','ngAuthSettings','$log'];
 
     /* @ngInject */
 
-    function searchService($http, $q, ngAuthSettings) {
+    function searchService($http, $q, ngAuthSettings,$log) {
         var serviceBaseApi = ngAuthSettings.serviceBaseApi;
         //had a big issue when i stupidly placed deffered here before d fxns. it kept getting called just once
         this.getScholarships = function getScholarships(vm){ //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
@@ -34,14 +34,14 @@
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {
                 //message='Scholarships retrieved';
-               console.log("Scholarships retrieved via service");
-               console.log("service title:" + vm.title);
-               console.log(data);
+                $log.log("Scholarships retrieved via service");
+                $log.log("service title:" + vm.title);
+                $log.log(data);
                deferred.resolve(data);
                // $scope.message = "From PHP file : "+data;
             })
                 .error(function(error){
-                    console.log(error);
+                    $log.error(error);
                     deferred.reject(error);
                 });
             //vm.reviews=ReviewFactory.getReviews(courseID);
@@ -57,12 +57,12 @@
                 url: serviceBaseApi + "favorites",
             });
             request.success(function (data) {
-                console.log("Scholarships retrieved via service");
-                console.log(data);
+                $log.log("Scholarships retrieved via service");
+                $log.log(data);
                 deferred.resolve(data);
             })
                 .error(function (error) {
-                    console.log(error);
+                    $log.log(error);
                     deferred.reject(error);
                 });
             return deferred.promise;
@@ -77,13 +77,13 @@
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {
                 //message='Scholarships retrieved';
-               console.log("Dropdown data retrieved");
-               console.log(data);
+                $log.log("Dropdown data retrieved");
+                $log.log(data);
                deferred.resolve(data);
                // $scope.message = "From PHP file : "+data;
             })
                 .error(function(error){
-                    console.log(error);
+                    $log.error(error);
                     deferred.reject(error);
                 });
             //vm.reviews=ReviewFactory.getReviews(courseID);
@@ -106,12 +106,12 @@
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {
                 //message='Scholarships retrieved';
-                console.log("Fav toggled via service");
-                console.log(data);
+                $log.log("Fav toggled via service");
+                $log.log(data);
                 deferred.resolve(data);
             })
             .error(function (error) {
-                console.log(error);
+                $log.log(error);
                 deferred.reject(error);
             });
             return deferred.promise;

@@ -5,11 +5,11 @@
         .module('app')
         .service('administrationService', administrationService);
 
-    administrationService.$inject = ['$http', '$q', 'ngAuthSettings'];
+    administrationService.$inject = ['$http', '$q', 'ngAuthSettings','$log'];
 
     /* @ngInject */
 
-    function administrationService($http, $q, ngAuthSettings) {
+    function administrationService($http, $q, ngAuthSettings,$log) {
         var serviceBaseApi = ngAuthSettings.serviceBaseApi;
         this.getScholarshipNames = function getScholarshipNames(vm) { //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
             var deferred = $q.defer();
@@ -19,12 +19,12 @@
             });
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {
-                console.log("Scholarship Names retrieved via service");
-                console.log(data);
+                $log.log("Scholarship Names retrieved via service");
+                $log.log(data);
                 deferred.resolve(data);
             })
                 .error(function (error) {
-                    console.log(error);
+                    $log.error(error);
                     deferred.reject(error);
                 });
             return deferred.promise;
@@ -37,12 +37,12 @@
             });
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {
-               console.log("Applications retrieved via service");
-               console.log(data);
+                $log.log("Applications retrieved via service");
+                $log.log(data);
                deferred.resolve(data);
             })
                 .error(function(error){
-                    console.log(error);
+                    $log.error(error);
                     deferred.reject(error);
                 });
             return deferred.promise;            
@@ -55,12 +55,12 @@
             });
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {
-                console.log("Applications retrieved via service");
-                console.log(data);
+                $log.log("Applications retrieved via service");
+                $log.log(data);
                 deferred.resolve(data);
             })
                 .error(function (error) {
-                    console.log(error);
+                    $log.error(error);
                     deferred.reject(error);
                 });
             return deferred.promise;
@@ -77,12 +77,12 @@
             });
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {
-                console.log("Application data retrieved via service");
-                console.log(data);
+                $log.log("Application data retrieved via service");
+                $log.log(data);
                 deferred.resolve(data);
             })
                 .error(function (error) {
-                    console.log(error);
+                    $log.error(error);
                     deferred.reject(error);
                 });
             return deferred.promise;
@@ -101,12 +101,12 @@
             });
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {
-                console.log("Application data saved via service");
-                console.log(data);
+                $log.log("Application data saved via service");
+                $log.log(data);
                 deferred.resolve(data);
             })
                 .error(function (error) {
-                    console.log(error);
+                    $log.log(error);
                     deferred.reject(error);
                 });
             return deferred.promise;
@@ -119,12 +119,12 @@
             });
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {
-                console.log("Excel document generated via service");
-                console.log(data);
+                $log.log("Excel document generated via service");
+                $log.log(data);
                 deferred.resolve(data);
             })
                 .error(function (error) {
-                    console.log(error);
+                    $log.error(error);
                     deferred.reject(error);
                 });
             return deferred.promise;

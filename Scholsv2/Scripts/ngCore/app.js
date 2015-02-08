@@ -72,7 +72,7 @@ app.config(function ($httpProvider) {
 });
 
 
-app.run(['authService', function (authService) {
+app.run(['authService','$log', function (authService,$log) {
     authService.fillAuthData();
 }]);
 

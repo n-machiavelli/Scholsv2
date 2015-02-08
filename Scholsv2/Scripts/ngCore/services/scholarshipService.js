@@ -5,11 +5,11 @@
         .module('app')
         .service('scholarshipService', scholarshipService);
 
-    scholarshipService.$inject = ['$http', '$q', 'ngAuthSettings'];
+    scholarshipService.$inject = ['$http', '$q', 'ngAuthSettings','$log'];
 
     /* @ngInject */
 
-    function scholarshipService($http, $q, ngAuthSettings) {
+    function scholarshipService($http, $q, ngAuthSettings, $log) {
         var serviceBaseApi = ngAuthSettings.serviceBaseApi;
         //had a big issue when i stupidly placed deffered here before d fxns. it kept getting called just once
         this.getScholarshipDetails = function getScholarshipDetails(fund_acct,schlrshp_num) { //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
@@ -22,13 +22,13 @@
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {
                 //message='Scholarships retrieved';
-               console.log("Scholarship detail retrieved via service");
-               console.log(data);
+                $log.log("Scholarship detail retrieved via service");
+                $log.log(data);
                deferred.resolve(data);
                // $scope.message = "From PHP file : "+data;
             })
             .error(function(error){
-                console.log(error);
+                $log.error(error);
                 deferred.reject(error);
             });
             //vm.reviews=ReviewFactory.getReviews(courseID);
@@ -37,7 +37,7 @@
         };
         this.apply = function apply(vm) {
             var deferred = $q.defer();
-            console.log(vm);
+            $log.log(vm);
             var request = $http({
                 method: 'POST',
                 url: serviceBaseApi + "apply",
@@ -65,13 +65,13 @@
             /* Check whether the HTTP Request is Successful or not. */
             request.success(function (data) {
                 //message='Scholarships retrieved';
-                console.log("Scholarship application submitted via service");
-                console.log(data);
+                $log.log("Scholarship application submitted via service");
+                $log.log(data);
                 deferred.resolve(data);
                 // $scope.message = "From PHP file : "+data;
             })
                 .error(function (error) {
-                    console.log(error);
+                    $log.error(error);
                     deferred.reject(error);
                 });
             //vm.reviews=ReviewFactory.getReviews(courseID);

@@ -5,10 +5,10 @@
         .module('app')
         .controller('searchController', searchController);
 
-    searchController.$inject = ['searchService', '$location', '$anchorScroll', 'authService', '$routeParams'];
+    searchController.$inject = ['searchService', '$location', '$anchorScroll', 'authService', '$routeParams','$log'];
 
     /* @ngInject */
-    function searchController(searchService, $location, $anchorScroll, authService, $routeParams) {
+    function searchController(searchService, $location, $anchorScroll, authService, $routeParams,$log) {
         /* jshint validthis: true */
         var vm = this;
         vm.activate = activate;
@@ -46,49 +46,50 @@
                 vm.departments = data.departments;
                 vm.schoolyears = data.schoolyears;
             }, function (reason) {
-                console.log(reason);
+                $log.error(reason);
                 vm.message = "Unable to connect to the database. Please confirm connectivity and then refresh.";
                 vm.errorFlag = true;
             }, function (update) {
-                console.log("got notification" + update);
+                $log.log("got notification" + update);
             });
 
         }
 
         function getScholarships() {
-            console.log("controller title:" + vm.title);
+            $log.log("controller title:" + vm.title);
             vm.spinnerdisplay = "showme";
             var promise = searchService.getScholarships(vm);
             promise.then(function (results) {
-                console.log("scholarships retrieved via controller");
+                $log.log("scholarships retrieved via controller");
                 vm.scholarships = results;
                 vm.searchString = getSearchString(results.length);
-                console.log(vm.scholarships);
+                $log.log(vm.searchString);
+                $log.log(vm.scholarships);
                 vm.spinnerdisplay = "hideme";
             }, function (err) {
-                console.log("error here");
+                $log.error("error here");
                 vm.spinnerdisplay = "hideme";
             }, function (update) {
-                console.log("update here");
+                $log.log("update here");
                 vm.spinnerdisplay = "hideme";
             });
         }
         function getFavoriteScholarships() {
-            console.log("controller title:" + vm.title);
+            $log.log("controller title:" + vm.title);
             vm.spinnerdisplay = "showme";
             var promise = searchService.getFavoriteScholarships();
             promise.then(function (results) {
-                console.log("favorite scholarships retrieved via controller");
+                $log.log("favorite scholarships retrieved via controller");
                 vm.scholarships = results;
                 vm.searchString = "Your Favorite scholarships...";
-                console.log(vm.searchString);
-                console.log(vm.scholarships);
+                $log.log(vm.searchString);
+                $log.log(vm.scholarships);
                 vm.spinnerdisplay = "hideme";
             }, function (err) {
-                console.log("error here");
+                $log.error("error here");
                 vm.spinnerdisplay = "hideme";
             }, function (update) {
-                console.log("update here");
+                $log.log("update here");
                 vm.spinnerdisplay = "hideme";
             });
         }
@@ -114,7 +115,7 @@
             if (keyword != "") search += (keyword + ",");
             search = search.substring(0, search.length - 1);
             if (search==null || search==""){
-                "No parameters";
+                search="Your search results for \"No parameters\" below...";
             }else{
                 search = "Your search results for \"" + search + "\" below...";
             }
@@ -142,8 +143,8 @@
             return ((strg == null || strg == "-1" || strg == "" || strg==undefined) ? "" : strg);
         }
         function toggleFavorite(fundacct, schlrshpname) {
-            console.log("togglefav " + fundacct + ":" + schlrshpname + " in " + $routeParams.favorites);
-            console.log(vm.scholarships);
+            $log.log("togglefav " + fundacct + ":" + schlrshpname + " in " + $routeParams.favorites);
+            $log.log(vm.scholarships);
             var promise = searchService.toggleFavorite(fundacct, schlrshpname);
             promise.then(function (response) {
                 if ($routeParams.favorites != undefined && $routeParams.favorites == "favorites") {
@@ -152,13 +153,13 @@
                             vm.scholarships.splice(i, 1);
                         }
                     }
-                    console.log(vm.scholarships);
+                    $log.log(vm.scholarships);
                 }
-                console.log(response);
+                $log.log(response);
             }, function (err) {
-                console.log("error here");
+                $log.error("error here");
             }, function (update) {
-                console.log("update here");
+                $log.log("update here");
             });
         }
         // function registerClientApp() {

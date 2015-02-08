@@ -5,10 +5,10 @@
         .module('app')
         .controller('searchDataController', searchDataController);
 
-    searchDataController.$inject = ['searchService','$location'];
+    searchDataController.$inject = ['searchService','$location','$log'];
 
     /* @ngInject */
-    function searchDataController(searchService,$location) {
+    function searchDataController(searchService,$location,$log) {
         /* jshint validthis: true */
         var vm = this;
         vm.activate = activate;
@@ -25,14 +25,14 @@
         function activate() {
             var promise=searchService.getDropDowns();
             promise.then(function(data){
-                console.log(data);
+                $log.log(data);
                 vm.colleges=data.colleges;    
                 vm.departments=data.departments;
                 vm.schoolyears=data.schoolyears;
             }, function(reason){
-                console.log(reason)
+                $log.error(reason)
             }, function(update){
-                console.log("got notification" + update);
+                $log.log("got notification" + update);
             });
             
         }
@@ -40,15 +40,15 @@
         function getScholarships() {
             var params=$location.search();
             searchService.getScholarships(params).then(function (results) {
-                console.log("scholarships retrieved via controller")                
+                $log.log("scholarships retrieved via controller")
                 vm.scholarships = results;
-                console.log(vm.scholarships);
+                $log.log(vm.scholarships);
                 //$scope.$apply();
                  // results.data;
                 // $location.hash("scholarship");
                 // $anchorScroll();
             }, function (err) {
-                console.log("error here");
+                $log.error("error here");
             });
         }
 

@@ -5,10 +5,10 @@
         .module('app')
         .controller('registerController', registerController);
 
-    registerController.$inject = ['$location', 'authService','searchService'];
+    registerController.$inject = ['$location', 'authService','searchService','$log'];
 
     /* @ngInject */
-    function registerController($location, authService, searchService) {
+    function registerController($location, authService, searchService,$log) {
         /* jshint validthis: true */
         var vm = this;
 
@@ -40,37 +40,38 @@
                 vm.majors = data.majors;
                 //console.log(vm.majors);
             }, function (reason) {
-                console.log(reason);
+                $log.log(reason);
             });
         }
         function validate() {
             var isValid = true;
-            emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-            if (!(emailRegex.test(vm.email))) {
+            var emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+            if (!(emailRegex.test(vm.registration.email))) {
                 vm.message += "Invalid email address. ";
                 isValid = false;
             }
-            if (vm.password != vm.confirmPassword) {
+            if (vm.registration.password != vm.registration.confirmPassword) {
                 vm.message += "Password must be same as Confirm Password field. ";
                 isValid = false;
             }
             return isValid;
         }
         function register() {
-            console.log(vm.registration, "before call save");
-            console.log(vm.message);
-            vm.spinnerdisplay = "showme";
+            $log.log(vm.registration, "before call save");
+            $log.log(vm.message);
+            vm.message = "";
             var validForm = validate();
             if (!validForm) {
                 //vm.message must have been set by validate.
                 return;
             }
+            vm.spinnerdisplay = "showme";
             var promise = authService.saveRegistration(vm.registration); //vm.login_username, vm.login_password);
             promise.then(function (result) {
                 if (!(jQuery.isEmptyObject(result))) {
                     //vm.msg=AuthFactory.message;
                     //console.log("$location move");
-                    console.log(result);
+                    $log.log(result);
                     vm.message = result;
                     vm.savedSuccessfully = true;
                     vm.spinnerdisplay = "hideme";
@@ -84,7 +85,7 @@
             }, function (reason) {
                 vm.message = "Failed : " + reason.Message; // + ":" +  authService.message;
                 vm.spinnerdisplay = "hideme";
-                console.log(reason);
+                $log.error(reason);
             }, function (update) {
                 vm.spinnerdisplay = "hideme";
                 vm.message = "updated";

@@ -9,13 +9,10 @@ angular.module('app')
 
     function adminModalController($modalInstance, message,status, remark, id) {
         var vm = this;
-        console.log(vm);
         vm.message = message;
         vm.status = status;
         vm.remark = remark;
         vm.id = id;
-        console.log("in modal controller");
-        console.log(message, status,remark,id);
         vm.ok = function () {
             vm.modalReturnObject = {};
             vm.modalReturnObject.status = vm.status;

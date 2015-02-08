@@ -1,5 +1,5 @@
 'use strict';
-app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSettings', function ($http, $q, localStorageService, ngAuthSettings) {
+app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSettings','$log', function ($http, $q, localStorageService, ngAuthSettings,$log) {
 
     var serviceBase = ngAuthSettings.serviceBase;
     var serviceBaseApi = ngAuthSettings.serviceBaseApi;
@@ -23,12 +23,12 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             url: serviceBaseApi + "featured",
         });
         request.success(function (data) {
-            console.log("Featured data retrieved");
-            console.log(data);
+            $log.log("Featured data retrieved");
+            $log.log(data);
             deferred.resolve(data);
         })
             .error(function (error) {
-                console.log(error);
+                $log.log(error);
                 deferred.reject(error);
             });
         return deferred.promise;
@@ -59,7 +59,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             deferred.resolve(response);
         })
         .error(function (err, status) {
-            console.log(err);
+            $log.log(err);
             deferred.reject(err);
         });
         //return $http.get(serviceBaseApi + 'account/profile').then(function (response) {
@@ -68,7 +68,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         return deferred.promise;
     };
     var _login = function (loginData) {
-        console.log(loginData);
+        $log.log(loginData);
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
 
         if (loginData.useRefreshTokens) {
@@ -89,13 +89,13 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                         _authentication.isAuth = true;
                         _authentication.userName = response.userName;
                         _authentication.useRefreshTokens = response.useRefreshTokens;
-                        console.log(response);
+                        $log.log(response);
                         deferred.resolve(response);
 
                     }).error(function (err, status) {
                         _logOut();
-                        console.log(err);
-                        console.log(status);
+                        $log.log(err);
+                        $log.log(status);
                         deferred.reject(err);
                     });
 
