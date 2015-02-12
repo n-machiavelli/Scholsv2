@@ -67,6 +67,23 @@
                 });
             return deferred.promise;
         };
+        this.getMyApplications = function getMyApplications() { //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
+            var deferred = $q.defer();
+            var request = $http({
+                method: 'POST',
+                url: serviceBaseApi + "myapplications",
+            });
+            request.success(function (data) {
+                $log.log("Applications retrieved via service");
+                $log.log(data);
+                deferred.resolve(data);
+            })
+                .error(function (error) {
+                    $log.log(error);
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
         this.getDropDowns=function getDropDowns(){
             var deferred=$q.defer();
             var request = $http({

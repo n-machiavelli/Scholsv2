@@ -1,0 +1,83 @@
+﻿<div class="form2" data-ng-show="vm.myApplications.length==0">
+    <h3>You have no applications yet. </h3>
+</div>
+<div class="form2" data-ng-repeat="myApplication in vm.myApplications">
+        <form>
+            <h4 data-ng-bind="myApplication.ScholarshipName"></h4>
+            <h4 data-ng-bind="myApplication.ApplyDate"></h4>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="firstname">First Name</label>
+                        <span id="firstname" data-ng-bind="myApplication.firstname" ></span>
+                </div>
+                <div class="field-wrap">
+                    <label for="middlename">Middle Name</label>
+                        <span id="middlename" data-ng-bind="myApplication.middlename" ></span>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="lastname">Last Name</label>
+                        <span id="middlename" data-ng-bind="myApplication.lastname" ></span>
+                </div>
+                <div class="field-wrap">
+                    <label for="usermajor">User Major</label>
+                        <span id="usermajor" data-ng-bind="myApplication.usermajor"></span>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="phonenumber">Phone Number</label>
+                        <span id="phonenumber" data-ng-bind="myApplication.phonenumber" ></span>
+                </div>
+                <div class="field-wrap">
+                    <label for="email">Email Address</label>
+                        <span id="email" data-ng-bind="myApplication.email" ></span>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="scholarshipyear">Scholarship Year</label>
+                        <span id="scholarshipyear" data-ng-bind="myApplication.ScholarshipYear"></span>
+                </div>
+                <div class="field-wrap">
+                    <label for="expectedGraduation">Expected Graduation Year</label>
+                        <span id="expectedGraduation" data-ng-bind="myApplication.ExpectedGraduation"></span>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="PresentGPA">Present GPA</label>
+                    <span id="PresentGPA" data-ng-bind="myApplication.PresentGPA"></span>
+                </div>
+                <div class="field-wrap">
+                    <label for="HighSchoolGPA">High School GPA</label>
+                    <span id="HighSchoolGPA" data-ng-bind="myApplication.HighSchoolGPA"></span>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="CommunityService">Community Service</label>
+                    <span id="CommunityService" data-ng-bind="myApplication.CommunityService"></span>
+                </div>
+                <div class="field-wrap">
+                    <label for="ExtraCurricular">Extra-curricular activities</label>
+                    <span id="ExtraCurricular" data-ng-bind="myApplication.ExtraCurricular"></span>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="AwardsHonors">Awards/Honors</label>
+                    <span id="AwardsHonors" data-ng-bind="myApplication.AwardsHonors"></span>
+                </div>
+                <div class="field-wrap">
+                    <label for="address">Mailing Address</label>
+                    <span id="address" data-ng-bind="myApplication.address"></span>
+                </div>
+            </div>
+            <br />
+
+            <div id="msg" data-ng-bind="vm.message" data-ng-hide="vm.message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'"></div>
+            
+        </form>
+</div>

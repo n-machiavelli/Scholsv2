@@ -21,6 +21,7 @@
         vm.toggleFavorite = toggleFavorite;
         //vm.registerClient = registerClientApp;
         vm.scholarships = [];
+        vm.myApplications = [];
         vm.authentication = authService.authentication;
         vm.isAuthorized = authService.authentication.isAuth;  //need this also in this ctrlr for use in displaying fav star
         if ($routeParams !== undefined && $routeParams !== null && $routeParams.collegecode !== undefined) {
@@ -32,7 +33,10 @@
             getScholarships();
         } else if ($routeParams !== undefined && $routeParams !== null && $routeParams.favorites !== undefined && $routeParams.favorites == 'favorites') {
             vm.collegename = "Favorites";
-                getFavoriteScholarships();
+            getFavoriteScholarships();
+        } else if ($routeParams !== undefined && $routeParams !== null && $routeParams.myapplications !== undefined && $routeParams.myapplications == 'myapplications') {
+            vm.collegename = "My Applications";
+            getMyApplications();
         } else {
             activate();
         }
@@ -93,6 +97,25 @@
                 vm.spinnerdisplay = "hideme";
             });
         }
+        function getMyApplications() {
+            $log.log("controller title:" + vm.title);
+            vm.spinnerdisplay = "showme";
+            var promise = searchService.getMyApplications();
+            promise.then(function (results) {
+                $log.log("My Applications retrieved via controller");
+                vm.myApplications = results;
+                vm.searchString = "Your Applications";
+                $log.log(vm.searchString);
+                $log.log(vm.myApplications);
+                vm.spinnerdisplay = "hideme";
+            }, function (err) {
+                $log.error("error here");
+                vm.spinnerdisplay = "hideme";
+            }, function (update) {
+                $log.log("update here");
+                vm.spinnerdisplay = "hideme";
+            });
+        }
         function getSearchString(num) {
             var search = "";
             var title = checkNull(vm.title);
@@ -101,7 +124,7 @@
             var schoolyear = getSchoolYearString();
             var major = checkNull(vm.major);
             var undergradGPA = checkNull(vm.undergradGPA);
-            var gradGPA = checkNull(vm.undergradGPA);
+            var gradGPA = checkNull(vm.gradGPA);
             var highschoolGPA = checkNull(vm.highschoolGPA);
             var keyword = checkNull(vm.keyword);
             if (title != "") search += (title + ",");

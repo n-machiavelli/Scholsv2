@@ -22,6 +22,7 @@
                 <th>University ID</th>
                 <th>Essay File</th>
                 <th>Reference File</th>
+                <th>Application Date </th>
             </tr>
         </thead>
         <tbody id="appstbody">
@@ -35,8 +36,9 @@
                 <td>{{application.email}}</td>
                 <td>{{application.phonenumber}}</td>
                 <td>{{application.universityid}}</td>
-                <td><a href="../api/Upload/{{application.username}}/{{application.essayfilename}}">Essay</a></td>
-                <td><a href="../api/Upload/{{application.username}}/{{application.reffilename}}">Reference</a></td>
+                <td><a target="_blank" href="../api/Upload/{{application.username}}/{{application.essayfilename}}">Essay</a></td>
+                <td><a target="_blank" href="../api/Upload/{{application.username}}/{{application.reffilename}}">Reference</a></td>
+                <td>{{application.ApplyDate}}</td>
             </tr>
         </tbody>
     </table>

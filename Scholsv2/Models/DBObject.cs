@@ -363,12 +363,78 @@ namespace Schols.Models
             System.Diagnostics.Debug.WriteLine("Data : " + data.Title);
             return data;            
         }
-        public DataTable GetApplicationsTable(string fund_acct="")
+        public DataTable GetApplicationsTable(string fund_acct="", string username="")//TODO:  DEPRECATE
         {
             string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,fund_acct,essayfilename,username,reffilename,scholarshipyear FROM scholarshipcenter.applications "; //TODO: WHERE
+            bool hasFundAcct = false;
             if (!(fund_acct==null) && !fund_acct.Equals(""))
             {
                 sqlstr += " WHERE fund_acct='" + fund_acct + "'";
+                hasFundAcct = true;
+            }
+            if (!(username == null) && !username.Equals(""))
+            {
+                if (hasFundAcct)
+                {
+                    sqlstr += " AND";
+                }
+                else
+                {
+                    sqlstr += " WHERE";
+                }
+                sqlstr += " username='" + username + "'";
+            }
+            DataTable dt = query(sqlstr, null);
+            return dt;
+        }
+        public DataTable GetPublicApplicationsTable(string fund_acct = "", string username = "")
+        {
+            string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,a.fund_acct,essayfilename,username,reffilename,scholarshipyear ";
+            sqlstr+=",frml_schlrshp_name,status,communityservice,extracurricular,awardshonors,presentgpa,highschoolgpa,expectedgraduation,applydate ";
+            sqlstr += "FROM scholarshipcenter.applications a JOIN summit.schlrshp s ON (regexp_like(s.fund_acct,a.fund_acct,'i') and s.SCHLR_USER_VARBL2 = 'Y')"; //TODO: WHERE
+            bool hasFundAcct = false;
+            if (!(fund_acct == null) && !fund_acct.Equals(""))
+            {
+                sqlstr += " WHERE a.fund_acct='" + fund_acct + "'";
+                hasFundAcct = true;
+            }
+            if (!(username == null) && !username.Equals(""))
+            {
+                if (hasFundAcct)
+                {
+                    sqlstr += " AND";
+                }
+                else
+                {
+                    sqlstr += " WHERE";
+                }
+                sqlstr += " username='" + username + "'";
+            }
+            DataTable dt = query(sqlstr, null);
+            return dt;
+        }
+        public DataTable GetHiddenApplicationsTable(string fund_acct = "", string username = "")
+        {
+            string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,a.fund_acct,essayfilename,username,reffilename,scholarshipyear ";
+            sqlstr += ",frml_schlrshp_name,status,communityservice,extracurricular,awardshonors,presentgpa,highschoolgpa,expectedgraduation,applydate ";
+            sqlstr += "FROM scholarshipcenter.applications a JOIN scholarshipcenter.hiddenschlrshp hs ON regexp_like(hs.fund_acct,a.fund_acct,'i')"; //TODO: WHERE
+            bool hasFundAcct = false;
+            if (!(fund_acct == null) && !fund_acct.Equals(""))
+            {
+                sqlstr += " WHERE a.fund_acct='" + fund_acct + "'";
+                hasFundAcct = true;
+            }
+            if (!(username == null) && !username.Equals(""))
+            {
+                if (hasFundAcct)
+                {
+                    sqlstr += " AND";
+                }
+                else
+                {
+                    sqlstr += " WHERE";
+                }
+                sqlstr += " username='" + username + "'";
             }
             DataTable dt = query(sqlstr, null);
             return dt;
@@ -735,9 +801,10 @@ namespace Schols.Models
             return scholarshipLinks;
         }
 
-        public List<ScholarshipApp> GetApplications(string fund_acct="")
+        public List<ScholarshipApp> GetApplications(string fund_acct="", string username="")
         {
-            DataTable dt = GetApplicationsTable(fund_acct);
+            DataTable dt ;//= GetApplicationsTable(fund_acct,username);
+            dt = GetPublicApplicationsTable(fund_acct, username);
             List<ScholarshipApp> applications = new List<ScholarshipApp>();
             ScholarshipApp application;
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -755,12 +822,53 @@ namespace Schols.Models
                 application.username = dt.Rows[i]["username"].ToString().Trim();
                 application.essayfilename = dt.Rows[i]["essayfilename"].ToString().Trim();
                 application.reffilename = dt.Rows[i]["reffilename"].ToString().Trim();
+                application.status = dt.Rows[i]["status"].ToString().Trim();
                 application.ScholarshipYear = dt.Rows[i]["scholarshipyear"].ToString().Trim();
-                //System.Diagnostics.Debug.WriteLine("Row : " + i.ToString());
+                application.ApplyDate = (DateTime)dt.Rows[i]["applydate"];
+                if (username != null || !username.Equals(""))
+                {
+                    application.ExpectedGraduation = dt.Rows[i]["expectedgraduation"].ToString().Trim();
+                    application.PresentGPA = dt.Rows[i]["presentgpa"].ToString().Trim();
+                    application.HighSchoolGPA = dt.Rows[i]["highschoolgpa"].ToString().Trim();
+                    application.AwardsHonors = dt.Rows[i]["awardshonors"].ToString().Trim();
+                    application.CommunityService = dt.Rows[i]["communityservice"].ToString().Trim();
+                    application.ExtraCurricular = dt.Rows[i]["extracurricular"].ToString().Trim();
+                    application.ScholarshipName = dt.Rows[i]["FRML_SCHLRSHP_NAME"].ToString().Trim();
+                }
                 applications.Add(application);
 
             }
-            return applications;
+            dt = GetHiddenApplicationsTable(fund_acct, username);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                application = new ScholarshipApp();
+                application.id = long.Parse(dt.Rows[i]["id"].ToString());
+                application.universityid = dt.Rows[i]["universityid"].ToString().Trim();
+                application.firstname = dt.Rows[i]["firstname"].ToString().Trim();
+                application.lastname = dt.Rows[i]["lastname"].ToString().Trim();
+                application.middlename = dt.Rows[i]["middlename"].ToString().Trim();
+                application.address = dt.Rows[i]["address"].ToString().Trim();
+                application.phonenumber = dt.Rows[i]["phonenumber"].ToString().Trim();
+                application.email = dt.Rows[i]["email"].ToString().Trim();
+                application.fund_acct = dt.Rows[i]["fund_acct"].ToString().Trim();
+                application.username = dt.Rows[i]["username"].ToString().Trim();
+                application.essayfilename = dt.Rows[i]["essayfilename"].ToString().Trim();
+                application.reffilename = dt.Rows[i]["reffilename"].ToString().Trim();
+                application.ScholarshipYear = dt.Rows[i]["scholarshipyear"].ToString().Trim();
+                application.ApplyDate = (DateTime)dt.Rows[i]["applydate"];
+                if (username != null || !username.Equals(""))
+                {
+                    application.ExpectedGraduation = dt.Rows[i]["expectedgraduation"].ToString().Trim();
+                    application.PresentGPA = dt.Rows[i]["presentgpa"].ToString().Trim();
+                    application.HighSchoolGPA = dt.Rows[i]["highschoolgpa"].ToString().Trim();
+                    application.AwardsHonors = dt.Rows[i]["awardshonors"].ToString().Trim();
+                    application.CommunityService = dt.Rows[i]["communityservice"].ToString().Trim();
+                    application.ExtraCurricular = dt.Rows[i]["extracurricular"].ToString().Trim();
+                    application.ScholarshipName = dt.Rows[i]["FRML_SCHLRSHP_NAME"].ToString().Trim();
+                }
+                applications.Add(application);
+            }
+                return applications;
         }
 
         public List<ScholarshipLink> GetFavoriteScholarships(string user)

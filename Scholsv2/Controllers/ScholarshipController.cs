@@ -91,6 +91,18 @@ namespace Scholsv2.Controllers
             applications = db.GetApplications();
             return Ok(applications);
         }
+
+        [Route("api/myapplications")]
+        [HttpPost]
+        public IHttpActionResult GetMyApplications()
+        {
+            string username = User.Identity.Name;
+            UserDatabase udb = new UserDatabase();
+            DBObject db = new DBObject();
+            List<Schols.Models.ScholarshipApp> applications;
+            applications = db.GetApplications(null,username);
+            return Ok(applications);
+        }
         [Route("api/generateexcel")]
         [HttpPost]
         public IHttpActionResult GenerateAppsExcel()

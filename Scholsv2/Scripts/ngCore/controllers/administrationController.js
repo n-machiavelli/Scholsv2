@@ -132,7 +132,7 @@
         vm.launchModal = function (statusData) {
             var myModal = $modal.open({
                 title: 'Update Status',
-                templateUrl: 'ngViews/adminmodal.html',
+                templateUrl: '../ngViews/adminmodal.html',
                 controller: "adminModalController",
                 controllerAs: "vm",
                 size: "sm",

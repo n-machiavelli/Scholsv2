@@ -32,6 +32,15 @@ a:hover {
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
+.form4 {
+  background: rgba(19, 35, 47, 0.9);
+  padding: 10px;
+  max-width: 600px;
+  margin: 10px auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+  color:#ffffff;
+}
 .form2 {
   background: rgba(19, 35, 47, 0.9);
   padding: 10px;

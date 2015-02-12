@@ -5,10 +5,10 @@
         .module('app')
         .controller('profileController', profileController);
 
-    profileController.$inject = ['$location', 'authService'];
+    profileController.$inject = ['$location', 'authService','$log'];
 
     /* @ngInject */
-    function profileController($location, authService) {
+    function profileController($location, authService,$log) {
         /* jshint validthis: true */
         var vm = this;
         vm.title = 'profileController';

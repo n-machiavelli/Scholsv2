@@ -48,6 +48,7 @@
                     <!-- Show when authorized -->
                     <li data-ng-hide="!vm.authentication.isAuth"><a href="#/profile">Welcome {{vm.authentication.userName}}</a></li>
                     <li data-ng-hide="!vm.authentication.isAuth"><a data-ng-href="#/profile">My Profile</a></li>
+                    <li data-ng-hide="!vm.authentication.isAuth"><a href="#/myapplications/myapplications">My Applications</a></li>
                     <li data-ng-hide="!vm.authentication.isAuth"><a href="#/favorites/favorites">My Favorites</a></li>
                     <li data-ng-hide="!vm.authentication.isAuth"><a href="" data-ng-click="vm.logOut()">Logout</a></li>
                     <!-- hide when authorized -->

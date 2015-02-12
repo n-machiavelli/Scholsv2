@@ -27,6 +27,11 @@ app.config(function ($routeProvider, $locationProvider, $logProvider) {
         controllerAs: "vm",
         templateUrl: "ngViews/searchresults.html"
     });
+    $routeProvider.when("/myapplications/:myapplications", {
+        controller: "searchController",
+        controllerAs: "vm",
+        templateUrl: "ngViews/myapplications.html"
+    });
     $routeProvider.when("/login", {
         controller: "loginController",
         controllerAs: "vm",
@@ -49,11 +54,11 @@ app.config(function ($routeProvider, $locationProvider, $logProvider) {
         controllerAs: "vm",
         templateUrl: "ngViews/register.html"
     });
-
+    //TODO: eliminate below totally since it's moved to own server side
     $routeProvider.when("/administration", {
         controller: "administrationController",
         controllerAs: "vm",
-        templateUrl: "ngViews/administration.html"
+        templateUrl: "../ngViews/administration.html"
     });
 
 

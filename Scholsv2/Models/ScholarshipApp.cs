@@ -29,6 +29,8 @@ namespace Schols.Models
         public string ExtraCurricular { get; set; }
         public string AwardsHonors { get; set; }
         public string SCHLRSHP_NUM { get; set; }
+        public string ScholarshipName { get; set; }
+        public DateTime ApplyDate { get; set; }
 
     }
 }
