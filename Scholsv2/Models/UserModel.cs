@@ -18,6 +18,11 @@ namespace Schols.Models
         public string LastName { get; set; }
         public string UniversityId { get; set; }
         public string PhoneNumber { get; set; }
+        public string PresentGPA{get; set;}
+        public string HighSchoolGPA{get;set;}
+        public string Address{get; set;}
+        public string CommunityService{get; set;}
+        public string ExtraCurricular{get; set;}
 
     }
 }

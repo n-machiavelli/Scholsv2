@@ -136,14 +136,15 @@ namespace Schols.Models
                         return message;
                     }
                 }
-                sqlstr = "INSERT INTO scholarshipcenter.applications (universityid,firstname,middlename,lastname,address,phonenumber,email,username,fund_acct,essayfilename,reffilename,scholarshipyear,expectedgraduation,presentgpa,highschoolgpa,communityservice,extracurricular,awardshonors) VALUES (:universityid,:firstname,:middlename,:lastname,:address,:phonenumber,:email,:username,:fund_acct,:essayfilename,:reffilename,:scholarshipyear,:expectedgraduation,:presentgpa,:highschoolgpa,:communityservice,:extracurricular,:awardshonors)";
+                sqlstr = "INSERT INTO scholarshipcenter.applications (universityid,firstname,middlename,lastname,address,phonenumber,usermajor,email,username,fund_acct,essayfilename,reffilename,scholarshipyear,expectedgraduation,presentgpa,highschoolgpa,communityservice,extracurricular,awardshonors) VALUES (:universityid,:firstname,:middlename,:lastname,:address,:phonenumber,:usermajor,:email,:username,:fund_acct,:essayfilename,:reffilename,:scholarshipyear,:expectedgraduation,:presentgpa,:highschoolgpa,:communityservice,:extracurricular,:awardshonors)";
                 List<OracleParameter> insertParameters = new List<OracleParameter>();
-                insertParameters.Add(new OracleParameter("universityid", app.universityid==null?"":app.universityid));
+                insertParameters.Add(new OracleParameter("universityid", app.UniversityId == null ? "" : app.UniversityId));
                 insertParameters.Add(new OracleParameter("firstname", app.firstname == null ? "" : app.firstname));
                 insertParameters.Add(new OracleParameter("middlename", app.middlename == null ? "" : app.middlename));
                 insertParameters.Add(new OracleParameter("lastname", app.lastname == null ? "" : app.lastname));
                 insertParameters.Add(new OracleParameter("address", app.address == null ? "" : app.address));
                 insertParameters.Add(new OracleParameter("phonenumber", app.phonenumber == null ? "" : app.phonenumber));
+                insertParameters.Add(new OracleParameter("usermajor", app.UserMajor == null ? "" : app.UserMajor));
                 insertParameters.Add(new OracleParameter("email", app.email == null ? "" : app.email));
                 insertParameters.Add(new OracleParameter("username", username == null ? "" : username));
                 insertParameters.Add(new OracleParameter("fund_acct", app.fund_acct == null ? "" : app.fund_acct));
@@ -348,7 +349,8 @@ namespace Schols.Models
                 int i = 0;
                 application = new ScholarshipApp();
                 application.id = long.Parse(dt.Rows[i]["id"].ToString());
-                application.universityid = dt.Rows[i]["universityid"].ToString().Trim();
+                application.UniversityId = dt.Rows[i]["universityid"].ToString().Trim();
+                application.UserMajor = dt.Rows[i]["usermajor"].ToString().Trim();
                 application.firstname = dt.Rows[i]["firstname"].ToString().Trim();
                 application.lastname = dt.Rows[i]["lastname"].ToString().Trim();
                 application.middlename = dt.Rows[i]["middlename"].ToString().Trim();

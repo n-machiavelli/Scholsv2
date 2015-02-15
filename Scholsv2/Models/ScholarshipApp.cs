@@ -12,9 +12,9 @@ namespace Schols.Models
         public string lastname { get; set; }
         public string middlename { get; set; }
         public string email { get; set; }
-        public string phonenumber { get; set; }
+        public string phonenumber { get; set; }        
         public string address { get; set; }
-        public string universityid { get; set; }
+        public string UniversityId { get; set; }
         public string fund_acct { get; set; }
         public string essayfilename { get; set; }
         public string reffilename { get; set; }
@@ -30,6 +30,7 @@ namespace Schols.Models
         public string AwardsHonors { get; set; }
         public string SCHLRSHP_NUM { get; set; }
         public string ScholarshipName { get; set; }
+        public string UserMajor { get; set; }
         public DateTime ApplyDate { get; set; }
 
     }

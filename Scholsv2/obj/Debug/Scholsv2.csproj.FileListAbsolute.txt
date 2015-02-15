@@ -93,3 +93,4 @@ C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\Scholsv2\obj\Debug\
 C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\Scholsv2\obj\Debug\Scholsv2.dll
 C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\Scholsv2\obj\Debug\Scholsv2.pdb
 C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\Scholsv2\obj\Debug\Scholsv2.csprojResolveAssemblyReference.cache
+C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\Scholsv2\obj\Debug\Scholsv2.Migrations.MoreProfileFields.resources

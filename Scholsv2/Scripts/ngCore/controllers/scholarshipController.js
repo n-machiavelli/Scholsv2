@@ -65,9 +65,46 @@
                 $log.error('Error occured during upload');
             });
         }
+        function validate() {
+            var isValid = true;
+            var emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+            var nameRegex = /^[A-Za-z]+$/;
+            var numberRegex = /^[0-9.]+$/;
+            //var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            if (!(emailRegex.test(vm.email))) {
+                vm.message += "Invalid email address. ";
+                isValid = false;
+            }
+            if (!(nameRegex.test(vm.firstname)) || !(nameRegex.test(vm.lastname))) {
+                vm.message += "Invalid First Name / Last Name. ";
+            }
+            if (!(nameRegex.test(vm.usermajor)) && vm.usermajor != undefined) {
+                vm.message += "Invalid Major. ";
+            }
+            if (!(numberRegex.test(vm.presentGPA)) && vm.presentGPA != undefined) {
+                vm.message += "Invalid present GPA. ";
+            }
+            if (!(numberRegex.test(vm.highschoolGPA)) && vm.highschoolGPA != undefined) {
+                vm.message += "Invalid high school GPA. ";
+            }
+            if (!(numberRegex.test(vm.phonenumber)) && vm.phonenumber != undefined) {
+                vm.message += "Invalid Phone number. ";
+            }
+            if (!(numberRegex.test(vm.UniversityId)) && vm.UniversityId != undefined) {
+                vm.message += "Invalid University ID. ";
+            }
+
+            return isValid;
+        }
         vm.apply = function () {
             $log.log("apply data");
             $log.log(vm);
+            vm.message = "";
+            var validForm = validate();
+            if (!validForm) {
+                //vm.message must have been set by validate.
+                return;
+            }
             var promise = scholarshipService.apply(vm);
             promise.then(function (data) {
                 $log.log(data);
@@ -78,7 +115,7 @@
                 vm.usermajor =     "";
                 vm.phonenumber =    "";
                 vm.email =         "";
-                vm.universityid = "";
+                vm.UniversityId = "";
                 vm.address = "";
                 vm.scholarshipyear = "";
                 vm.expectedGraduation = "";
@@ -107,7 +144,12 @@
                         vm.usermajor = vm.profile.UserMajor;
                         vm.phonenumber = vm.profile.PhoneNumber;
                         vm.email = vm.profile.Email;
-                        vm.universityid = vm.profile.UniversityId
+                        vm.UniversityId = vm.profile.UniversityId;
+                        vm.communityService = vm.profile.CommunityService;
+                        vm.extraCurricular = vm.profile.ExtraCurricular;
+                        vm.presentGPA = vm.profile.PresentGPA;
+                        vm.highschoolGPA = vm.profile.HighSchoolGPA;
+                        vm.address = vm.profile.Address;
                         $log.log(vm.profile);
                         vm.message = "Profile details loaded";
                     } else {
@@ -127,7 +169,12 @@
                 vm.usermajor =     "";
                 vm.phonenumber =    "";
                 vm.email =         "";
-                vm.universityid =  "";
+                vm.universityid = "";
+                vm.communityService ="";
+                vm.extraCurricular = "";
+                vm.presentGPA = "";
+                vm.highschoolGPA = "";
+                vm.address = "";
             }
         }
         vm.onFileSelect1 = function ($files, uploadtype) {

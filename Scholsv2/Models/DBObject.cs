@@ -811,7 +811,7 @@ namespace Schols.Models
             {
                 application = new ScholarshipApp();
                 application.id = long.Parse(dt.Rows[i]["id"].ToString());
-                application.universityid = dt.Rows[i]["universityid"].ToString().Trim();
+                application.UniversityId = dt.Rows[i]["universityid"].ToString().Trim();
                 application.firstname = dt.Rows[i]["firstname"].ToString().Trim();
                 application.lastname = dt.Rows[i]["lastname"].ToString().Trim();
                 application.middlename = dt.Rows[i]["middlename"].ToString().Trim();
@@ -843,7 +843,7 @@ namespace Schols.Models
             {
                 application = new ScholarshipApp();
                 application.id = long.Parse(dt.Rows[i]["id"].ToString());
-                application.universityid = dt.Rows[i]["universityid"].ToString().Trim();
+                application.UniversityId = dt.Rows[i]["universityid"].ToString().Trim();
                 application.firstname = dt.Rows[i]["firstname"].ToString().Trim();
                 application.lastname = dt.Rows[i]["lastname"].ToString().Trim();
                 application.middlename = dt.Rows[i]["middlename"].ToString().Trim();

@@ -81,6 +81,11 @@ namespace Scholsv2.Controllers
             user.MiddleName = currentUser.MiddleName;
             user.PhoneNumber = currentUser.PhoneNumber;
             user.UniversityId = currentUser.UniversityId;
+            user.PresentGPA=currentUser.PresentGPA;
+            user.HighSchoolGPA=currentUser.HighSchoolGPA;
+            user.CommunityService=currentUser.CommunityService;
+            user.ExtraCurricular=currentUser.ExtraCurricular;
+            user.Address=currentUser.Address;
             return user;
             //return Ok(currentUser); //Ok returns object with extra http information that's not needed. i just need d data in it
         }
@@ -364,7 +369,12 @@ namespace Scholsv2.Controllers
                 LastName=model.LastName,
                 MiddleName=model.MiddleName,
                 PhoneNumber=model.PhoneNumber,
-                UniversityId=model.UniversityId
+                UniversityId=model.UniversityId,
+                PresentGPA=model.PresentGPA,
+                HighSchoolGPA=model.HighSchoolGPA,
+                CommunityService=model.CommunityService,
+                ExtraCurricular=model.ExtraCurricular,
+                Address=model.Address
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -399,6 +409,13 @@ namespace Scholsv2.Controllers
             currentUser.LastName = model.LastName;
             currentUser.UniversityId = model.UniversityId;
             currentUser.PhoneNumber = model.PhoneNumber;
+            currentUser.UniversityId = model.UniversityId;
+            currentUser.PresentGPA = model.PresentGPA;
+            currentUser.HighSchoolGPA = model.HighSchoolGPA;
+            currentUser.CommunityService = model.CommunityService;
+            currentUser.ExtraCurricular = model.ExtraCurricular;
+            currentUser.Address = model.Address;
+
             /*
             var user = new ApplicationUser()
             {

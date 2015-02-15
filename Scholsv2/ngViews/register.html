@@ -35,13 +35,13 @@
                     <div class="field-wrap">
                         <label for="phonenumber">Phone Number</label>
                         <div>
-                            <input data-ng-model="vm.registration.PhoneNumber" id="phonenumber" type="text">
+                            <input data-ng-model="vm.registration.PhoneNumber" id="phonenumber" type="text" placeholder="Only the numbers">
                         </div>
                     </div>
                     <div class="field-wrap">
                         <label for="UniversityId">University ID</label>
                         <div>
-                            <input data-ng-model="vm.registration.UniversityId" id="UniversityId" type="text">
+                            <input data-ng-model="vm.registration.UniversityId" id="UniversityId" type="text" placeholder="Only the numbers">
                         </div>
                     </div>
                 </div>
@@ -53,9 +53,19 @@
                         </div>
                     </div>
                     <div class="field-wrap">
+                        <label for="email">Mailing Address</label>
+                        <textarea id="address" data-ng-model="vm.registration.Address" placeholder="Mailing Address"></textarea>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="email">High School GPA</label>
+                        <input id="highschoolGPA" data-ng-model="vm.registration.HighSchoolGPA" type="text">
+                    </div>
+                    <div class="field-wrap">
                         <label for="presentGPA">Present GPA</label>
                         <div>
-                            <input data-ng-model="vm.registration.presentGPA" id="presentGPA" type="text">
+                            <input data-ng-model="vm.registration.PresentGPA" id="PresentGPA" type="text">
                         </div>
                     </div>
                 </div>
@@ -73,7 +83,16 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="email">Community Service</label>
+                        <input id="communityService" data-ng-model="vm.registration.CommunityService" type="text" placeholder="Separate with commas">
+                    </div>
+                    <div class="field-wrap">
+                        <label for="email">Extra-curricular activities</label>
+                        <input id="extraCurricular" data-ng-model="vm.registration.ExtraCurricular" type="text" placeholder="Separate with commas">
+                    </div>
+                </div>
                 <button type="button" class="button button-block" data-ng-click="vm.register()">
                     <span ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span>Register
                 </button>

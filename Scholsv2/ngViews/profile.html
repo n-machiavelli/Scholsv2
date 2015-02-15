@@ -44,10 +44,24 @@
                         </div>
                     </div>
                     <div class="field-wrap">
-                        <label for="email">Email</label>
+                        <label for="email">Email / Username</label>
                         <div>
                             <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.Email" id="email" type="text">
                             <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.Email" id="emailview" class="profilespan"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="HighSchoolGPA">High School GPA</label>
+                        <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.HighSchoolGPA" id="HighSchoolGPA" type="text">
+                        <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.HighSchoolGPA" id="HighSchoolGPAview" class="profilespan"></span>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="presentGPA">Present GPA</label>
+                        <div>
+                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.HighSchoolGPA" id="HighSchoolGPA" type="text">
+                            <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.HighSchoolGPA" id="HighSchoolGPAview" class="profilespan"></span>
                         </div>
                     </div>
                 </div>
@@ -58,6 +72,23 @@
                             <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.UniversityId" id="universityid" type="text">
                             <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.UniversityId" id="universityidview" class="profilespan"></span>
                         </div>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="Address">Mailing Address</label>
+                        <textarea data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.Address" id="Address" placeholder="Mailing Address"></textarea>
+                        <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.Address" id="Addressview" class="profilespan"></span>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="CommunityService">Community Service</label>
+                        <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.CommunityService" id="CommunityService" type="text" placeholder="Separate with commas">
+                        <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.CommunityService" id="CommunityServiceview" class="profilespan"></span>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="ExtraCurricular">Extra-curricular activities</label>
+                        <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.ExtraCurricular" id="ExtraCurricular" type="text" placeholder="Separate with commas">
+                        <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.ExtraCurricular" id="ExtraCurricularview" class="profilespan"></span>
                     </div>
                 </div>
                 <br />

@@ -46,10 +46,32 @@
         function validate() {
             var isValid = true;
             var emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+            var nameRegex = /^[A-Za-z]+$/;
+            var numberRegex = /^[0-9.]+$/;
+            //var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
             if (!(emailRegex.test(vm.registration.email))) {
                 vm.message += "Invalid email address. ";
                 isValid = false;
             }
+            if (!(nameRegex.test(vm.registration.FirstName)) || !(nameRegex.test(vm.registration.LastName))) {
+                vm.message += "Invalid First Name / Last Name. ";
+            }
+            if (!(nameRegex.test(vm.registration.UserMajor)) && vm.registration.UserMajor != undefined) {
+                vm.message += "Invalid Major. ";
+            }
+            if (!(numberRegex.test(vm.registration.presentGPA)) && vm.registration.presentGPA != undefined) {
+                vm.message += "Invalid present GPA. ";
+            }
+            if (!(numberRegex.test(vm.registration.highschoolGPA)) && vm.registration.highschoolGPA != undefined) {
+                vm.message += "Invalid high school GPA. ";
+            }
+            if (!(numberRegex.test(vm.registration.PhoneNumber)) && vm.registration.PhoneNumber != undefined) {
+                vm.message += "Invalid Phone number. ";
+            }
+            if (!(numberRegex.test(vm.registration.UniversityId)) && vm.registration.UniversityId != undefined) {
+                vm.message += "Invalid University ID. ";
+            }
+
             if (vm.registration.password != vm.registration.confirmPassword) {
                 vm.message += "Password must be same as Confirm Password field. ";
                 isValid = false;

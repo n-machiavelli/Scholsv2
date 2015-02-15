@@ -15,6 +15,12 @@ namespace Scholsv2.Models
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string UniversityId { get; set; }
+        public string PresentGPA { get; set; }
+        public string HighSchoolGPA { get; set; }
+        public string CommunityService { get; set; }
+        public string ExtraCurricular { get; set; }
+        public string Address { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
