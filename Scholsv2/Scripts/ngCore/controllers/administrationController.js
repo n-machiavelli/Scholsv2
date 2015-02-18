@@ -15,6 +15,8 @@
         vm.spinnerdisplay = "hideme";
         vm.tickcompleted = "hideme";
         vm.filterspinner = "hideme";
+        vm.orderColumn = "";
+        vm.reverseOrder = false;
         //vm.title = 'searchController';
 
         vm.getApplications = getApplications;

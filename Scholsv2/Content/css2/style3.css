@@ -316,3 +316,12 @@ span.showme {
   background-color: rgba(19, 35, 47, 0.9);
   border-color: #a0b3b0;
 }
+.modal-body{
+    padding:10px;
+}
+
+@media  (max-width:1024px){
+    #leftnavbar {display:none;}
+    #rightnavbar {display:none;}
+}
+

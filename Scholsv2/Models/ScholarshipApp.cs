@@ -32,6 +32,7 @@ namespace Schols.Models
         public string ScholarshipName { get; set; }
         public string UserMajor { get; set; }
         public DateTime ApplyDate { get; set; }
+        public string ApplyDateString { get; set; }
 
     }
 }

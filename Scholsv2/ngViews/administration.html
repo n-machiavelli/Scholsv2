@@ -14,19 +14,20 @@
         <thead>
             <tr>
                 <th>No.</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th><a href="" ng-click="vm.orderColumn = 'firstname'; vm.reverseOrder=!vm.reverseOrder">First Name</a></th>
+                <th><a href="" ng-click="vm.orderColumn = 'lastname'; vm.reverseOrder=!vm.reverseOrder">Last Name</a></th>
                 <th>Middle Name</th>
-                <th>Email Address</th>
+                <th><a href="" ng-click="vm.orderColumn = 'email'; vm.reverseOrder=!vm.reverseOrder">Email Address</a></th>
                 <th>Phone</th>
                 <th>University ID</th>
                 <th>Essay File</th>
                 <th>Reference File</th>
-                <th>Application Date </th>
+                <th><a href="" ng-click="vm.orderColumn = 'status'; vm.reverseOrder=!vm.reverseOrder">Status</a></th>
+                <th><a href="" ng-click="vm.orderColumn = 'ApplyDate'; vm.reverseOrder=!vm.reverseOrder">Application Date</a></th>
             </tr>
         </thead>
         <tbody id="appstbody">
-            <tr data-ng-repeat="application in vm.applications" class="pointer" data-id={{application.id}} data-ng-click="vm.openModal(application.id)">
+            <tr data-ng-repeat="application in vm.applications | orderBy:vm.orderColumn:vm.reverseOrder" class="pointer" data-id={{application.id}} data-ng-click="vm.openModal(application.id)">
                 <td>
                     {{$index + 1}}
                 </td>
@@ -38,7 +39,8 @@
                 <td>{{application.UniversityId}}</td>
                 <td><a target="_blank" href="../api/Upload/{{application.username}}/{{application.essayfilename}}">Essay</a></td>
                 <td><a target="_blank" href="../api/Upload/{{application.username}}/{{application.reffilename}}">Reference</a></td>
-                <td>{{application.ApplyDate}}</td>
+                <td>{{application.status}}</td>
+                <td>{{application.ApplyDateString}}</td>
             </tr>
         </tbody>
     </table>

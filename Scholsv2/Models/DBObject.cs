@@ -483,6 +483,10 @@ namespace Schols.Models
                 sqlstr += "LEFT OUTER JOIN scholarshipcenter.favorites fv ON (regexp_like(s.fund_acct,fv.fund_acct,'i') AND fv.username=:username) ";
                 parameters.Add(new OracleParameter("username", user));
             }
+            else
+            {
+                sqlstr += sqlstr2;
+            }
             sqlstr += " WHERE s.schlr_user_varbl2 = 'Y' and f.fund_open_attrb='O' AND rownum<3000 "; //explain this number later. choosing 3 cols also allows me have DISTINCT
             //string sqlstr = "SELECT * FROM summit.schlrshp s inner join SUMMIT.FUND f ON S.FUND_ACCT=F.FUND_ACCT WHERE (FRML_SCHLRSHP_NAME like @title )";
 
@@ -825,6 +829,7 @@ namespace Schols.Models
                 application.status = dt.Rows[i]["status"].ToString().Trim();
                 application.ScholarshipYear = dt.Rows[i]["scholarshipyear"].ToString().Trim();
                 application.ApplyDate = (DateTime)dt.Rows[i]["applydate"];
+                application.ApplyDateString = String.Format("{0:MMM dd, yyyy HH:mm:ss}", application.ApplyDate);
                 if (username != null || !username.Equals(""))
                 {
                     application.ExpectedGraduation = dt.Rows[i]["expectedgraduation"].ToString().Trim();

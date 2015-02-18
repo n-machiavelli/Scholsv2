@@ -70,6 +70,7 @@
             var emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
             var nameRegex = /^[A-Za-z]+$/;
             var numberRegex = /^[0-9.]+$/;
+            var majorRegex = /^[A-Za-z\(\)\[\]\- ]+$/;
             //var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
             if (!(emailRegex.test(vm.email))) {
                 vm.message += "Invalid email address. ";
@@ -77,21 +78,27 @@
             }
             if (!(nameRegex.test(vm.firstname)) || !(nameRegex.test(vm.lastname))) {
                 vm.message += "Invalid First Name / Last Name. ";
+                isValid = false;
             }
-            if (!(nameRegex.test(vm.usermajor)) && vm.usermajor != undefined) {
+            if (!(majorRegex.test(vm.usermajor)) && vm.usermajor != undefined) {
                 vm.message += "Invalid Major. ";
+                isValid = false;
             }
-            if (!(numberRegex.test(vm.presentGPA)) && vm.presentGPA != undefined) {
+            if (vm.presentGPA != undefined && (!(numberRegex.test(vm.presentGPA)) || vm.presentGPA>4)) {
                 vm.message += "Invalid present GPA. ";
+                isValid = false;
             }
-            if (!(numberRegex.test(vm.highschoolGPA)) && vm.highschoolGPA != undefined) {
+            if (vm.highschoolGPA != undefined && (!(numberRegex.test(vm.highschoolGPA)) || vm.highschoolGPA>4)) {
                 vm.message += "Invalid high school GPA. ";
+                isValid = false;
             }
             if (!(numberRegex.test(vm.phonenumber)) && vm.phonenumber != undefined) {
                 vm.message += "Invalid Phone number. ";
+                isValid = false;
             }
             if (!(numberRegex.test(vm.UniversityId)) && vm.UniversityId != undefined) {
                 vm.message += "Invalid University ID. ";
+                isValid = false;
             }
 
             return isValid;

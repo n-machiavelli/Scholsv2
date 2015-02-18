@@ -47,6 +47,7 @@
             var isValid = true;
             var emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
             var nameRegex = /^[A-Za-z]+$/;
+            var majorRegex = /^[A-Za-z\(\)\[\]\- ]+$/;
             var numberRegex = /^[0-9.]+$/;
             //var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
             if (!(emailRegex.test(vm.registration.email))) {
@@ -54,22 +55,28 @@
                 isValid = false;
             }
             if (!(nameRegex.test(vm.registration.FirstName)) || !(nameRegex.test(vm.registration.LastName))) {
-                vm.message += "Invalid First Name / Last Name. ";
+                vm.message += "Invalid First Name / Last Name. Avoid numbers and spaces";
+                isValid = false;
             }
-            if (!(nameRegex.test(vm.registration.UserMajor)) && vm.registration.UserMajor != undefined) {
+            if (!(majorRegex.test(vm.registration.UserMajor)) && vm.registration.UserMajor != undefined) {
                 vm.message += "Invalid Major. ";
+                isValid = false;
             }
-            if (!(numberRegex.test(vm.registration.presentGPA)) && vm.registration.presentGPA != undefined) {
+            if (vm.registration.PresentGPA != undefined && (!(numberRegex.test(vm.registration.PresentGPA)) || vm.registration.PresentGPA>4)) {
                 vm.message += "Invalid present GPA. ";
+                isValid = false;
             }
-            if (!(numberRegex.test(vm.registration.highschoolGPA)) && vm.registration.highschoolGPA != undefined) {
+            if (vm.registration.HighSchoolGPA != undefined && (!(numberRegex.test(vm.registration.HighSchoolGPA)) || vm.registration.HighSchoolGPA > 4)) {
                 vm.message += "Invalid high school GPA. ";
+                isValid = false;
             }
             if (!(numberRegex.test(vm.registration.PhoneNumber)) && vm.registration.PhoneNumber != undefined) {
                 vm.message += "Invalid Phone number. ";
+                isValid = false;
             }
             if (!(numberRegex.test(vm.registration.UniversityId)) && vm.registration.UniversityId != undefined) {
                 vm.message += "Invalid University ID. ";
+                isValid = false;
             }
 
             if (vm.registration.password != vm.registration.confirmPassword) {

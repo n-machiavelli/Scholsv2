@@ -9,7 +9,7 @@
 
     /* @ngInject */
     function searchController(searchService, $location, $anchorScroll, authService, $routeParams,$log) {
-        /* jshint validthis: true */
+        
         var vm = this;
         vm.activate = activate;
         vm.spinnerdisplay = "hideme";
