@@ -4,7 +4,7 @@
 <div class="form2" data-ng-repeat="myApplication in vm.myApplications">
         <form>
             <h4 data-ng-bind="myApplication.ScholarshipName"></h4>
-            <h4 data-ng-bind="myApplication.ApplyDate"></h4>
+            <h4 data-ng-bind="myApplication.ApplyDateString"></h4>
             <div class="top-row">
                 <div class="field-wrap">
                     <label for="firstname">First Name</label>
@@ -73,6 +73,12 @@
                 <div class="field-wrap">
                     <label for="address">Mailing Address</label>
                     <span id="address" data-ng-bind="myApplication.address"></span>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="status">Status</label>
+                    <span id="status" data-ng-bind="myApplication.status"></span>
                 </div>
             </div>
             <br />
