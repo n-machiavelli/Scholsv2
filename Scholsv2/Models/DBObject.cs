@@ -222,7 +222,8 @@ namespace Schols.Models
             sqlstr += " LEFT OUTER JOIN UHELP.USER_CD uu on su.USER_CD=UU.USER_CD ";
             sqlstr += " WHERE regexp_like(s.FUND_ACCT, :fundAcct, 'i')  AND regexp_like(s.SCHLRSHP_NUM, :scholarNum, 'i') AND s.SCHLR_USER_VARBL2 = 'Y' and f.FUND_OPEN_ATTRB='O'";
             //sqlstr += " AND (uu.USER_GRP='SCHMJ' or uu.USER_GRP='SCHYR' or uu.USER_GRP='SCHOT')";
-            sqlstr += "AND ((s.audit_tran_id is not null and (uu.USER_GRP='SCHMJ' or uu.USER_GRP='SCHYR' or uu.USER_GRP='SCHOT' or uu.USER_GRP='SCHCO')) or s.audit_tran_id is null)";
+            sqlstr += "AND ((su.audit_tran_id is not null and (uu.USER_GRP='SCHMJ' or uu.USER_GRP='SCHYR' or uu.USER_GRP='SCHOT' or uu.USER_GRP='SCHCO')) or su.audit_tran_id is null)";
+            //see queries documentation for change made to above line that resolved issue with some scholarships displaying blank.
             List<OracleParameter> parameters = new List<OracleParameter>();
             parameters.Add(new OracleParameter("fundAcct", fundAcct));
             parameters.Add(new OracleParameter("scholarNum", scholarNum));
