@@ -395,7 +395,7 @@ namespace Schols.Models
         public DataTable GetPublicApplicationsTable(string fund_acct = "", string username = "")
         {
             string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,a.fund_acct,essayfilename,username,reffilename,scholarshipyear ";
-            sqlstr+=",frml_schlrshp_name,status,communityservice,extracurricular,awardshonors,presentgpa,highschoolgpa,expectedgraduation,applydate ";
+            sqlstr+=",frml_schlrshp_name,status,communityservice,extracurricular,awardshonors,presentgpa,highschoolgpa,expectedgraduation,applydate,usermajor ";
             sqlstr += "FROM scholarshipcenter.applications a JOIN summit.schlrshp s ON (regexp_like(s.fund_acct,a.fund_acct,'i') and s.SCHLR_USER_VARBL2 = 'Y')"; //TODO: WHERE
             bool hasFundAcct = false;
             if (!(fund_acct == null) && !fund_acct.Equals(""))
@@ -421,7 +421,7 @@ namespace Schols.Models
         public DataTable GetHiddenApplicationsTable(string fund_acct = "", string username = "")
         {
             string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,a.fund_acct,essayfilename,username,reffilename,scholarshipyear ";
-            sqlstr += ",frml_schlrshp_name,status,communityservice,extracurricular,awardshonors,presentgpa,highschoolgpa,expectedgraduation,applydate ";
+            sqlstr += ",frml_schlrshp_name,status,communityservice,extracurricular,awardshonors,presentgpa,highschoolgpa,expectedgraduation,applydate,usermajor ";
             sqlstr += "FROM scholarshipcenter.applications a JOIN scholarshipcenter.hiddenschlrshp hs ON regexp_like(hs.fund_acct,a.fund_acct,'i')"; //TODO: WHERE
             bool hasFundAcct = false;
             if (!(fund_acct == null) && !fund_acct.Equals(""))
@@ -838,14 +838,15 @@ namespace Schols.Models
                 application.middlename = dt.Rows[i]["middlename"].ToString().Trim();
                 application.address = dt.Rows[i]["address"].ToString().Trim();
                 application.phonenumber = dt.Rows[i]["phonenumber"].ToString().Trim();
-                application.email = dt.Rows[i]["email"].ToString().Trim();
+                //application.email = dt.Rows[i]["email"].ToString().Trim();
                 application.fund_acct = dt.Rows[i]["fund_acct"].ToString().Trim();
-                application.username = dt.Rows[i]["username"].ToString().Trim();
+                application.UserName = dt.Rows[i]["username"].ToString().Trim();
                 application.essayfilename = dt.Rows[i]["essayfilename"].ToString().Trim();
                 application.reffilename = dt.Rows[i]["reffilename"].ToString().Trim();
                 application.status = dt.Rows[i]["status"].ToString().Trim();
                 application.ScholarshipYear = dt.Rows[i]["scholarshipyear"].ToString().Trim();
                 application.ApplyDate = (DateTime)dt.Rows[i]["applydate"];
+                application.UserMajor = dt.Rows[i]["usermajor"].ToString().Trim();
                 application.ApplyDateString = String.Format("{0:MMM dd, yyyy HH:mm:ss}", application.ApplyDate);
                 if (username != null || (username!=null && !username.Equals("")))
                 {
@@ -871,13 +872,14 @@ namespace Schols.Models
                 application.middlename = dt.Rows[i]["middlename"].ToString().Trim();
                 application.address = dt.Rows[i]["address"].ToString().Trim();
                 application.phonenumber = dt.Rows[i]["phonenumber"].ToString().Trim();
-                application.email = dt.Rows[i]["email"].ToString().Trim();
+                //application.email = dt.Rows[i]["email"].ToString().Trim();
                 application.fund_acct = dt.Rows[i]["fund_acct"].ToString().Trim();
-                application.username = dt.Rows[i]["username"].ToString().Trim();
+                application.UserName = dt.Rows[i]["username"].ToString().Trim();
                 application.essayfilename = dt.Rows[i]["essayfilename"].ToString().Trim();
                 application.reffilename = dt.Rows[i]["reffilename"].ToString().Trim();
                 application.ScholarshipYear = dt.Rows[i]["scholarshipyear"].ToString().Trim();
                 application.ApplyDate = (DateTime)dt.Rows[i]["applydate"];
+                application.UserMajor = dt.Rows[i]["usermajor"].ToString().Trim();
                 if (username != null || !username.Equals(""))
                 {
                     application.ExpectedGraduation = dt.Rows[i]["expectedgraduation"].ToString().Trim();

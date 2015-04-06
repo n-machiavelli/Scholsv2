@@ -17,7 +17,7 @@
                 <th><a href="" ng-click="vm.orderColumn = 'firstname'; vm.reverseOrder=!vm.reverseOrder">First Name</a></th>
                 <th><a href="" ng-click="vm.orderColumn = 'lastname'; vm.reverseOrder=!vm.reverseOrder">Last Name</a></th>
                 <th>Middle Name</th>
-                <th><a href="" ng-click="vm.orderColumn = 'email'; vm.reverseOrder=!vm.reverseOrder">Email Address</a></th>
+                <th><a href="" ng-click="vm.orderColumn = 'UserName'; vm.reverseOrder=!vm.reverseOrder">Username</a></th>
                 <th>Phone</th>
                 <th>University ID</th>
                 <th>Essay File</th>
@@ -34,7 +34,7 @@
                 <td>{{application.firstname}}</td>
                 <td>{{application.lastname}}</td>
                 <td>{{application.middlename}}</td>
-                <td>{{application.email}}</td>
+                <td>{{application.UserName}}</td>
                 <td>{{application.phonenumber}}</td>
                 <td>{{application.UniversityId}}</td>
                 <td><a target="_blank" href="../api/Upload/{{application.username}}/{{application.essayfilename}}">Essay</a></td>

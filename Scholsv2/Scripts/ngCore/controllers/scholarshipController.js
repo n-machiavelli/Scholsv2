@@ -72,8 +72,8 @@
             var numberRegex = /^[0-9.]+$/;
             var majorRegex = /^[A-Za-z\(\)\[\]\- ]+$/;
             //var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-            if (!(emailRegex.test(vm.email))) {
-                vm.message += "Invalid email address. ";
+            if (!(emailRegex.test(vm.UserName))) {
+                vm.message += "Invalid email address/username. ";
                 isValid = false;
             }
             if (!(nameRegex.test(vm.firstname)) || !(nameRegex.test(vm.lastname))) {
@@ -121,7 +121,7 @@
                 vm.lastname =      "";
                 vm.usermajor =     "";
                 vm.phonenumber =    "";
-                vm.email =         "";
+                vm.UserName =         "";
                 vm.UniversityId = "";
                 vm.address = "";
                 vm.scholarshipyear = "";
@@ -150,7 +150,7 @@
                         vm.lastname = vm.profile.LastName;
                         vm.usermajor = vm.profile.UserMajor;
                         vm.phonenumber = vm.profile.PhoneNumber;
-                        vm.email = vm.profile.Email;
+                        vm.UserName= vm.profile.UserName;
                         vm.UniversityId = vm.profile.UniversityId;
                         vm.communityService = vm.profile.CommunityService;
                         vm.extraCurricular = vm.profile.ExtraCurricular;
@@ -175,7 +175,7 @@
                 vm.lastname =      "";
                 vm.usermajor =     "";
                 vm.phonenumber =    "";
-                vm.email =         "";
+                vm.UserName =         "";
                 vm.universityid = "";
                 vm.communityService ="";
                 vm.extraCurricular = "";
