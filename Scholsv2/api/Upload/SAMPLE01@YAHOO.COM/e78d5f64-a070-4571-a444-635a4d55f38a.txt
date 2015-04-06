@@ -1,0 +1,74 @@
+package org.isu.app.calc;
+
+import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+@RunWith(Parameterized.class)
+
+public class CalculatorAppTEST1 {
+
+	private int inputNumber1;
+	private int inputNumber2;
+	private double divideResult;
+	private CalculatorApp dividetest;
+	
+	
+   
+	
+		
+public  CalculatorAppTEST1 (int inputNumber1,int inpNumber2, double divideResult){
+	this.inputNumber1 = inputNumber1;
+	this.inputNumber2 = inpNumber2;	
+	this.divideResult = divideResult;
+}
+	
+@Before
+	public void initializeCalculatorApp(){
+	dividetest = new CalculatorApp();
+		
+	}
+	
+	@Parameterized.Parameters
+	public static Collection divideNumbers(){
+		return Arrays.asList(new Object[][]{
+			
+			
+				{2,2,0},
+				{6,3,2},
+				{8,4,2},
+				{10,5,2},
+				{20,5,4}
+	});
+		
+		
+		}
+	
+	
+	
+	@Test(expected=ArithmeticException.class)
+	public void test(){
+		//System.out.println("Parameterized Number is:" + inputNumber1);
+		
+		System.out.println("Number 1 is :" + inputNumber1 + inputNumber2);
+		assertEquals((divideResult), dividetest.divide(inputNumber1, inputNumber2));
+		
+				
+				//divide(inputNumber1, inputNumber1));
+	}
+
+
+	}	
+
+	
+	
+	
+	
+	
+	

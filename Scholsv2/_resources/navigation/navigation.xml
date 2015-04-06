@@ -1,0 +1,59 @@
+<!--
+* Don't forget to use &amp; instead of &.
+* To create a line break, mark-up the label with a [br]
+* Use addclass attribute to specify a custom class for the li and link
+* Use attribute hidden="true" to exclude a root level nav element from the mast navigation
+* Wrap each level of navigation in a container
+* Global links appear at the bottom of the section nav on every page
+-->
+<navigation>
+	<container>
+		<nav label="Home" url="/"></nav>
+		<nav label="Giving" url="/giving/"></nav>
+		<nav label="About" url="/about/"></nav>
+		<nav label="Contact Us" url="/contact/"></nav>
+		<nav label="Design" url="/_design/" hidden="true">
+			<nav label="Design Home" url="/_design/" addclass="design_home" />
+			<nav label="Home Page" url="/_design/home.php" title="Design Home Page Here" />
+			<nav label="Interior Page" url="/_design/interior.php" />
+			<nav label="Layouts" url="/_design/layouts/">
+				<nav label="Basic" url="/_design/layouts/basic/">
+					<nav label="With Intro" url="/_design/layouts/basic/intro.php" />
+					<nav label="With Split-Intro" url="/_design/layouts/basic/split.php" />
+				</nav>
+				<nav label="Call-out" url="/_design/layouts/callout/">
+					<nav label="With Intro" url="/_design/layouts/callout/intro.php" />
+					<nav label="With Split-Intro" url="/_design/layouts/callout/split.php" />
+				</nav>
+				<nav label="Sidebar" url="/_design/layouts/sidebar/">
+					<nav label="With Intro" url="/_design/layouts/sidebar/intro.php" />
+					<nav label="With Split-Intro" url="/_design/layouts/sidebar/split.php" />
+				</nav>
+				<nav label="Option Box" url="/_design/layouts/optionbox/">
+					<nav label="With Intro" url="/_design/layouts/optionbox/intro.php" />
+					<nav label="With Split-Intro" url="/_design/layouts/optionbox/split.php" />
+				</nav>
+				<nav label="Two Column" url="/_design/layouts/twocol/">
+					<nav label="With Intro" url="/_design/layouts/twocol/intro.php" />
+					<nav label="With Split-Intro" url="/_design/layouts/twocol/split.php" />
+				</nav>
+				<nav label="Three Column" url="/_design/layouts/threecol/">
+					<nav label="With Intro" url="/_design/layouts/threecol/intro.php" />
+					<nav label="With Split-Intro" url="/_design/layouts/threecol/split.php" />
+				</nav>
+			</nav>
+			<nav label="All the things [br /] &amp; break in link" url="/_design/allthethings.php" />
+			<nav label="Search Results" url="/_design/searchresults.php" />
+			<nav label="External Link" url="http://www.goredbirds.com" target="_blank" />
+		</nav>
+	</container>
+	<global>
+	<![CDATA[
+		<ul class="global">
+			<li class="global">
+				<a class="global" href="/">Home</a>
+			</li>
+		</ul>
+	]]>
+	</global>
+</navigation>

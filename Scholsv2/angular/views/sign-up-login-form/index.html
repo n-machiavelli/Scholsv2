@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>CodePen - Sign-Up/Login Form</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+      <link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css" rel="stylesheet">
+<script src="http://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/normalize.css">
+
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-controller="navBarController as vm">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+                <a class="navbar-brand" href="#/search">Find Scholarships</a>
+            </div>
+
+            <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle pointer" data-toggle="dropdown" aria-expanded="false">List Colleges <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#/searchcollege/01/Applied Science and Technology">Applied Science & Technology</a></li>
+                            <li><a href="#/searchcollege/02/Arts and Sciences">Arts and Sciences</a></li>
+                            <li><a href="#/searchcollege/03/Business">Business</a></li>
+                            <!--<li class="divider"></li>
+    <li class="dropdown-header">Dropdown header</li>-->
+                            <li><a href="#/searchcollege/04/Education">Education</a></li>
+                            <li><a href="#/searchcollege/05/Fine Arts">Fine Arts</a></li>
+                            <li><a href="#/searchcollege/07/Mennonite College of Nursing">Mennonite College of Nursing</a></li>
+                        </ul>
+                    </li>
+                    <!-- Show when authorized -->
+                    <li data-ng-hide="!vm.authentication.isAuth"><a href="/">Welcome {{vm.authentication.userName}}</a></li>
+                    <li data-ng-hide="!vm.authentication.isAuth"><a data-ng-href="#/profile">My Profile</a></li>
+                    <li data-ng-hide="!vm.authentication.isAuth"><a href="#">My Favorites</a></li>
+
+                    <li data-ng-hide="!vm.authentication.isAuth"><a href="" data-ng-click="vm.logOut()">Logout</a></li>
+
+                    <!-- hide when authorized -->
+                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="#/login">Login</a></li>
+                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="#/register">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <div class="form padm">
+
+      <ul class="tab-group">
+        <li class="tab active"><a href="#signup">Sign Up</a></li>
+        <li class="tab"><a href="#login">Log In</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="signup">   
+          <h1>Sign Up for Free</h1>
+
+          <form action="/" method="post">
+
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                First Name<span class="req">*</span>
+              </label>
+              <input type="text" required autocomplete="off" />
+            </div>
+
+            <div class="field-wrap">
+              <label>
+                Middle Name<span class="req">*</span>
+              </label>
+              <input type="text"required autocomplete="off"/>
+            </div>
+          
+          </div>
+            <div class="field-wrap">
+              <label>
+                Last Name<span class="req">*</span>
+              </label>
+              <input type="text"required autocomplete="off"/>
+            </div>  
+
+          <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input type="email"required autocomplete="off"/>
+          </div>
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                University ID<span class="req">*</span>
+              </label>
+              <input type="text" required autocomplete="off" />
+            </div>
+
+            <div class="field-wrap">
+              <label>
+                Phone Number<span class="req">*</span>
+              </label>
+              <input type="text"required autocomplete="off"/>
+            </div>
+          </div>
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                Present GPA<span class="req">*</span>
+              </label>
+              <input type="text" required autocomplete="off" />
+            </div>
+
+            <div class="field-wrap">
+              <label>
+                High School GPA<span class="req">*</span>
+              </label>
+              <input type="text"required autocomplete="off"/>
+            </div>
+          </div>  
+          <div class="top-row">
+            <div class="field-wrap">
+
+                <select id="scholarshipyear" data-ng-model="vm.scholarshipyear" >
+                    <option value="" disabled selected>Scholarship Year</option>
+                    <option value="Fall 2014">Fall 2014</option>
+                    <option value="Spring 2015">Spring 2015</option>
+                    <option value="Fall 2015">Fall 2015</option>
+                    <option value="Spring 2016">Spring 2016</option>
+                    <option value="Fall 2016">Fall 2016</option>
+                    <option value="Spring 2017">Spring 2017</option>
+                    <option value="Fall 2017">Fall 2017</option>
+                    <option value="Spring 2018">Spring 2018</option>
+                    <option value="Fall 2018">Fall 2018</option>
+                </select>
+              </div>
+            <div class="field-wrap">
+          
+                <select id="expectedgraduation" data-ng-model="vm.expectedGraduation" >
+                    <option value="" disabled selected>Expected Graduation Year</option>
+                    <option value="Fall 2014">Fall 2014</option>
+                    <option value="Spring 2015">Spring 2015</option>
+                    <option value="Fall 2015">Fall 2015</option>
+                    <option value="Spring 2016">Spring 2016</option>
+                    <option value="Fall 2016">Fall 2016</option>
+                    <option value="Spring 2017">Spring 2017</option>
+                    <option value="Fall 2017">Fall 2017</option>
+                    <option value="Spring 2018">Spring 2018</option>
+                    <option value="Fall 2018">Fall 2018</option>
+                    <option value="Spring 2019">Spring 2019</option>
+                    <option value="Fall 2019">Fall 2019</option>
+                    <option value="Spring 2020">Spring 2020</option>
+                    <option value="Fall 2020">Fall 2020</option>
+                </select>
+              </div>
+            </div>
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                <span class="req">*</span>
+              </label>
+              <textarea id="communityService" data-ng-model="vm.communityService"  placeholder="Community Service"></textarea>
+            </div>
+            <div class="field-wrap">
+              <label>
+                <span class="req">*</span>
+              </label>
+              <textarea id="communityService" data-ng-model="vm.communityService" placeholder=" Extra-Curricular activities"></textarea>
+            </div>
+          </div>             
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                <span class="req">*</span>
+              </label>
+              <textarea id="awardsHonors" data-ng-model="vm.awardsHonors"  placeholder="Awards and Honors"></textarea>
+            </div>
+            <div class="field-wrap">
+              <label>
+                <span class="req">*</span>
+              </label>
+              <textarea id="address" data-ng-model="vm.address"  placeholder="Mailing Address"></textarea>
+            </div>
+          </div>             
+
+          <div class="field-wrap">
+            <label>
+              Set A Password<span class="req">*</span>
+            </label>
+            <input type="password"required autocomplete="off"/>
+          </div>
+
+          <button type="submit" class="button button-block"/>Get Started</button>
+
+          </form>
+
+        </div>
+
+        <div id="login">   
+          <h1>Welcome Back!</h1>
+
+          <form action="/" method="post">
+
+            <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input type="email"required autocomplete="off"/>
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Password<span class="req">*</span>
+            </label>
+            <input type="password"required autocomplete="off"/>
+          </div>
+
+          <p class="forgot"><a href="#">Forgot Password?</a></p>
+
+          <button class="button button-block"/>Log In</button>
+
+          </form>
+
+        </div>
+
+      </div><!-- tab-content -->
+
+</div> <!-- /form -->
+
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+
+  <script src="js/index.js"></script>
+
+</body>
+
+</html>

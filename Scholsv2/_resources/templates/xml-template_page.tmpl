@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pcf-stylesheet path="/_resources/stylesheets/standard_page.xsl" extension="<!--%echo var="fileType" -->"?>
+<?pcf-stylesheet path="/_resources/stylesheets/xml-template_page.xsl" extension="xml"?>
+<!DOCTYPE document SYSTEM "http://commons.omniupdate.com/dtd/standard.dtd">
+
+<document>
+
+	<before-closing-head></before-closing-head>
+	
+	<sub-mast-content>
+		<!-- com.omniupdate.div label="sub_mast" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<img src="/images/_isu/bell-esb.jpg" alt="Old Main Bell" width="960" height="200" />
+		<!-- /com.omniupdate.div -->
+	</sub-mast-content>
+		
+	<main-content>
+		<h1><!--%echo var="pageTitle" --></h1>
+		<h2>Multi-edit Examples</h2>
+		<h3>String</h3>
+		<p id="string"><!-- com.omniupdate.div label="me-string" group="everyone" button="hide" --><!-- com.omniupdate.multiedit type="text" prompt="string" alt="string" -->String of Text<!-- /com.omniupdate.div -->
+		</p>
+		<h3>Editor</h3>
+		<div id="editor"><!-- com.omniupdate.div label="editor-string" group="everyone" button="hide" --><!-- com.omniupdate.multiedit type="textarea" prompt="Editor" alt="Editor" rows="20" editor="yes" --><p>Nullam enim leo, egestas id, condimentum at, laoreet mattis, massa. Suspendisse vulputate aliquam dui. Nulla elementum dui ut augue. Aliquam erat volutpat.</p><!-- /com.omniupdate.div -->
+		</div>
+		<h3>Radio buttons</h3>
+		<p id="radio"><!-- com.omniupdate.div label="me-radio" group="everyone" button="hide" --><!-- com.omniupdate.multiedit type="radio" prompt="radio" alt="choose" options="Option 1:Option 1;Option 2:Option 2;Option 3:Option 3" section="Selectable" -->Option 1<!-- /com.omniupdate.div --></p>
+		<h3>Check boxes</h3>
+		<p id="checkbox"><!-- com.omniupdate.div label="me-checkbox" group="everyone" button="hide" --><!-- com.omniupdate.multiedit type="checkbox" prompt="check" alt="checkbox" options="Check 1:Check 1;Check 2:Check 2;Check 3:Check 3" -->Check 1<!-- /com.omniupdate.div --></p>
+		<h3>Select Box</h3>
+		<p id="select"><!-- com.omniupdate.div label="me-select" group="everyone" button="hide" --><!-- com.omniupdate.multiedit type="select" prompt="select" alt="choose" options="Select 1:Select 1;Select 2:Select 2;Select 3:Select 3" -->Select 1<!-- /com.omniupdate.div --></p>
+		<h3>Image</h3>
+		<div id="image">
+		<!-- com.omniupdate.div label="image" button="hide" group="everyone" --><!-- com.omniupdate.multiedit type="image" prompt="Image" alt="" path="/structure/" lockout="yes" -->
+			<img src="/structure/logo/wordmark_print.jpg" alt="ISU"/>
+		<!-- /com.omniupdate.div -->
+		</div>
+		<h2>Description</h2>
+		<section id="description">
+		<!-- com.omniupdate.div label="description" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<h1>Maecenas at justo</h1>
+			<p>Maecenas placerat, nisl at consequat rhoncus, sem nunc gravida justo. Duis quam. Nam eget lacus. Aenean porttitor eros vel dolor.Cras a ante vitae enim iaculis aliquam.
+			Sed odio est, auctor ac, sollicitudin in, consequat vitae, orci. Aliquam vehicula mi at mauris. Duis quam. Nam eget lacus.Maecenas placerat, nisl at consequat rhoncus,
+			sem nunc gravida justo. Mauris nunc quam, venenatis nec, euismod sit amet, egestas placerat, est. Mauris nunc quam, venenatis nec, euismod sit amet, egestas placerat,
+			est.Praesent mauris ante, elementum et, bibendum at, posuere sit amet, nibh. Maecenas at justo id velit placerat molestie. Pellentesque habitant morbi tristique
+			senectus et netus et turpis egestas.Morbi magna magna, tincidunt a, mattis non, imperdiet vitae, tellus. Donec dictum lectus non odio. Donec dictum lectus non odio.
+			Nullam enim leo, egestas id, condimentum at, laoreet mattis, massa.</p>
+		<!-- /com.omniupdate.div -->
+		</section>
+		<h2>Short Description</h2>
+		<section id="short">
+		<!-- com.omniupdate.div label="short" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<p>Short: Integer quis urna. Sed eleifend nonummy diam. Vivamus sollicitudin metus eget eros. Ut accumsan ultricies elit.</p>
+		<!-- /com.omniupdate.div -->
+		</section>
+		<h2>Facts</h2>
+		<section id="facts">
+		<!-- com.omniupdate.div label="facts" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<ul>
+				<li>Fact 1</li>
+				<li>Factoid 2</li>
+				<li>Fact 3</li>
+			</ul>
+		<!-- /com.omniupdate.div -->
+		</section>
+		<h2>Table</h2>
+		<section id="table">
+		<!-- com.omniupdate.div label="table" button="707" group="everyone" --><!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" --><table border="0" cellspacing="2" cellpadding="10">
+<tbody>
+<tr>
+<td>
+<h3>Advisor's Name</h3>
+</td>
+<td>
+<h3>Phone No.</h3>
+</td>
+<td>
+<h3>Office Address</h3>
+</td>
+<td>
+<h3>Email ID</h3>
+</td>
+<td>
+<h3>Note</h3>
+</td>
+</tr>
+<tr>
+<td>abc</td>
+<td>&nbsp;309-123-4567</td>
+<td>&nbsp;S. University St.</td>
+<td>&nbsp;abc@ilstu.edu</td>
+<td>This is a Sample information</td>
+</tr>
+<tr>
+<td>&nbsp;asdaf</td>
+<td>&nbsp;1321-564</td>
+<td>&nbsp;asdf</td>
+<td>abcd</td>
+<td>xsdfc</td>
+</tr>
+</tbody>
+</table><!-- /com.omniupdate.div -->
+		</section>
+	</main-content>
+		
+	<main-content>
+		<!-- com.omniupdate.div label="content_2" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<h1>Section 2</h1>
+			<p>Enter your page content here...</p>
+		<!-- /com.omniupdate.div -->
+	</main-content>
+	
+
+	<main-content>
+		<!-- com.omniupdate.div label="content_3" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<h1>Section 3</h1>
+			<p>Enter your page content here...</p>
+		<!-- /com.omniupdate.div -->
+	</main-content>
+	
+	<main-content>
+		<!-- com.omniupdate.div label="content_4" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<h1>Section 4</h1>
+			<p>Enter your page content here...</p>
+		<!-- /com.omniupdate.div -->
+	</main-content>
+	
+	<main-content>
+		<!-- com.omniupdate.div label="content_5" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<h1>Section 5</h1>
+			<p>Enter your page content here...</p>
+		<!-- /com.omniupdate.div -->
+	</main-content>
+	
+	<option-box-content>
+		<!-- com.omniupdate.div label="option_box_1" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<h2>Option Box 1</h2>
+		<p>Enter option box content...</p>
+		<!-- /com.omniupdate.div -->
+	</option-box-content>
+	
+	<option-box-content>
+		<!-- com.omniupdate.div label="option_box_2" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<h2>Option Box 2</h2>
+		<p>Enter option box content...</p>
+		<!-- /com.omniupdate.div -->
+	</option-box-content>
+	
+	<option-box-content>
+		<!-- com.omniupdate.div label="option_box_3" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<h2>Option Box 3</h2>
+		<p>Enter option box content...</p>
+		<!-- /com.omniupdate.div -->
+	</option-box-content>
+	
+	<option-box-content>
+		<!-- com.omniupdate.div label="option_box_4" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<h2>Option Box 4</h2>
+		<p>Enter option box content...</p>
+		<!-- /com.omniupdate.div -->
+	</option-box-content>
+
+	<sub-content-content>
+		<!-- com.omniupdate.div label="sub_content" button="707" group="everyone" -->
+		<!-- com.omniupdate.editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<p>Enter sub-content content here...</p>
+		<!-- /com.omniupdate.div -->
+	</sub-content-content>
+	
+	<before-closing-body></before-closing-body>
+	
+	<config>
+		<!-- com.omniupdate.properties -->
+		
+		<title><!--%echo var="pageTitle" --></title>
+		
+		<parameter name="page-layout" type="select" group="everyone" prompt="Page Layout" alt="Pick a page layout." section="Page Layouts">
+			<option value="basic" selected="true">Basic</option>
+			<option value="callout" selected="false">Call-out</option>
+			<option value="sidebar" selected="false">Sidebar</option>
+			<option value="optionbox" selected="false">Option Box</option>
+			<option value="twocol" selected="false">2-Column</option>
+			<option value="threecol" selected="false">3-Column</option>
+			<option value="custom1" selected="false">Custom 1</option>
+			<option value="custom2" selected="false">Custom 2</option>
+                </parameter> 
+		
+		<parameter name="intro-layout" type="select" group="everyone" prompt="Intro Section Layout" alt="Pick a intro section layout.">
+			<option value="none" selected="true">No Intro</option>
+			<option value="intro" selected="false">Intro: one section</option>
+			<option value="split" selected="false">Split-Intro: two sections</option>
+                </parameter>
+		
+		<parameter name="giving" type="checkbox" group="Everyone" prompt="Display Giving button" alt="" section="Page options">
+			<option value="show_giving" selected="false">Yes</option>
+                </parameter>
+		
+		<parameter name="sub-mast" type="checkbox" group="Everyone" prompt="Display Sub Mast Region" alt="Should extended sub-mast region be displayed on this page?">
+			<option value="show_sub-mast" selected="false">Yes</option>
+                </parameter>
+		
+		<parameter name="page-tools" type="checkbox" group="page-tools_locked" prompt="Page tools" alt="Should page tools (ShareThis, Social, Print) be displayed on this page?">
+			<option value="show_page-tools" selected="false">Yes</option>
+                </parameter>
+		
+		<parameter name="feedback" type="checkbox" group="feedback_locked" prompt="Feedback Button" alt="Should feedback button be displayed on this page?">
+			<option value="show_feedback" selected="false">Yes</option>
+                </parameter>
+		
+		<!-- Option Box 1 -->
+		<parameter name="optbox1-show" type="checkbox" group="Everyone" prompt="Option Box 1" alt="Option Box 1" section="Only used with Option Box layout">
+                    <option value="show_ob1" selected="false">Yes</option>
+                </parameter>	
+				
+		<parameter name="optbox1-style" type="select" group="optbox1-style_locked" prompt="Box 1 Style" alt="Show on the page? Pick a style.">
+                    <option value="none_ob1" selected="true">None</option>
+                    <option value="style1_ob1" selected="false">Style 1</option>
+                    <option value="style2_ob1" selected="false">Style 2</option>
+                    <option value="style3_ob1" selected="false">Style 3</option>
+                    <option value="style4_ob1" selected="false">Style 4</option>
+                </parameter> 
+
+		<!-- Option Box 2 -->
+		<parameter name="optbox2-show" type="checkbox" group="Everyone" prompt="Option Box 2" alt="Option Box 2">
+                    <option value="show_ob2" selected="false">Yes</option>
+                </parameter>
+				
+		<parameter name="optbox2-style" type="select" group="optbox2-style_locked" prompt="Box 2 Style" alt="Show on the page? Pick a style.">
+                    <option value="none_ob2" selected="true">None</option>
+                    <option value="style1_ob2" selected="false">Style 1</option>
+                    <option value="style2_ob2" selected="false">Style 2</option>
+                    <option value="style3_ob2" selected="false">Style 3</option>
+                    <option value="style4_ob2" selected="false">Style 4</option>
+                </parameter>
+
+		<!-- Option Box 3 -->
+		<parameter name="optbox3-show" type="checkbox" group="Everyone" prompt="Option Box 3" alt="Option Box 3">
+                    <option value="show_ob3" selected="false">Yes</option>
+                </parameter>
+		
+					
+		<parameter name="optbox3-style" type="select" group="optbox3-style_locked" prompt="Box 3 Style" alt="Show on the page? Pick a style.">
+                    <option value="none_ob3" selected="true">None</option>
+                    <option value="style1_ob3" selected="false">Style 1</option>
+                    <option value="style2_ob3" selected="false">Style 2</option>
+                    <option value="style3_ob3" selected="false">Style 3</option>
+                    <option value="style4_ob3" selected="false">Style 4</option>
+                </parameter>
+
+		<!-- Option Box 4 -->
+		<parameter name="optbox4-show" type="checkbox" group="Everyone" prompt="Option Box 4" alt="Option Box 4">
+                    <option value="show_ob4" selected="false">Yes</option>
+                </parameter>
+				
+		<parameter name="optbox4-style" type="select" group="optbox4-style_locked" prompt="Box 4 Style" alt="Show on the page? Pick a style.">
+                    <option value="none_ob4" selected="true">None</option>
+                    <option value="style1_ob4" selected="false">Style 1</option>
+                    <option value="style2_ob4" selected="false">Style 2</option>
+                    <option value="style3_ob4" selected="false">Style 3</option>
+                    <option value="style4_ob4" selected="false">Style 4</option>
+                </parameter>
+		
+		<parameter name="sub-content" type="checkbox" group="sub-content_locked" prompt="Display Sub Content Region" alt="Should extended sub-content region be displayed on this page?" section="Admin Page options">
+                    <option value="show_sub-content" selected="false">Yes</option>
+                </parameter>
+		
+		<parameter name="section-nav" type="checkbox" group="section-nav_locked" prompt="Display Left Navigation" alt="Should section navigation be displayed on this page?">
+                    <option value="show_section-nav" selected="true">Yes</option>
+                </parameter>
+		
+		<parameter name="sub-section-nav" type="checkbox" group="sub-section-nav_locked" prompt="Display Sub-Nav include" alt="Should sub-nav include be displayed on this page?">
+                    <option value="show_sub-section-nav" selected="false">Yes</option>
+                </parameter>
+		
+		<parameter name="search-box" type="checkbox" group="search-box_locked" prompt="Display Search Box" alt="Should search box be displayed on this page?">
+                    <option value="show_search-box" selected="true">Yes</option>
+                </parameter>
+		
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+
+		<!-- /com.omniupdate.properties -->
+						
+		<template ext="<!--%echo var="fileType" -->">standard</template>
+
+	</config>
+
+</document>

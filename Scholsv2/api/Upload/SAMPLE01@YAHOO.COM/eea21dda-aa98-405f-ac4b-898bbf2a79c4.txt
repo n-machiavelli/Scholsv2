@@ -1,0 +1,216 @@
+2015-01-07 04:59:16.4102|INFO|thread: 8|AsyncReaderWriterLock|Released concurrent lock for operation 13: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:52:22.2545|INFO|thread: 1|CommandLineHandler|Parsing command line arguments:C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94\GitHub.exe
+2015-01-07 04:52:22.2655|INFO|thread: 1|AppInstanceCommunicator|Starting up as master instance of GitHub for Windows
+2015-01-07 04:52:22.3726|INFO|thread: 1|HardwareRenderingHelper|Your video card appears to support hardware rendering. If this isn't the case and you see glitches
+2015-01-07 04:52:22.3726|INFO|thread: 1|HardwareRenderingHelper|set the GH_FORCE_SW_RENDERING environment variable to 1
+2015-01-07 04:52:22.6246|WARN|thread: 1|POCOObservableForProperty|ReactiveUI.ReactiveCommandSix`1[[System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| #########################################
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| GitHub for Windows started. VERSION: 2.6.6.2
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| Build version: ea1880cdbcf4ad845816fd4de8ca77bfd383e7b7
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| ***************************************
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| ***                                 ***
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| ***                                 ***
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| ***        Have a problem?          ***
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| ***    Email support@github.com     ***
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| ***      and include this file      ***
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| ***                                 ***
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| ***                                 ***
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| ***************************************
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| OS Version: Windows 7 Service Pack 1 6.1.7601.65536 amd64
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| CLR Version: 4.0.30319.18444
+2015-01-07 04:52:22.7446|INFO|thread: 8|StartupLogging| Current culture: en-US
+2015-01-07 04:52:22.8026|INFO|thread: 8|StartupLogging| Terminal Services session: no
+2015-01-07 04:52:22.8026|INFO|thread: 8|StartupLogging| Location: C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94\GitHub.exe
+2015-01-07 04:52:22.8086|INFO|thread: 8|StartupLogging| ActivationUri: https://github-windows.s3.amazonaws.com/GitHub.application
+2015-01-07 04:52:22.9566|INFO|thread: 8|GitEnvironment|Process set up with this SSH Agent info: (null):(null)
+2015-01-07 04:52:22.9566|INFO|thread: 8|GitEnvironment|PATH is C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94;C:\Users\DONB\AppData\Local\GitHub\git-media-amd64_0.2.2;C:\Program Files (x86)\MSBuild\12.0\bin;C:\javabox\instantclient_12c;C:\javabox\instantclient_12c\bin;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;c:\Program Files (x86)\Intel\iCLS Client\;c:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Sony\VAIO Improvement\;C:\Program Files (x86)\Sony\VAIO Startup Setting Tool;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\nodejs\;C:\javabox\Console2;C:\Program Files\Java\jdk1.7.0_67\bin;C:\javabox\apache-ant-1.9.4\bin;C:\javabox\adt-bundle-windows-x86_64-20140702\sdk\tools;C:\javabox\adt-bundle-windows-x86_64-20140702\sdk\platform-tools;C:\Program Files (x86)\Git\cmd;C:\javabox\instantclient_12_1;C:\Program Files\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies\;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;c:\wamp\bin\php\php5.5.12;C:\Program Files (x86)\Graphviz2.38\bin;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\1.0\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Users\DONB\AppData\Roaming\npm
+2015-01-07 04:52:23.2226|INFO|thread: 8|StartupLogging| =====================================================
+2015-01-07 04:52:23.2226|INFO|thread: 8|StartupLogging|  DIAGNOSTICS                                        |
+2015-01-07 04:52:23.2226|INFO|thread: 8|StartupLogging| =====================================================
+2015-01-07 04:52:23.4356|INFO|thread: 8|StartupLogging| Git Extracted: 'True:
+2015-01-07 04:52:23.4356|INFO|thread: 8|StartupLogging| PortableGit Dir Exists: 'C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad'
+2015-01-07 04:52:23.4356|INFO|thread: 8|StartupLogging| Git Executable Exists: 'C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe'
+2015-01-07 04:52:23.4356|INFO|thread: 8|StartupLogging| ----------------------------------------------------
+2015-01-07 04:52:23.4356|INFO|thread: 8|StartupLogging| PATH: C:\javabox\instantclient_12c;C:\javabox\instantclient_12c\bin;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;c:\Program Files (x86)\Intel\iCLS Client\;c:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Sony\VAIO Improvement\;C:\Program Files (x86)\Sony\VAIO Startup Setting Tool;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\nodejs\;C:\javabox\Console2;C:\Program Files\Java\jdk1.7.0_67\bin;C:\javabox\apache-ant-1.9.4\bin;C:\javabox\adt-bundle-windows-x86_64-20140702\sdk\tools;C:\javabox\adt-bundle-windows-x86_64-20140702\sdk\platform-tools;C:\Program Files (x86)\Git\cmd;C:\javabox\instantclient_12_1;C:\Program Files\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\PrivateAssemblies\;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;c:\wamp\bin\php\php5.5.12;C:\Program Files (x86)\Graphviz2.38\bin;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\1.0\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Users\DONB\AppData\Roaming\npm
+2015-01-07 04:52:24.1317|INFO|thread: 8|StartupLogger|Proxy information: (None)
+2015-01-07 04:52:24.1317|INFO|thread: 8|StartupLogger|Couldn't fetch creds for proxy
+2015-01-07 04:52:25.4257|INFO|thread: 8|PortablePackageManager|Already extracted PortableGit.7z, returning 100%
+2015-01-07 04:52:29.7340|INFO|thread: 1|ClickOnceAppIconHelper|Updating registry with our application icon 'C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94\Images\App.ico'
+2015-01-07 04:52:30.1910|WARN|thread: 1|LogHost|SuppressChangeNotifications was called (perhaps via AddRange), yet you do not
+2015-01-07 04:52:30.1910|WARN|thread: 1|LogHost|have a subscription to ShouldReset. This probably isn't what you want, as ItemsAdded
+2015-01-07 04:52:30.1910|WARN|thread: 1|LogHost|and friends will appear to 'miss' items
+2015-01-07 04:52:37.4084|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.DropRepositoryView is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:37.7794|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.DashboardView is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:37.9324|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.RepositoryCloneProgress is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:38.2085|INFO|thread: 1|GitExtractionVisualHelper|Portable Git is already extracted
+2015-01-07 04:52:38.3005|INFO|thread: 1|ReactiveScreen|Activating GitHub.ViewModels.ShellViewModel.
+2015-01-07 04:52:38.3005|INFO|thread: 1|ReactiveScreen|Activating GitHub.ViewModels.DashboardViewModel.
+2015-01-07 04:52:39.7785|INFO|thread: 8|SoftwareUpdateViewModel|Checking for new version
+2015-01-07 04:52:41.5386|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.SourceList is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:41.6647|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.SourceListRepositoryItem is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:41.8017|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.RepositoryNotFound is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:41.8657|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.PopupMenuView is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:41.9347|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.AddOrCreatePopup is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:42.1267|INFO|thread: 1|PortablePackageManager|Already extracted gitignore.7z, returning 100%
+2015-01-07 04:52:42.1507|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.CreateRepositoryTab is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:42.3947|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.BrowseRepositoriesTab is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:42.4207|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.BrowseRepositoriesList is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:42.5477|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.TwoFactorView is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:42.5637|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.CertificateErrorView is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:42.5937|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.UndoFlashView is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:43.9208|WARN|thread: 1|LogHost|SuppressChangeNotifications was called (perhaps via AddRange), yet you do not
+2015-01-07 04:52:43.9208|WARN|thread: 1|LogHost|have a subscription to ShouldReset. This probably isn't what you want, as ItemsAdded
+2015-01-07 04:52:43.9208|WARN|thread: 1|LogHost|and friends will appear to 'miss' items
+2015-01-07 04:52:44.2778|WARN|thread: 1|POCOObservableForProperty|GitHub.Validation.ReactivePropertyValidationResult is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:52:46.9800|INFO|thread: 1|RepositoryHost|Log in from cache for login 'uchman' to host 'https://api.github.com/' SUCCEEDED
+2015-01-07 04:52:47.0240|INFO|thread:21|ApplicationShellInitializer|Running post login tasks. ~/.gitconfig is set up with user.name = 'donbarry' and user.email = 'barryajokubi@yahoo.com'
+2015-01-07 04:52:47.0640|INFO|thread: 7|SSHProcessManager|Starting ssh-agent.exe
+2015-01-07 04:52:47.0720|INFO|thread: 7|PortablePackageManager|Already extracted git-media-amd64.7z, returning 100%
+2015-01-07 04:52:47.6010|WARN|thread: 1|LogHost|SuppressChangeNotifications was called (perhaps via AddRange), yet you do not
+2015-01-07 04:52:47.6010|WARN|thread: 1|LogHost|have a subscription to ShouldReset. This probably isn't what you want, as ItemsAdded
+2015-01-07 04:52:47.6010|WARN|thread: 1|LogHost|and friends will appear to 'miss' items
+2015-01-07 04:52:49.2341|INFO|thread:22|GitEnvironment|Process set up with this SSH Agent info: 12968:/tmp/ssh-bZIG1XoU5ozd/agent.7648
+2015-01-07 04:52:49.2341|INFO|thread:22|GitEnvironment|PATH is C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94;C:\Users\DONB\AppData\Local\GitHub\git-media-amd64_0.2.2;C:\Program Files (x86)\MSBuild\12.0\bin;C:\Windows\System32
+2015-01-07 04:52:49.3961|INFO|thread:22|ProcessWrapper|Starting: Process - FileName: 'C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\ssh-add.exe', Args: '"C:\Users\DONB\.ssh\github_rsa"', Working Directory: C:\Users\DONB\AppData\Local\Temp\
+2015-01-07 04:52:50.1181|INFO|thread: 7|SSHKeyHelper|Found existing SSH key pair
+2015-01-07 04:56:50.8799|INFO|thread: 1|CreateNewRepositoryViewModel|Creating and initializing new local repository here 'C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2'
+2015-01-07 04:56:51.0569|INFO|thread:27|CreateNewRepositoryViewModel|Created repository sucessfully: 'C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2'
+2015-01-07 04:56:51.0569|INFO|thread:28|AsyncReaderWriterLock|Acquiring exclusive lock for operation 1: 'CreateCommit' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:56:51.1669|INFO|thread:26|AsyncReaderWriterLock|Acquired exclusive lock for operation 1: 'CreateCommit' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:56:51.2979|INFO|thread:26|ExclusiveRepositoryConnection|Creating Commit
+2015-01-07 04:56:51.3479|INFO|thread:26|ExclusiveRepositoryConnection|Creating new commit with 2 file(s). :tada: Added .gitattributes & .gitignore files
+2015-01-07 04:56:51.4309|INFO|thread:26|AsyncReaderWriterLock|Released exclusive lock for operation 1: 'CreateCommit' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:56:51.5079|WARN|thread: 1|POCOObservableForProperty|ReactiveUI.ReactiveCommandSix`1[[System.Reactive.Unit, System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:51.6460|WARN|thread: 1|LogHost|SuppressChangeNotifications was called (perhaps via AddRange), yet you do not
+2015-01-07 04:56:51.6460|WARN|thread: 1|LogHost|have a subscription to ShouldReset. This probably isn't what you want, as ItemsAdded
+2015-01-07 04:56:51.6460|WARN|thread: 1|LogHost|and friends will appear to 'miss' items
+2015-01-07 04:56:51.8590|WARN|thread: 1|POCOObservableForProperty|ReactiveUI.ReactiveCommandSix`1[[GitHub.Models.ICommitModel, GitHub, Version=2.6.6.2, Culture=neutral, PublicKeyToken=null]] is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:51.9080|INFO|thread:28|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2
+2015-01-07 04:56:51.9250|INFO|thread:28|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.
+2015-01-07 04:56:53.0600|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-01-07 04:56:53.0740|INFO|thread:27|AsyncReaderWriterLock|Acquiring concurrent lock for operation 2: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:56:53.0740|INFO|thread:28|AsyncReaderWriterLock|Acquired concurrent lock for operation 2: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:56:53.1100|INFO|thread:28|AsyncReaderWriterLock|Released concurrent lock for operation 2: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:56:53.7681|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.RepositoryView is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:53.8061|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.PublishToHostButton is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:53.8151|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.AheadBehindIndicator is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:54.1151|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.CommitForm is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:54.1571|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.NewCommitView is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:54.1951|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.PublishToHostPopup is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:54.2351|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.PublishToHostTab is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:54.3131|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.GitHubLogin is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:54.4311|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.GitHubEnterpriseLogin is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:54.4661|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.BranchesPopup is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:54.5731|INFO|thread:26|AsyncReaderWriterLock|Acquiring concurrent lock for operation 3: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:56:54.5731|INFO|thread:27|AsyncReaderWriterLock|Acquired concurrent lock for operation 3: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:56:54.5761|INFO|thread:28|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2
+2015-01-07 04:56:54.5761|INFO|thread:27|GitEnvironment|Process set up with this SSH Agent info: 12968:/tmp/ssh-bZIG1XoU5ozd/agent.7648
+2015-01-07 04:56:54.5761|INFO|thread:27|GitEnvironment|PATH is C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94;C:\Users\DONB\AppData\Local\GitHub\git-media-amd64_0.2.2;C:\Program Files (x86)\MSBuild\12.0\bin;C:\Windows\System32
+2015-01-07 04:56:54.5761|INFO|thread:27|ProcessWrapper|Starting: Process - FileName: 'C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\
+2015-01-07 04:56:54.5761|INFO|thread:28|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.
+2015-01-07 04:56:54.6241|INFO|thread:25|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2
+2015-01-07 04:56:54.6241|INFO|thread:25|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.
+2015-01-07 04:56:54.8001|INFO|thread:28|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2
+2015-01-07 04:56:54.8001|INFO|thread:28|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.
+2015-01-07 04:56:54.9531|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.Controls.CommitListItem is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:56:57.2243|INFO|thread:26|AsyncReaderWriterLock|Released concurrent lock for operation 3: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:56:57.2353|INFO|thread: 1|SyncButtonViewModel|Refresh ahead/behind counts skipped because branch isn't published: refs/heads/master
+2015-01-07 04:56:57.2483|INFO|thread: 1|GitEnvironment|Process set up with this SSH Agent info: 12968:/tmp/ssh-bZIG1XoU5ozd/agent.7648
+2015-01-07 04:56:57.2483|INFO|thread: 1|GitEnvironment|PATH is C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94;C:\Users\DONB\AppData\Local\GitHub\git-media-amd64_0.2.2;C:\Program Files (x86)\MSBuild\12.0\bin;C:\Windows\System32
+2015-01-07 04:56:57.2483|INFO|thread: 1|ProcessWrapper|Starting: Process - FileName: 'C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'diff-tree --root -m -r -z --name-status 0cd42f535f985c828ad97ad5901705354f44ab60 ', Working Directory: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2
+2015-01-07 04:56:57.2483|INFO|thread: 1|GitEnvironment|Process set up with this SSH Agent info: 12968:/tmp/ssh-bZIG1XoU5ozd/agent.7648
+2015-01-07 04:56:57.2483|INFO|thread: 1|GitEnvironment|PATH is C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94;C:\Users\DONB\AppData\Local\GitHub\git-media-amd64_0.2.2;C:\Program Files (x86)\MSBuild\12.0\bin;C:\Windows\System32
+2015-01-07 04:56:57.2483|INFO|thread: 1|ProcessWrapper|Starting: Process - FileName: 'C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'diff-tree --root -m -r -z --numstat 0cd42f535f985c828ad97ad5901705354f44ab60 ', Working Directory: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2
+2015-01-07 04:56:57.2843|INFO|thread: 1|SyncButtonViewModel|Refresh ahead/behind counts skipped because branch isn't published: refs/heads/master
+2015-01-07 04:56:57.7673|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.CommitFileDiffView is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:57:42.8619|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-01-07 04:57:42.8619|INFO|thread: 8|AsyncReaderWriterLock|Acquiring concurrent lock for operation 4: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:57:42.8619|INFO|thread:29|AsyncReaderWriterLock|Acquired concurrent lock for operation 4: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:57:42.8739|INFO|thread:29|AsyncReaderWriterLock|Released concurrent lock for operation 4: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:57:43.0519|INFO|thread: 8|AsyncReaderWriterLock|Acquiring concurrent lock for operation 5: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:57:43.0519|INFO|thread: 8|AsyncReaderWriterLock|Acquired concurrent lock for operation 5: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:57:43.0519|INFO|thread:32|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2
+2015-01-07 04:57:43.0639|INFO|thread:32|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.
+2015-01-07 04:57:43.0639|INFO|thread: 8|GitEnvironment|Process set up with this SSH Agent info: 12968:/tmp/ssh-bZIG1XoU5ozd/agent.7648
+2015-01-07 04:57:43.0639|INFO|thread: 8|GitEnvironment|PATH is C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94;C:\Users\DONB\AppData\Local\GitHub\git-media-amd64_0.2.2;C:\Program Files (x86)\MSBuild\12.0\bin;C:\Windows\System32
+2015-01-07 04:57:43.0639|INFO|thread: 8|ProcessWrapper|Starting: Process - FileName: 'C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\
+2015-01-07 04:57:43.0639|INFO|thread:32|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2
+2015-01-07 04:57:43.0769|INFO|thread:32|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.
+2015-01-07 04:57:43.1529|INFO|thread:30|AsyncReaderWriterLock|Released concurrent lock for operation 5: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:57:43.1559|INFO|thread: 1|SyncButtonViewModel|Refresh ahead/behind counts skipped because branch isn't published: refs/heads/master
+2015-01-07 04:57:59.5328|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-01-07 04:57:59.5328|INFO|thread:31|AsyncReaderWriterLock|Acquiring concurrent lock for operation 6: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:57:59.5328|INFO|thread:31|AsyncReaderWriterLock|Acquired concurrent lock for operation 6: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:57:59.5488|INFO|thread:31|AsyncReaderWriterLock|Released concurrent lock for operation 6: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:57:59.5498|INFO|thread:30|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2
+2015-01-07 04:57:59.5498|INFO|thread:31|AsyncReaderWriterLock|Acquiring concurrent lock for operation 7: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:57:59.5498|INFO|thread:31|AsyncReaderWriterLock|Acquired concurrent lock for operation 7: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:57:59.5498|INFO|thread:30|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.
+2015-01-07 04:57:59.5668|INFO|thread:30|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2
+2015-01-07 04:57:59.5668|INFO|thread:31|GitEnvironment|Process set up with this SSH Agent info: 12968:/tmp/ssh-bZIG1XoU5ozd/agent.7648
+2015-01-07 04:57:59.5668|INFO|thread:31|GitEnvironment|PATH is C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94;C:\Users\DONB\AppData\Local\GitHub\git-media-amd64_0.2.2;C:\Program Files (x86)\MSBuild\12.0\bin;C:\Windows\System32
+2015-01-07 04:57:59.5668|INFO|thread:31|ProcessWrapper|Starting: Process - FileName: 'C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\
+2015-01-07 04:57:59.5668|INFO|thread:30|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.
+2015-01-07 04:57:59.6988|INFO|thread: 1|CreateNewRepositoryViewModel|Creating and initializing new local repository here 'C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2'
+2015-01-07 04:58:00.2429|INFO|thread:30|AsyncReaderWriterLock|Released concurrent lock for operation 7: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Schols2\.git
+2015-01-07 04:58:00.2699|INFO|thread:30|CreateNewRepositoryViewModel|Created repository sucessfully: 'C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2'
+2015-01-07 04:58:00.2699|INFO|thread:30|AsyncReaderWriterLock|Acquiring exclusive lock for operation 8: 'CreateCommit' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:58:00.2699|INFO|thread:30|AsyncReaderWriterLock|Acquired exclusive lock for operation 8: 'CreateCommit' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:58:00.2699|INFO|thread:30|ExclusiveRepositoryConnection|Creating Commit
+2015-01-07 04:58:00.2869|INFO|thread:30|ExclusiveRepositoryConnection|Creating new commit with 2 file(s). :boom::camel: Added .gitattributes & .gitignore files
+2015-01-07 04:58:00.3289|INFO|thread:30|AsyncReaderWriterLock|Released exclusive lock for operation 8: 'CreateCommit' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:58:00.9679|INFO|thread:31|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2
+2015-01-07 04:58:00.9719|INFO|thread:31|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.
+2015-01-07 04:58:01.1039|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-01-07 04:58:01.1039|INFO|thread:37|AsyncReaderWriterLock|Acquiring concurrent lock for operation 9: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:58:01.1039|INFO|thread:32|AsyncReaderWriterLock|Acquired concurrent lock for operation 9: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:58:01.1179|INFO|thread:32|AsyncReaderWriterLock|Released concurrent lock for operation 9: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:58:01.1179|INFO|thread:38|AsyncReaderWriterLock|Acquiring concurrent lock for operation 10: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:58:01.1179|INFO|thread:38|AsyncReaderWriterLock|Acquired concurrent lock for operation 10: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:58:01.1179|INFO|thread:34|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2
+2015-01-07 04:58:01.1279|INFO|thread:34|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.
+2015-01-07 04:58:01.1279|INFO|thread:38|GitEnvironment|Process set up with this SSH Agent info: 12968:/tmp/ssh-bZIG1XoU5ozd/agent.7648
+2015-01-07 04:58:01.1279|INFO|thread:38|GitEnvironment|PATH is C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94;C:\Users\DONB\AppData\Local\GitHub\git-media-amd64_0.2.2;C:\Program Files (x86)\MSBuild\12.0\bin;C:\Windows\System32
+2015-01-07 04:58:01.1279|INFO|thread:38|ProcessWrapper|Starting: Process - FileName: 'C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\
+2015-01-07 04:58:01.6220|INFO|thread:35|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2
+2015-01-07 04:58:01.6270|INFO|thread:35|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.
+2015-01-07 04:58:01.6550|INFO|thread:36|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2
+2015-01-07 04:58:01.6610|INFO|thread:36|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.
+2015-01-07 04:58:01.6730|INFO|thread: 1|SyncButtonViewModel|Refresh ahead/behind counts skipped because branch isn't published: refs/heads/master
+2015-01-07 04:58:03.8861|INFO|thread:30|AsyncReaderWriterLock|Released concurrent lock for operation 10: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:58:03.9581|WARN|thread: 1|POCOObservableForProperty|GitHub.Views.WorkingDirectoryFileDiffView is a POCO type and won't send change notifications, WhenAny will only return a single value!
+2015-01-07 04:58:03.9711|INFO|thread: 1|RepositoryViewModel|Created Shadow Backup for Repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2 => f56db6569c477de9b07a196049f589bc765f00a5 in 85ms
+2015-01-07 04:58:22.3411|INFO|thread: 1|SyncButtonViewModel|Refresh ahead/behind counts skipped because branch isn't published: refs/heads/master
+2015-01-07 04:58:22.3411|INFO|thread: 1|SyncButtonViewModel|Refresh ahead/behind counts skipped because branch isn't published: refs/heads/master
+2015-01-07 04:58:35.6389|INFO|thread:30|AsyncReaderWriterLock|Acquiring exclusive lock for operation 11: 'CreateCommit' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:58:35.6389|INFO|thread:37|AsyncReaderWriterLock|Acquired exclusive lock for operation 11: 'CreateCommit' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:58:35.6389|INFO|thread:37|ExclusiveRepositoryConnection|Creating Commit
+2015-01-07 04:58:58.4222|INFO|thread: 1|RepositoryViewModel|Refreshing all information for repo
+2015-01-07 04:58:58.4302|INFO|thread:35|AsyncReaderWriterLock|Acquiring concurrent lock for operation 12: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:59:14.8291|INFO|thread:37|AsyncReaderWriterLock|Released exclusive lock for operation 11: 'CreateCommit' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:59:14.8291|INFO|thread:37|AsyncReaderWriterLock|Acquired concurrent lock for operation 12: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:59:14.8381|INFO|thread:37|AsyncReaderWriterLock|Released concurrent lock for operation 12: 'LoadHeadForRepo' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:59:14.8701|WARN|thread: 1|StandardUserErrors|Showing user error Failed to create a new commit.
+LibGit2Sharp.LibGit2SharpException: Could not open 'C:/Users/DONB/Documents/Visual Studio 2013/Projects/Scholsv2/Scholsv2/App_Data/aspnet-Scholsv2-20141222115957.mdf': The process cannot access the file because it is being used by another process.
+
+   at LibGit2Sharp.Core.Ensure.HandleError(Int32 result)
+   at LibGit2Sharp.Core.Proxy.git_index_add_bypath(IndexSafeHandle index, FilePath path)
+   at LibGit2Sharp.Repository.AddToIndex(String relativePath)
+   at LibGit2Sharp.Repository.Stage(IEnumerable`1 paths, StageOptions stageOptions)
+   at GitHub.ExclusiveRepositoryConnection.<>c__DisplayClass1.<Commit>b__0()
+   at System.Reactive.Linq.ObservableImpl.Defer`1.Eval()
+   at System.Reactive.Linq.ObservableImpl.Defer`1._.Run()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Reactive.PlatformServices.ExceptionServicesImpl.Rethrow(Exception exception)
+   at System.Reactive.ExceptionHelpers.ThrowIfNotNull(Exception exception)
+   at System.Reactive.Subjects.AsyncSubject`1.GetResult()
+   at GitHub.Helpers.GitClient.<>c__DisplayClass27.<<CreateCommit>b__1e>d__30.MoveNext()
+2015-01-07 04:59:15.2642|INFO|thread:37|AsyncReaderWriterLock|Acquiring concurrent lock for operation 13: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:59:15.2642|INFO|thread: 7|AsyncReaderWriterLock|Acquired concurrent lock for operation 13: 'LoadFilesInWorkingDirectory' on resource C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.git
+2015-01-07 04:59:15.2642|INFO|thread:37|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2
+2015-01-07 04:59:15.2762|INFO|thread:37|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.
+2015-01-07 04:59:15.2762|INFO|thread: 7|GitEnvironment|Process set up with this SSH Agent info: 12968:/tmp/ssh-bZIG1XoU5ozd/agent.7648
+2015-01-07 04:59:15.2762|INFO|thread: 7|GitEnvironment|PATH is C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\DONB\AppData\Local\Apps\2.0\5YAW0GD6.3OA\7VAG76W7.LXC\gith..tion_317444273a93ac29_0002.0006_159c473f7cb71f94;C:\Users\DONB\AppData\Local\GitHub\git-media-amd64_0.2.2;C:\Program Files (x86)\MSBuild\12.0\bin;C:\Windows\System32
+2015-01-07 04:59:15.2762|INFO|thread: 7|ProcessWrapper|Starting: Process - FileName: 'C:\Users\DONB\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin\git.exe', Args: 'status --untracked-files=all --porcelain -z ', Working Directory: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\
+2015-01-07 04:59:15.8522|INFO|thread:13|GitClient|Loading commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2
+2015-01-07 04:59:15.8522|INFO|thread:13|RepositoryConnection|Loaded '1' commits for repo: C:\Users\DONB\Documents\Visual Studio 2013\Projects\Scholsv2\.

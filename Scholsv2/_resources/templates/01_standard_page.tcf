@@ -1,0 +1,41 @@
+<title>Standard Page Template</title>
+
+<variable-list>
+	<variable type="text" name="pageTitle" prompt="Page Title" alt="Give your page a title."></variable>
+	<variable name="init-page-layout" type="select" prompt="Page Layout" alt="Pick a page layout." section="Page Layout" output="xml">
+		<option value="basic" selected="true">Basic</option>
+		<option value="callout" selected="false">Call-out</option>
+		<option value="sidebar" selected="false">Sidebar</option>
+		<option value="optionbox" selected="false">Option Box</option>
+		<option value="twocol" selected="false">2-Column</option>
+		<option value="threecol" selected="false">3-Column</option>
+		<option value="custom1" selected="false">Custom 1</option>
+		<option value="custom2" selected="false">Custom 2</option>
+	</variable> 
+	<variable name="init-intro-layout" type="select" prompt="Intro Section Layout" alt="Pick a intro section layout." output="xml">
+		<option value="none" selected="true">No Intro</option>
+		<option value="intro" selected="false">Intro: one section</option>
+		<option value="split" selected="false">Split-Intro: two sections</option>
+	</variable>
+	<variable type="checkbox" name="init-giving" prompt="Display Giving button" alt="Yes / No" output="xml" section="Page Options" output="xml">
+		<option value="show_giving" selected="false">Yes</option>
+	</variable>
+	<variable name="init-sub-mast" type="checkbox" group="Everyone" prompt="Display Sub Mast Region" alt="Should extended sub-mast region be displayed on this page?" output="xml">
+		<option value="show_sub-mast" selected="false">Yes</option>
+	</variable>		
+	<variable name="init-page-tools" type="checkbox" group="page-tools_locked" prompt="Page tools" alt="Should page tools (ShareThis, Social, Print) be displayed on this page?" output="xml">
+		<option value="show_page-tools" selected="false">Yes</option>
+	</variable>		
+	<variable name="init-feedback" type="checkbox" group="feedback_locked" prompt="Feedback Button" alt="Should feedback button be displayed on this page?" output="xml">
+		<option value="show_feedback" selected="false">Yes</option>
+	</variable>
+	<variable type="select" name="fileType" prompt="File Type" alt="php / shtml" section="File Options">
+		<option value="php">Server Page (php)</option> 
+		<option value="shtml">Standard Page (shtml)</option> 	
+	</variable>
+	
+</variable-list>
+
+<template-list>
+	<template prompt-prefix="Page" filename="index" extension="pcf" display-group="no" preferred-redirect="yes" >01_standard_page.tmpl</template>
+</template-list>

@@ -1,0 +1,9 @@
+<site_definitions>
+	<site_title>Illinois State</site_title>
+	<!--
+		0 = production
+		1 = pre-production: Changes in iwssdesign are applied to the whole site
+		2 = developement: All pages are styled as the Illinois State look. Only pages in iwssdesign will pick up changes to CSS, includes, and structure images 
+	-->
+	<site_status>0</site_status>
+</site_definitions>

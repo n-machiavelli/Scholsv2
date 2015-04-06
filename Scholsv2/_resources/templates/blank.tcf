@@ -1,0 +1,8 @@
+<title>Blank</title>
+
+<variable-list>
+</variable-list>
+
+<template-list>
+	<template prompt-prefix="New file" filename="blank" display-group="no" preferred-redirect="yes" >blank.tmpl</template>
+</template-list>

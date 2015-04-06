@@ -1,0 +1,40 @@
+<div class="modal">
+  <ion-header-bar>
+    <h1 class="title">Your Profile</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeProfileModal()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+ <div class="card" ng-repeat="myApplication in myApplications">
+      <div class="item item-text-wrap">
+        <b>First Name:</b>{{profile.FirstName}}
+      </div>
+      <div class="item item-text-wrap">
+        <b>Middle Name:</b>{{profile.MiddleName}}
+      </div>
+      <div class="item item-text-wrap">
+        <b>Last Name:</b>{{profile.LastName}}
+      </div>
+      <div class="item item-text-wrap">
+        <b>Major:</b>{{profile.UserMajor}}
+      </div>
+      <div class="item item-text-wrap">
+        <b>Phone Number:</b>{{profile.PhoneNumber}}
+      </div>
+      <div class="item item-text-wrap">
+        <b>Email Address:</b>{{profile.Email}}
+      </div>
+      <div class="item item-text-wrap">
+        <b>University Id:</b>{{profile.UniversityId}}
+      </div>
+      <div class="item item-text-wrap">
+        <b>High school GPA:</b>{{profile.HighSchoolGPA}}
+      </div>
+      <div class="item item-text-wrap">
+        <b>Present GPA:</b>{{profile.PresentGPA}}
+      </div>
+
+    </div>
+  </ion-content>
+</div>

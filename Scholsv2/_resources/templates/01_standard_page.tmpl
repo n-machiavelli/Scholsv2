@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pcf-stylesheet path="/_resources/stylesheets/standard_page.xsl" extension="<!--%echo var="fileType" -->"?>
+<!DOCTYPE document SYSTEM "http://cdn.illinoisstate.edu/dtd/ou/standard.dtd">
+
+<document>
+
+	<before-closing-head></before-closing-head>
+	
+	<sub-mast-content>
+		<!-- ouc:div label="sub_mast" button="707" group="everyone" -->
+		<!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<img src="//cdn.illinoisstate.edu/default/images/submast.jpg" alt="Old Main Bell" width="100%" />
+		<!-- /ouc:div -->
+	</sub-mast-content>
+	
+	<main-content>
+		<!-- ouc:div label="content_1" button="707" group="everyone" -->
+		<!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<h1><!--%echo var="pageTitle" --></h1>
+			<p>Enter your page content here...</p>
+		<!-- /ouc:div -->
+	</main-content>
+		
+	<main-content>
+		<!-- ouc:div label="content_2" button="707" group="everyone" -->
+		<!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<h1>Section 2</h1>
+			<p>Enter your page content here...</p>
+		<!-- /ouc:div -->
+	</main-content>
+
+	<main-content>
+		<!-- ouc:div label="content_3" button="707" group="everyone" -->
+		<!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<h1>Section 3</h1>
+			<p>Enter your page content here...</p>
+		<!-- /ouc:div -->
+	</main-content>
+	
+	<main-content>
+		<!-- ouc:div label="content_4" button="707" group="everyone" -->
+		<!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<h1>Section 4</h1>
+			<p>Enter your page content here...</p>
+		<!-- /ouc:div -->
+	</main-content>
+	
+	<main-content>
+		<!-- ouc:div label="content_5" button="707" group="everyone" -->
+		<!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+			<h1>Section 5</h1>
+			<p>Enter your page content here...</p>
+		<!-- /ouc:div -->
+	</main-content>
+	
+	<option-box-content>
+		<!-- ouc:div label="option_box_1" button="707" group="everyone" -->
+		<!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<h2>Option Box 1</h2>
+		<p>Enter option box content...</p>
+		<!-- /ouc:div -->
+	</option-box-content>
+	
+	<option-box-content>
+		<!-- ouc:div label="option_box_2" button="707" group="everyone" -->
+		<!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<h2>Option Box 2</h2>
+		<p>Enter option box content...</p>
+		<!-- /ouc:div -->
+	</option-box-content>
+	
+	<option-box-content>
+		<!-- ouc:div label="option_box_3" button="707" group="everyone" -->
+		<!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<h2>Option Box 3</h2>
+		<p>Enter option box content...</p>
+		<!-- /ouc:div -->
+	</option-box-content>
+	
+	<option-box-content>
+		<!-- ouc:div label="option_box_4" button="707" group="everyone" -->
+		<!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<h2>Option Box 4</h2>
+		<p>Enter option box content...</p>
+		<!-- /ouc:div -->
+	</option-box-content>
+
+	<sub-content-content>
+		<!-- ouc:div label="sub_content" button="707" group="everyone" -->
+		<!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+		<p>Enter sub-content content here...</p>
+		<!-- /ouc:div -->
+	</sub-content-content>
+	
+	<before-closing-body></before-closing-body>
+	
+	<config>
+		<!-- ouc:properties -->
+		
+		<title><!--%echo var="pageTitle" --></title>
+		
+		<parameter name="page-layout" type="select" group="everyone" prompt="Page Layout" alt="Pick a page layout." section="Page Layouts">
+			<!--%echo var="init-page-layout" encoding="none" -->
+		</parameter> 
+		
+		<parameter name="intro-layout" type="select" group="everyone" prompt="Intro Section Layout" alt="Pick a intro section layout.">
+			<!--%echo var="init-intro-layout" encoding="none" -->
+		</parameter>
+		
+		<parameter name="giving" type="checkbox" group="Everyone" prompt="Display Giving button" alt="" section="Page options">
+			<!--%echo var="init-giving" encoding="none" -->
+		</parameter>
+		
+		<parameter name="sub-mast" type="checkbox" group="Everyone" prompt="Display Sub Mast Section" alt="Should extended sub-mast section be displayed on this page?">
+			<!--%echo var="init-sub-mast" encoding="none" -->
+		</parameter>
+		
+		<parameter name="page-tools" type="checkbox" group="page-tools_locked" prompt="Page tools" alt="Should page tools (ShareThis, Social, Print) be displayed on this page?">
+			<!--%echo var="init-page-tools" encoding="none" -->
+		</parameter>
+		
+		<parameter name="feedback" type="checkbox" group="feedback_locked" prompt="Feedback Button" alt="Should feedback button be displayed on this page?">
+			<!--%echo var="init-feedback" encoding="none" -->
+		</parameter>
+		
+		<!-- Option Box 1 -->
+		<parameter name="optbox1-show" type="checkbox" group="Everyone" prompt="Option Box 1" alt="Option Box 1" section="Only used with Option Box layout">
+			<option value="show_ob1" selected="false">Yes</option>
+		</parameter>	
+				
+		<parameter name="optbox1-style" type="select" group="optbox1-style_locked" prompt="Box 1 Style" alt="Show on the page? Pick a style.">
+			<option value="none_ob1" selected="true">None</option>
+			<option value="style1_ob1" selected="false">Style 1</option>
+			<option value="style2_ob1" selected="false">Style 2</option>
+			<option value="style3_ob1" selected="false">Style 3</option>
+			<option value="style4_ob1" selected="false">Style 4</option>
+		</parameter> 
+
+		<!-- Option Box 2 -->
+		<parameter name="optbox2-show" type="checkbox" group="Everyone" prompt="Option Box 2" alt="Option Box 2">
+			<option value="show_ob2" selected="false">Yes</option>
+		</parameter>
+				
+		<parameter name="optbox2-style" type="select" group="optbox2-style_locked" prompt="Box 2 Style" alt="Show on the page? Pick a style.">
+			<option value="none_ob2" selected="true">None</option>
+			<option value="style1_ob2" selected="false">Style 1</option>
+			<option value="style2_ob2" selected="false">Style 2</option>
+			<option value="style3_ob2" selected="false">Style 3</option>
+			<option value="style4_ob2" selected="false">Style 4</option>
+		</parameter>
+
+		<!-- Option Box 3 -->
+		<parameter name="optbox3-show" type="checkbox" group="Everyone" prompt="Option Box 3" alt="Option Box 3">
+			<option value="show_ob3" selected="false">Yes</option>
+		</parameter>
+		
+					
+		<parameter name="optbox3-style" type="select" group="optbox3-style_locked" prompt="Box 3 Style" alt="Show on the page? Pick a style.">
+			<option value="none_ob3" selected="true">None</option>
+			<option value="style1_ob3" selected="false">Style 1</option>
+			<option value="style2_ob3" selected="false">Style 2</option>
+			<option value="style3_ob3" selected="false">Style 3</option>
+			<option value="style4_ob3" selected="false">Style 4</option>
+		</parameter>
+
+		<!-- Option Box 4 -->
+		<parameter name="optbox4-show" type="checkbox" group="Everyone" prompt="Option Box 4" alt="Option Box 4">
+			<option value="show_ob4" selected="false">Yes</option>
+		</parameter>
+				
+		<parameter name="optbox4-style" type="select" group="optbox4-style_locked" prompt="Box 4 Style" alt="Show on the page? Pick a style.">
+			<option value="none_ob4" selected="true">None</option>
+			<option value="style1_ob4" selected="false">Style 1</option>
+			<option value="style2_ob4" selected="false">Style 2</option>
+			<option value="style3_ob4" selected="false">Style 3</option>
+			<option value="style4_ob4" selected="false">Style 4</option>
+		</parameter>
+		
+		<!-- Responsive options -->
+		
+		<parameter name="show-resp" type="checkbox" group="sub-mast-resp_locked" prompt="Display at all breakpoints" alt="Should these sections be displayed at all breakpoints?" section="Responsive Page options">
+			<option value="sub-mast-resp" selected="true">Sub-mast</option>
+			<option value="sub-content-resp" selected="true">Sub-content</option>
+			<option value="split-intro-resp" selected="true">2nd Split-Intro Section</option>
+		</parameter>
+		
+		<!-- Admin options -->
+		
+		<parameter name="sub-content" type="checkbox" group="sub-content_locked" prompt="Display Sub Content Section" alt="Should extended sub-content section be displayed on this page?" section="Admin Page options">
+			<option value="show_sub-content" selected="false">Yes</option>
+		</parameter>
+		
+		<parameter name="section-nav" type="checkbox" group="section-nav_locked" prompt="Display Left Navigation" alt="Should section navigation be displayed on this page?">
+			<option value="show_section-nav" selected="true">Yes</option>
+		</parameter>
+		
+		<parameter name="sub-section-nav" type="checkbox" group="sub-section-nav_locked" prompt="Display Sub-Nav include" alt="Should sub-nav include be displayed on this page?">
+			<option value="show_sub-section-nav" selected="false">Yes</option>
+		</parameter>
+		
+		<parameter name="search-box" type="checkbox" group="search-box_locked" prompt="Display Search Box" alt="Should search box be displayed on this page?">
+			<option value="show_search-box" selected="true">Yes</option>
+		</parameter>
+		
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+
+		<!-- /ouc:properties -->
+						
+		<template ext="<!--%echo var="fileType" -->">standard</template>
+
+	</config>
+
+</document>

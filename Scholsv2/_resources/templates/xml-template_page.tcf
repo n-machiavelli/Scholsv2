@@ -1,0 +1,14 @@
+<title>Standard Page Template</title>
+
+<variable-list>
+	<variable type="text" name="pageTitle" prompt="Page Title" alt="Give your page a title."></variable>
+	<variable type="select" name="fileType" prompt="File Type" alt="shtml / php" section="File Options">
+		<option value="shtml">Standard Page (shtml)</option> 
+		<option value="php">Server Page (php)</option> 
+	</variable>
+	
+</variable-list>
+
+<template-list>
+	<template prompt-prefix="Page" extension="pcf" preferred-redirect="yes" >xml-template_page.tmpl</template>
+</template-list>
