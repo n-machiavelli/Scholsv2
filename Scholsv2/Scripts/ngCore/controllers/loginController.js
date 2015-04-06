@@ -12,7 +12,7 @@
         /* jshint validthis: true */
         var vm = this;
         vm.loginData={
-            userName: "",
+            email: "",
             password: ""
         };
         vm.activate = activate;
@@ -32,7 +32,7 @@
 
         function activate() {
             vm.loginData = {
-                userName: "",
+                email: "",
                 password: ""
             };
         }

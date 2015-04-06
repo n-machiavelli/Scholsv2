@@ -324,4 +324,19 @@ span.showme {
     #leftnavbar {display:none;}
     #rightnavbar {display:none;}
 }
-
+@media (min-width:1320px) {
+    .sidebar-nav-fixed{
+        width:17%;
+    }
+}
+.pagecontrols {
+  padding: 1px;
+  margin: 1px;
+  font-size:13px;
+}
+.pagination > li > a, .pagination > li > span {
+    padding: 10px 10px;
+    color: #2780E3;
+    background-color: rgba(19, 35, 47, 0.9);
+    border: 1px solid #DDD;
+}

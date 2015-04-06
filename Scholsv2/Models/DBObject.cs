@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlServerCe;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -172,7 +173,7 @@ namespace Schols.Models
         }
         public List<SchoolYear> GetSchoolYears()
         {
-            string sqlstr = "select * from uhelp.user_cd where USER_GRP LIKE '%SCHYR%'";
+            string sqlstr = "select * from uhelp.user_cd where USER_GRP LIKE '%SCHYR%' and substr(USER_CD_DESCR,1,1)<>'*'"; //ignore those starting with *ALL...
             DataTable dt = query(sqlstr, null);
             List<SchoolYear> schoolYears = new List<SchoolYear>();
             SchoolYear schoolYear;
@@ -222,6 +223,9 @@ namespace Schols.Models
             sqlstr += " LEFT OUTER JOIN UHELP.USER_CD uu on su.USER_CD=UU.USER_CD ";
             sqlstr += " WHERE regexp_like(s.FUND_ACCT, :fundAcct, 'i')  AND regexp_like(s.SCHLRSHP_NUM, :scholarNum, 'i') AND s.SCHLR_USER_VARBL2 = 'Y' and f.FUND_OPEN_ATTRB='O'";
             //sqlstr += " AND (uu.USER_GRP='SCHMJ' or uu.USER_GRP='SCHYR' or uu.USER_GRP='SCHOT')";
+            sqlstr += " AND ((su.USER_CD = uu.USER_CD AND su.USER_GRP=uu.USER_GRP) OR (TRIM(su.USER_CD) IS NULL AND TRIM(uu.USER_CD) IS NULL)) "; 
+            //added 02/24/2015 per Redbird 5
+            //added trim above realized that the empty strings seem to have space or something... per James V Koch scholarship (4206851)
             sqlstr += "AND ((su.audit_tran_id is not null and (uu.USER_GRP='SCHMJ' or uu.USER_GRP='SCHYR' or uu.USER_GRP='SCHOT' or uu.USER_GRP='SCHCO')) or su.audit_tran_id is null)";
             //see queries documentation for change made to above line that resolved issue with some scholarships displaying blank.
             List<OracleParameter> parameters = new List<OracleParameter>();
@@ -289,10 +293,10 @@ namespace Schols.Models
                 data.GradGPA = aScholarship.SCHLR_USER_VARBL14;
                 data.UndergradGPA = aScholarship.SCHLR_USER_VARBL13;
                 data.HighSchoolGPA = aScholarship.SCHLR_USER_VARBL15;
-                data.FinancialNeed = (aScholarship.SCHLR_USER_VARBL4.Length == 0) ? "" : "<b>Financial Need</b> : This scholarship requires a student to have a Financial Need to be eligible to receive the scholarship. In order to establish \"Financial Need\", a student must file the Free Application for Federal Student Aid (FAFSA). You can file the FAFSA at <a target='_blank' href=\"http://www.fafsa.ed.gov/\">www.fafsa.ed.gov</a>.";
-                data.Essay = (aScholarship.SCHLR_USER_VARBL11.Length == 0) ? "There is no essay required for this scholarship" : "An Essay is required towards applying for this scholarship";
+                data.FinancialNeed = (aScholarship.SCHLR_USER_VARBL4.Length == 0) ? "" : "This scholarship requires a student to have a Financial Need to be eligible to receive the scholarship. In order to establish \"Financial Need\", a student must file the Free Application for Federal Student Aid (FAFSA). You can file the FAFSA at <a target='_blank' href=\"http://www.fafsa.ed.gov/\">www.fafsa.ed.gov</a>.";
+                data.Essay = (aScholarship.SCHLR_USER_VARBL11.Length == 0) ? "" : "An Essay is required towards applying for this scholarship";
                 data.International = (aScholarship.SCHLR_USER_VARBL3.ToLower().Equals("n")) ? "This scholarship is not open to International Students" : "";
-                data.ReferenceLetter = ( aScholarship.SCHLR_USER_VARBL31.Length == 0) ? "" : ("<b>Reference Letters : </b>" + aScholarship.SCHLR_USER_VARBL31 + " reference letter(s) needed.");
+                data.ReferenceLetter = ( aScholarship.SCHLR_USER_VARBL31.Length == 0) ? "" : ( aScholarship.SCHLR_USER_VARBL31 + " reference letter(s) needed.");
                 data.IsuHours = aScholarship.SCHLR_USER_VARBL18;
                 data.Leadership = ((aScholarship.SCHLR_USER_VARBL9.Length == 0 && !aScholarship.SCHLR_USER_VARBL9.Equals("N")) ? "" : "Leadership experience is required to apply for this scholarship");
                 data.College=aScholarship.FUND_DEPT_DESCR;
@@ -302,13 +306,13 @@ namespace Schols.Models
                     String deadline = aScholarship.SCHLR_USER_VARBL32;
                     int x = Convert.ToInt32(deadline);
                     String y = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(x);
-                    data.Deadline = "<p><b>Application Deadline: </b>" + y + "</p>";
+                    data.Deadline =  y ;
                 }
                 else
                 {
-                    data.Deadline = "<p><b>Application Deadline: </b> No deadline has been specified. </p>";
+                    data.Deadline = "";
                 }
-                data.CommunityService = aScholarship.SCHLR_USER_VARBL8.Length == 0 ? "" : "<p><b>Community Service: </b>  There is a community service requirement in applying for this scholarship.</p>";
+                data.CommunityService = aScholarship.SCHLR_USER_VARBL8.Length == 0 ? "" : "There is a community service requirement in applying for this scholarship";
                 data.Majors = aScholarship.Majors;
                 data.SchoolYears = aScholarship.SchoolYears;
                 data.Miscellaneous = aScholarship.Miscellaneous;
@@ -454,6 +458,7 @@ namespace Schols.Models
             DataTable dt = query(sqlstr, null);
             return dt;
         }
+        /*  fav now oracle
         public DataTable GetFavoritesTableSQLServer(string user)
         {
             string sqlstr = "SELECT username, fund_acct,frml_schlrshp_name FROM favorites WHERE username=@username";
@@ -462,6 +467,7 @@ namespace Schols.Models
             DataTable dt = querySQLServer(sqlstr, selectParameters);
             return dt;
         }
+         * */
         public DataTable GetFavoritesTable(string user)
         {
             string sqlstr = "SELECT username, fund_acct,frml_schlrshp_name,frml_schlrshp_name as fav FROM scholarshipcenter.favorites WHERE username=:username";
@@ -471,11 +477,11 @@ namespace Schols.Models
             return dt;
         }
 
-        public DataTable GetScholarshipsTable(SearchObject searchObject, string user=null)
+        public DataTable GetScholarshipsTable(SearchObject searchObject, string user=null, bool strictcompare=false)
         {
             List<OracleParameter> parameters = new List<OracleParameter>();
             string sqlstr = "SELECT DISTINCT s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num,'' as fav FROM summit.schlrshp s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct LEFT OUTER JOIN uhelp.fund_coll_attrb coll on f.fund_coll_attrb=coll.fund_coll_attrb LEFT OUTER JOIN uhelp.fund_dept_attrb dept on f.fund_coll_attrb=dept.fund_dept_attrb ";
-            string sqlstr2 = "LEFT OUTER JOIN summit.user_code su on (s.audit_tran_id=su.parent_audit_tran_id and (su.user_grp='SCHMJ' or su.user_grp='SCHYR'))";
+            string sqlstr2 = "LEFT OUTER JOIN summit.user_code su on (s.audit_tran_id=su.parent_audit_tran_id and (su.user_grp='SCHMJ' or su.user_grp='SCHYR' or su.USER_GRP='SCHOT' or su.USER_GRP='SCHCO'))";
             sqlstr2 += "LEFT OUTER JOIN uhelp.user_cd uu on su.user_cd=uu.user_cd ";
             if (user!=null)
             {
@@ -515,8 +521,16 @@ namespace Schols.Models
                 parameters.Add(new OracleParameter("schoolYear", searchObject.schoolYear));
             }
             if (searchObject.major != null && !searchObject.major.Trim().Equals(""))
-            {
-                sqlstr += " and regexp_like(uu.USER_CD_DESCR, :major, 'i') and su.USER_GRP='SCHMJ' ";
+            {   //this compares major to department and major due to some special cases observed. see onenote
+                //sqlstr += " and ((regexp_like(uu.USER_CD_DESCR, :major, 'i') or regexp_like(uu.USER_CD_DESCR, 'ALL Major', 'i')) and su.USER_GRP='SCHMJ') "; //**allmajors 2/25
+                if (!strictcompare)
+                {
+                    sqlstr += " and (((regexp_like(uu.USER_CD_DESCR, :major, 'i') or regexp_like(uu.USER_CD_DESCR, 'ALL Major', 'i')) and su.USER_GRP='SCHMJ') or (regexp_like(f.FUND_DEPT_ATTRB,:major,'i'))) "; //**allmajors 2/25
+                }
+                else
+                {
+                    sqlstr += " and ((regexp_like(uu.USER_CD_DESCR, :major, 'i')  and su.USER_GRP='SCHMJ') or (regexp_like(f.FUND_DEPT_ATTRB,:major,'i'))) "; //**allmajors 2/25
+                }
                 parameters.Add(new OracleParameter("major", searchObject.major));
             }
             if (searchObject.undergradGPA != null && !searchObject.undergradGPA.Trim().Equals(""))
@@ -537,7 +551,8 @@ namespace Schols.Models
             if (searchObject.keyword != null && !searchObject.keyword.Trim().Equals(""))
             {
                 sqlstr += " and (regexp_like(s.FRML_SCHLRSHP_NAME, :keyword,'i') or regexp_like(s.SCHLRSHP_PRPS, :keyword,'i') or regexp_like(s.SCHLRSHP_CRTRIA,:keyword,'i')";
-                sqlstr += " or regexp_like(uu.USER_CD_DESCR, :keyword,'i') or regexp_like(f.FUND_DEPT_ATTRB, :keyword,'i') or regexp_like(f.FUND_COLL_ATTRB, :keyword,'i') )";
+                sqlstr += " or regexp_like(uu.USER_CD_DESCR, :keyword,'i') or regexp_like(f.FUND_DEPT_ATTRB, :keyword,'i') or regexp_like(f.FUND_COLL_ATTRB, :keyword,'i') ";
+                sqlstr += " or regexp_like(NOTE, :keyword,'i')) ";
                 parameters.Add(new OracleParameter("keyword", searchObject.keyword));
             }
             System.Diagnostics.Debug.WriteLine(sqlstr);
@@ -545,6 +560,7 @@ namespace Schols.Models
             System.Diagnostics.Debug.WriteLine(dt.Rows.Count);
             return dt;
         }
+
         public List<ScholarshipLink> GetScholarshipsWithFavoritesOld(SearchObject searchObject, string user)
         {
             /* This temporary ineffective fxn will be replaced when favorites table is moved to oracle db to allow joins... */
@@ -613,12 +629,12 @@ namespace Schols.Models
              * */
         }
 
-        public List<ScholarshipLink> GetScholarships(SearchObject searchObject, string user=null, bool favorites=false)
+        public List<ScholarshipLink> GetScholarships(SearchObject searchObject, string user=null, bool favorites=false, bool strictcompare=false)
         {
             DataTable dt;
             if (!favorites)
             {
-                dt = GetScholarshipsTable(searchObject, user);
+                dt = GetScholarshipsTable(searchObject, user,strictcompare);
             }
             else
             {
@@ -831,7 +847,7 @@ namespace Schols.Models
                 application.ScholarshipYear = dt.Rows[i]["scholarshipyear"].ToString().Trim();
                 application.ApplyDate = (DateTime)dt.Rows[i]["applydate"];
                 application.ApplyDateString = String.Format("{0:MMM dd, yyyy HH:mm:ss}", application.ApplyDate);
-                if (username != null || !username.Equals(""))
+                if (username != null || (username!=null && !username.Equals("")))
                 {
                     application.ExpectedGraduation = dt.Rows[i]["expectedgraduation"].ToString().Trim();
                     application.PresentGPA = dt.Rows[i]["presentgpa"].ToString().Trim();
@@ -899,18 +915,18 @@ namespace Schols.Models
         }
 
         /* sql server */
-        public DataTable querySQLServer(string sqlstr, List<SqlParameter> parameters)
+        public DataTable querySQLServer(string sqlstr, List<SqlCeParameter> parameters)
         {
 
             DataTable dt = new DataTable();
-            using (SqlConnection conn = new SqlConnection(SQLConnString)) // connect to oracle
+            using (SqlCeConnection conn = new SqlCeConnection(SQLConnString)) // connect to oracle
             {
                 conn.Open(); // open the oracle connection
-                using (SqlCommand comm = new SqlCommand(sqlstr, conn)) // create the oracle sql command
+                using (SqlCeCommand comm = new SqlCeCommand(sqlstr, conn)) // create the oracle sql command
                 {
                     if (parameters != null)
                     {
-                        foreach (SqlParameter parameter in parameters)
+                        foreach (SqlCeParameter parameter in parameters)
                         {
                             comm.Parameters.Add(parameter);
                             System.Diagnostics.Debug.WriteLine("Param and val");
@@ -920,7 +936,7 @@ namespace Schols.Models
 
                     }
                     System.Diagnostics.Debug.WriteLine(comm.CommandText);
-                    using (SqlDataAdapter myadapter = new SqlDataAdapter())
+                    using (SqlCeDataAdapter myadapter = new SqlCeDataAdapter())
                     {
                         myadapter.SelectCommand = comm;
                         myadapter.Fill(dt);
@@ -931,19 +947,19 @@ namespace Schols.Models
             }
             return dt;
         }
-        public int queryExecuteSQLServer(string sqlstr, List<SqlParameter> parameters)
+        public int queryExecuteSQLServer(string sqlstr, List<SqlCeParameter> parameters)
         {
 
             int result = 0;
-            using (SqlConnection conn = new SqlConnection(SQLConnString)) // connect to oracle
+            using (SqlCeConnection conn = new SqlCeConnection(SQLConnString)) // connect to oracle
             {
                 conn.Open(); // open the oracle connection
-                using (SqlCommand comm = new SqlCommand(sqlstr, conn)) // create the oracle sql command
+                using (SqlCeCommand comm = new SqlCeCommand(sqlstr, conn)) // create the oracle sql command
                 {
                     System.Diagnostics.Debug.Write(sqlstr);
                     if (parameters != null)
                     {
-                        foreach (SqlParameter parameter in parameters)
+                        foreach (SqlCeParameter parameter in parameters)
                         {
                             comm.Parameters.Add(parameter);
                             System.Diagnostics.Debug.WriteLine("Param and val");
@@ -951,7 +967,9 @@ namespace Schols.Models
                             System.Diagnostics.Debug.Write(parameter.Value);
                         }
                     }
+                    System.Diagnostics.Debug.WriteLine("here3");
                     result = comm.ExecuteNonQuery();
+                    System.Diagnostics.Debug.WriteLine("here4");
                     comm.Dispose();
                 }
                 conn.Close(); // close the oracle connection

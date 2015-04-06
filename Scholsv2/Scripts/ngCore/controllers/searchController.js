@@ -11,6 +11,13 @@
     function searchController(searchService, $location, $anchorScroll, authService, $routeParams,$log) {
         
         var vm = this;
+        //paging
+        vm.currentPage = 1;
+        vm.pageSize = 10;
+        vm.pageChangeHandler = function (num) {
+            //console.log('scholarship page changed to ' + num);
+        };
+        //console.log("just did paging");
         vm.activate = activate;
         vm.spinnerdisplay = "hideme";
         vm.message = "";
@@ -34,6 +41,9 @@
         } else if ($routeParams !== undefined && $routeParams !== null && $routeParams.favorites !== undefined && $routeParams.favorites == 'favorites') {
             vm.collegename = "Favorites";
             getFavoriteScholarships();
+        } else if ($routeParams !== undefined && $routeParams !== null && $routeParams.profilesearch !== undefined && $routeParams.profilesearch == 'profilesearch') {
+            vm.collegename = "Your Profile Search Results";
+            getProfileSearch();
         } else if ($routeParams !== undefined && $routeParams !== null && $routeParams.myapplications !== undefined && $routeParams.myapplications == 'myapplications') {
             vm.collegename = "My Applications";
             getMyApplications();
@@ -116,6 +126,25 @@
                 vm.spinnerdisplay = "hideme";
             });
         }
+        function getProfileSearch() {
+            $log.log("controller title:" + vm.title);
+            vm.spinnerdisplay = "showme";
+            var promise = searchService.getProfileSearch();
+            promise.then(function (results) {
+                $log.log("Profile search retrieved via controller");
+                vm.scholarships = results;
+                vm.searchString = "Your Profile Search Results...";
+                $log.log(vm.searchString);
+                $log.log(vm.scholarships);
+                vm.spinnerdisplay = "hideme";
+            }, function (err) {
+                $log.error("error here");
+                vm.spinnerdisplay = "hideme";
+            }, function (update) {
+                $log.log("update here");
+                vm.spinnerdisplay = "hideme";
+            });
+        }
         function getSearchString(num) {
             var search = "";
             var title = checkNull(vm.title);
@@ -127,6 +156,7 @@
             var gradGPA = checkNull(vm.gradGPA);
             var highschoolGPA = checkNull(vm.highschoolGPA);
             var keyword = checkNull(vm.keyword);
+            var noresultstext = "";
             if (title != "") search += (title + ",");
             if (department != "") search += (department + ",");
             if (college != "") search += (college + ",");
@@ -138,11 +168,13 @@
             if (keyword != "") search += (keyword + ",");
             search = search.substring(0, search.length - 1);
             if (search==null || search==""){
-                search="Your search results for \"No parameters\" below...";
-            }else{
+                search = "Your search results for \"No parameters\" below...";
+                noresultstext = "No Parameters";
+            } else {
+                noresultstext = search;
                 search = "Your search results for \"" + search + "\" below...";
             }
-            if (num == null || num === undefined || num == 0) search = "No search results for \"" + search + "\"";
+            if (num == null || num === undefined || num == 0) search = "No search results for \"" + noresultstext + "\"";
             return search;
         }
         function getSchoolYearString() {

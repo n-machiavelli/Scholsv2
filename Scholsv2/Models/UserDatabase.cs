@@ -1,8 +1,10 @@
 ﻿using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlServerCe;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
@@ -17,9 +19,9 @@ namespace Schols.Models
             /* TODO: Deprecate since we using asp.net identity */
             DBObject db = new DBObject();
 
-            string sqlstr = "SELECT passwordhash,salt,fullname,usermajor FROM users where username= @username";
-            List<SqlParameter> parameters = new List<SqlParameter>();
-            parameters.Add(new SqlParameter("@username", user.UserName));
+            string sqlstr = "SELECT PasswordHash,Salt,FirstName,LastName,UserMajor,UserName FROM manualusers where UserName= @UserName";
+            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
+            parameters.Add(new SqlCeParameter("@UserName", user.UserName));
             DataTable dt = db.querySQLServer(sqlstr, parameters);
             if (dt.Rows.Count == 0)
             {
@@ -27,32 +29,35 @@ namespace Schols.Models
                 user.UserName = "";
                 return user;
             }
-            string storedHash = dt.Rows[0]["passwordhash"].ToString();
-            string storedSalt = dt.Rows[0]["salt"].ToString();
-            string fullname = dt.Rows[0]["fullname"].ToString();
-            string usermajor = dt.Rows[0]["usermajor"].ToString();
+            string storedHash = dt.Rows[0]["PasswordHash"].ToString();
+            string storedSalt = dt.Rows[0]["Salt"].ToString();
+            string firstName = dt.Rows[0]["FirstName"].ToString();
+            string lastName = dt.Rows[0]["LastName"].ToString();
+            string usermajor = dt.Rows[0]["UserMajor"].ToString();
+            string username = dt.Rows[0]["UserName"].ToString();
             string inputHash = CreatePasswordHash(user.UserPassword, storedSalt);
             if (storedHash.Equals(inputHash))
             {
                 user.AccessToken = generateToken(user);
-                user.FirstName = fullname;
+                user.FirstName = firstName;
+                user.LastName = lastName;
+                user.UserName = username;
                 user.UserMajor = usermajor;
                 return user;
             }
             else
             {
                 user.AccessToken = "";
-                user.UserName = "";
+                user.Email = "";
                 return user;
             }
         }
         public bool UserExists(UserModel user)
         {
             DBObject db = new DBObject();
-
-            String sqlstr = "SELECT * FROM users where username= @username";
-            List<SqlParameter> parameters = new List<SqlParameter>();
-            parameters.Add(new SqlParameter("@username", user.UserName));
+            String sqlstr = "SELECT * FROM manualusers where UserName= @UserName";
+            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
+            parameters.Add(new SqlCeParameter("@UserName", user.UserName));
             DataTable dt = db.querySQLServer(sqlstr, parameters);
             if (dt.Rows.Count == 0)
                 return false;
@@ -62,9 +67,9 @@ namespace Schols.Models
         private UserModel GetUser(UserModel user)
         {
             DBObject db = new DBObject();
-            String sqlstr = "SELECT * FROM users where username= @username";
-            List<SqlParameter> parameters = new List<SqlParameter>();
-            parameters.Add(new SqlParameter("@username", user.UserName));
+            String sqlstr = "SELECT * FROM manualusers where UserName= @UserName";
+            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
+            parameters.Add(new SqlCeParameter("@UserName", user.UserName));
             DataTable dt = db.querySQLServer(sqlstr, parameters);
             if (dt.Rows.Count == 0)
             {
@@ -72,10 +77,20 @@ namespace Schols.Models
             }
             else
             {
-                user.FirstName = dt.Rows[0]["fullname"].ToString();
-                user.UserMajor = dt.Rows[0]["usermajor"].ToString();
+                user.UserMajor = dt.Rows[0]["UserMajor"].ToString();
+                user.UserName = dt.Rows[0]["UserName"].ToString();
+                user.FirstName = dt.Rows[0]["FirstName"].ToString();
+                user.MiddleName = dt.Rows[0]["MiddleName"].ToString();
+                user.LastName = dt.Rows[0]["LastName"].ToString();
+                user.UniversityId = dt.Rows[0]["UniversityId"].ToString();
+                user.PhoneNumber = dt.Rows[0]["PhoneNumber"].ToString();
+                user.PresentGPA = dt.Rows[0]["FirstName"].ToString();
+                user.HighSchoolGPA = dt.Rows[0]["HighSchoolGPA"].ToString();
+                user.CommunityService = dt.Rows[0]["CommunityService"].ToString();
+                user.ExtraCurricular = dt.Rows[0]["ExtraCurricular"].ToString();
+                user.Address = dt.Rows[0]["Address"].ToString();
                 System.Diagnostics.Debug.WriteLine(user.FirstName);
-                System.Diagnostics.Debug.WriteLine(user.UserName);
+                //System.Diagnostics.Debug.WriteLine(user.UserName);
                 return user;
             }
         }
@@ -87,16 +102,28 @@ namespace Schols.Models
                 return "User Exists Already";
             }
             DBObject db = new DBObject();
-            String sqlstr = "INSERT INTO users (username,passwordhash,salt,fullname,usermajor) VALUES (@username, @passwordhash,@salt,@fullname,@usermajor)";
+            String sqlstr = "INSERT INTO manualusers (UserName,PasswordHash,Salt,UserMajor,FirstName,LastName,MiddleName,PhoneNumber,UniversityId,PresentGPA,HighSchoolGPA,CommunityService,ExtraCurricular,Address) VALUES (@UserName,@PasswordHash,@Salt,@UserMajor,@FirstName,@LastName,@MiddleName,@PhoneNumber,@UniversityId,@PresentGPA,@HighSchoolGPA,@CommunityService,@ExtraCurricular,@Address)";
             string salt = CreateSalt(4);
             string passwordhash = CreatePasswordHash(user.UserPassword, salt);
-            List<SqlParameter> parameters = new List<SqlParameter>();
-            parameters.Add(new SqlParameter("@username", user.UserName));
-            parameters.Add(new SqlParameter("@passwordhash", passwordhash));
-            parameters.Add(new SqlParameter("@salt", salt));
-            parameters.Add(new SqlParameter("@fullname", user.FirstName));
-            parameters.Add(new SqlParameter("@usermajor", user.UserMajor));
+            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
+            //parameters.Add(new SqlCeParameter("@UserName", user.UserName));
+            parameters.Add(new SqlCeParameter("@UserName", user.UserName == null ? "" : user.UserName));
+            parameters.Add(new SqlCeParameter("@passwordhash", passwordhash));
+            parameters.Add(new SqlCeParameter("@salt", salt));
+            parameters.Add(new SqlCeParameter("@UserMajor", user.UserMajor == null ? "" : user.UserMajor));
+            parameters.Add(new SqlCeParameter("@FirstName", user.FirstName == null ? "" : user.FirstName));
+            parameters.Add(new SqlCeParameter("@LastName", user.LastName == null ? "" : user.LastName));
+            parameters.Add(new SqlCeParameter("@MiddleName", user.MiddleName == null ? "" : user.MiddleName));
+            parameters.Add(new SqlCeParameter("@PhoneNumber", user.PhoneNumber == null ? "" : user.PhoneNumber));
+            parameters.Add(new SqlCeParameter("@UniversityId", user.UniversityId == null ? "" : user.UniversityId));
+            parameters.Add(new SqlCeParameter("@PresentGPA", user.PresentGPA == null ? "" : user.PresentGPA));
+            parameters.Add(new SqlCeParameter("@HighSchoolGPA", user.HighSchoolGPA == null ? "" : user.HighSchoolGPA));
+            parameters.Add(new SqlCeParameter("@CommunityService", user.CommunityService== null ? "" : user.CommunityService));
+            parameters.Add(new SqlCeParameter("@ExtraCurricular", user.ExtraCurricular == null ? "" : user.ExtraCurricular));
+            parameters.Add(new SqlCeParameter("@Address", user.Address == null ? "" : user.Address));
+            System.Diagnostics.Debug.WriteLine("here1");
             int count = db.queryExecuteSQLServer(sqlstr, parameters);
+            System.Diagnostics.Debug.WriteLine("here2");
             if (count == 1)
             {
                 return "";
@@ -166,7 +193,7 @@ namespace Schols.Models
             }
             return message;
         }
-
+        /*  favs now in oracle
         public string ToggleFavoriteSQLServer(Favorite fav, string user)
         {
             string sqlstr = "SELECT * FROM favorites WHERE username=@username AND fund_acct=@fundacct";
@@ -201,6 +228,7 @@ namespace Schols.Models
             }
             return message;
         }
+         * */
         public string ToggleFavorite(Favorite fav, string user)
         {
             string sqlstr = "SELECT * FROM scholarshipcenter.favorites WHERE username=:username AND fund_acct=:fundacct";
@@ -235,10 +263,10 @@ namespace Schols.Models
             }
             return message;
         }
-
+        /* favs now in oracle
         public string RemoveFavorite(Favorite fav, UserModel user)
         {
-            /* TODO: Deprecated due to toggle */
+            
             string sqlstr = "DELETE FROM favorites WHERE username=@username AND fund_acct=@fundacct";
             string message = "";
             DBObject db = new DBObject();
@@ -250,16 +278,17 @@ namespace Schols.Models
             message = "Deleted.";
             return message;
         }
+        */
         /*TODO: Deprecate below due to .net identity */
         public string generateToken(UserModel user)
         {
             string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
             DBObject db = new DBObject();
-            String sqlstr = "INSERT INTO tokens (username,accesstoken,granted) VALUES (@username, @accesstoken,@granted)";
-            List<SqlParameter> parameters = new List<SqlParameter>();
-            parameters.Add(new SqlParameter("@username", user.UserName));
-            parameters.Add(new SqlParameter("@accesstoken", token));
-            parameters.Add(new SqlParameter("@granted", DateTime.Now));
+            String sqlstr = "INSERT INTO tokens (UserName,accesstoken,granted) VALUES (@UserName, @accesstoken,@granted)";
+            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
+            parameters.Add(new SqlCeParameter("@UserName", user.UserName));
+            parameters.Add(new SqlCeParameter("@accesstoken", token));
+            parameters.Add(new SqlCeParameter("@granted", DateTime.Now));
             int count = db.queryExecuteSQLServer(sqlstr, parameters);
             return token;
         }
@@ -271,18 +300,34 @@ namespace Schols.Models
         public UserModel CheckToken(string token)
         {
             DBObject db = new DBObject();
-            string sqlstr = "SELECT username FROM tokens WHERE accesstoken= @accesstoken"; //and granted...
-            List<SqlParameter> parameters = new List<SqlParameter>();
-            parameters.Add(new SqlParameter("@accesstoken", token));
+            string sqlstr = "SELECT UserName FROM tokens WHERE accesstoken= @accesstoken"; //and granted...
+            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
+            parameters.Add(new SqlCeParameter("@accesstoken", token));
             DataTable dt = db.querySQLServer(sqlstr, parameters);
             if (dt.Rows.Count == 0)
                 return null;
             else
             {
                 UserModel user = new UserModel();
-                user.UserName = dt.Rows[0]["username"].ToString();
+                user.UserName = dt.Rows[0]["UserName"].ToString();
                 return GetUser(user); // dt.Rows[0]["username"].ToString();
             }
+
+        }
+        public UserModel GetUserFromToken()
+        {
+            HttpContext httpContext = HttpContext.Current;
+            NameValueCollection headerList = httpContext.Request.Headers;
+            string authorizationField = headerList.Get("Authorization");
+            UserModel user = null;
+            if (authorizationField != null)
+            {
+                authorizationField = authorizationField.Replace("Bearer ", "");
+                user = this.CheckToken(authorizationField);
+                System.Diagnostics.Debug.WriteLine(authorizationField);
+                System.Diagnostics.Debug.WriteLine(user.UserName);
+            }
+            return user;
 
         }
         private string CreateSalt(int size)
@@ -342,6 +387,33 @@ namespace Schols.Models
             message.body= "Application Status saved";
             return message;
         }
+        internal Message SaveProfile(UserModel userFromDB, UserModel userNewDetails)
+        {
+       
+
+            DBObject db = new DBObject();
+            String sqlstr = "UPDATE manualusers SET firstname=@firstname, middlename=@middlename, lastname=@lastname,universityid=@universityid,phonenumber=@phonenumber,usermajor=@usermajor,presentgpa=@presentgpa,highschoolgpa=@highschoolgpa,communityservice=@communityservice,extracurricular=@extracurricular,address=@address WHERE username=@username";
+            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
+            //parameters.Add(new OracleParameter("appid", "1"));
+            parameters.Add(new SqlCeParameter("firstname", userNewDetails.FirstName));
+            parameters.Add(new SqlCeParameter("middlename", userNewDetails.MiddleName));
+            parameters.Add(new SqlCeParameter("lastname", userNewDetails.LastName));
+            parameters.Add(new SqlCeParameter("universityid", userNewDetails.UniversityId));
+            parameters.Add(new SqlCeParameter("phonenumber", userNewDetails.PhoneNumber));
+            parameters.Add(new SqlCeParameter("usermajor", userNewDetails.UserMajor));
+            parameters.Add(new SqlCeParameter("presentgpa", userNewDetails.PresentGPA));
+            parameters.Add(new SqlCeParameter("highschoolgpa", userNewDetails.HighSchoolGPA));
+            parameters.Add(new SqlCeParameter("communityservice", userNewDetails.CommunityService));
+            parameters.Add(new SqlCeParameter("extracurricular", userNewDetails.ExtraCurricular));
+            parameters.Add(new SqlCeParameter("address", userNewDetails.Address));
+            parameters.Add(new SqlCeParameter("username", userFromDB.UserName));
+          
+            db.queryExecuteSQLServer(sqlstr, parameters);
+            Message message = new Message();
+            message.title = "Profile updated";
+            message.body= "Profile updated";
+            return message;
+        }        
         private ScholarshipApp retrieveApplicationData(DataTable dt ){
             ScholarshipApp application=null;
             if (dt.Rows.Count != 0)

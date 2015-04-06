@@ -20,11 +20,11 @@ namespace Scholarship.Controllers
         public IHttpActionResult AddFavorite(Favorite fav)
         {
             string message = "";
-            string user = User.Identity.Name;
-            if (user != null && user != "")
+            UserDatabase udb = new UserDatabase();
+            UserModel user = udb.GetUserFromToken();
+            if (user != null)
             {
-                UserDatabase udb = new UserDatabase();
-                message=udb.ToggleFavorite(fav, user);
+                message=udb.ToggleFavorite(fav, user.UserName);
             }
             else
             {
@@ -32,6 +32,7 @@ namespace Scholarship.Controllers
             }
             return Ok(message);
         }
+        /*  add/remove now in Toggle
         [Route("api/removefavorite")]
         [HttpPost]
         public IHttpActionResult RemoveFavorite(Favorite fav)
@@ -46,7 +47,7 @@ namespace Scholarship.Controllers
             //return "{Message" + ":" + "You-accessed-this-message-with-authorization" + "}"; return Ok(headers.ToString());
             return Ok(message);
         }
-
+        */
         [Route("api/dropdowndata")]
         public IHttpActionResult GetDropDownData()
         {
@@ -120,9 +121,10 @@ namespace Scholarship.Controllers
         public IHttpActionResult GetScholarshipData()
         {
             DBObject db = new DBObject();
-            string user = User.Identity.Name;
+            UserDatabase udb = new UserDatabase();
+            UserModel user = udb.GetUserFromToken();
             List<Schols.Models.ScholarshipLink> scholarships;
-            scholarships = db.GetScholarships(null,user,true);
+            scholarships = db.GetScholarships(null,(user==null?null:user.UserName),true);
             return Ok(scholarships);
         }
         [Route("api/featured")]
@@ -145,19 +147,16 @@ namespace Scholarship.Controllers
         }
         public List<Schols.Models.ScholarshipLink> Post([FromBody] SearchObject searchObject)
         {
-            HttpContext httpContext = HttpContext.Current;
-            NameValueCollection headerList = httpContext.Request.Headers;
-            //string authorizationField = headerList.Get("Authorization");
-            //authorizationField = authorizationField.Replace("Bearer ", "");
-            //UserDatabase udb = new UserDatabase();
+            UserDatabase udb = new UserDatabase();
+            UserModel user= udb.GetUserFromToken();
+
             //UserModel user = udb.CheckToken(authorizationField);
             //UserModel user = null; //later use Authorize framework. User.Identity and stuff
-            string user = User.Identity.Name;
             DBObject db = new DBObject();
             List<Schols.Models.ScholarshipLink> scholarships;
             //scholarships = db.GetScholarships(searchObject);
             //scholarships = db.GetScholarshipsWithFavorites(searchObject, user);
-            scholarships = db.GetScholarships(searchObject, user);
+            scholarships = db.GetScholarships(searchObject, (user==null?null:user.UserName));
             return scholarships;
             //Request.CreateResponse(HttpStatusCode.Created,scholarship);
             //String idString = id.ToString();
@@ -183,6 +182,22 @@ namespace Scholarship.Controllers
              * */
             //var scholarship = db.SCHLRSHPs.Where(s => s.FUND_ACCT.Trim().Contains("307"));
 
+        }
+        [Route("api/profilesearch")]
+        [HttpGet]
+        public IHttpActionResult Profile()
+        {
+            UserDatabase udb = new UserDatabase();
+            UserModel user = udb.GetUserFromToken();
+            DBObject db = new DBObject();
+            SearchObject searchObject = new SearchObject();
+            searchObject.highschoolGPA = user.HighSchoolGPA;
+            searchObject.major = user.UserMajor;
+            
+            List<ScholarshipLink> scholarships=null;
+            if (user!=null) scholarships= db.GetScholarships(searchObject, user.UserName,false,true);
+            //return "{Message" + ":" + "You-accessed-this-message-with-authorization" + "}"; return Ok(headers.ToString());
+            return Ok(scholarships);
         }
 
     }

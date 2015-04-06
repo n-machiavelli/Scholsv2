@@ -1,5 +1,5 @@
 ﻿var app = angular.module('app',
-    ['ngRoute', 'LocalStorageModule', 'ngSanitize', 'angularFileUpload', 'ui.bootstrap']);
+    ['ngRoute', 'LocalStorageModule', 'ngSanitize', 'angularFileUpload', 'ui.bootstrap', 'angularUtils.directives.dirPagination']);
 
 
 app.config(function ($routeProvider, $locationProvider, $logProvider) {
@@ -41,6 +41,11 @@ app.config(function ($routeProvider, $locationProvider, $logProvider) {
         controller: "profileController",
         controllerAs: "vm",
         templateUrl: "ngViews/profile.html"
+    });
+    $routeProvider.when("/profilesearch/:profilesearch", {
+        controller: "searchController",
+        controllerAs: "vm",
+        templateUrl: "ngViews/searchresults.html"
     });
     $routeProvider.when("/scholarship/:fund_acct/:schlrshp_num", {
         controller: "scholarshipController",

@@ -19,9 +19,12 @@ namespace Scholsv2.Controllers
             string fname = "";
             string fnamepath = "";
             string ext = "";
+            UserDatabase udb = new UserDatabase();
+            UserModel user = udb.GetUserFromToken();
+
             HttpContext context = HttpContext.Current;
-            var userName = User.Identity.Name; //context.Request.Form["name"];
-            if (userName == null) userName = "defaultuser"; //TODO:Remove
+            var userName = user.UserName; //context.Request.Form["name"];
+            if (user == null) userName = "defaultuser"; //TODO:Remove
             string serverPath = context.Server.MapPath("Upload\\" + userName.ToUpper());
             if (!Directory.Exists(serverPath))
                 Directory.CreateDirectory(serverPath);
@@ -55,10 +58,10 @@ namespace Scholsv2.Controllers
         [HttpPost]
         public IHttpActionResult ApplyForScholarship(ScholarshipApp app)
         {
-            string username = User.Identity.Name;
             UserDatabase udb = new UserDatabase();
+            UserModel user = udb.GetUserFromToken();
             Message message = new Message();
-            message.body = udb.Apply(app, username);
+            message.body = udb.Apply(app, (user==null?null:user.UserName));
             message.title = "Application Message";
             //return "{Message" + ":" + "You-accessed-this-message-with-authorization" + "}"; return Ok(headers.ToString());
             return Json(message);
@@ -84,8 +87,8 @@ namespace Scholsv2.Controllers
         [HttpPost]
         public IHttpActionResult GetApplications()
         {
-            string username = User.Identity.Name;
             UserDatabase udb = new UserDatabase();
+            UserModel user = udb.GetUserFromToken();
             DBObject db = new DBObject();
             List<Schols.Models.ScholarshipApp> applications;
             applications = db.GetApplications();
@@ -96,18 +99,17 @@ namespace Scholsv2.Controllers
         [HttpPost]
         public IHttpActionResult GetMyApplications()
         {
-            string username = User.Identity.Name;
             UserDatabase udb = new UserDatabase();
+            UserModel user = udb.GetUserFromToken();
             DBObject db = new DBObject();
             List<Schols.Models.ScholarshipApp> applications;
-            applications = db.GetApplications(null,username);
+            applications = db.GetApplications(null,(user==null?null:user.UserName));
             return Ok(applications);
         }
         [Route("api/generateexcel")]
         [HttpPost]
         public IHttpActionResult GenerateAppsExcel()
         {
-            string username = User.Identity.Name;
             DBObject db = new DBObject();
             Message message = db.GenerateAppsExcel();
             return Json(message);
@@ -118,7 +120,6 @@ namespace Scholsv2.Controllers
         {
             //using generic object because of issues posting strings and integers directly into native params
             UserDatabase udb = new UserDatabase();
-            string user = User.Identity.Name;
             ScholarshipApp application = udb.GetApplication(long.Parse(posted.id));
             return Json(application);
         }
@@ -128,7 +129,6 @@ namespace Scholsv2.Controllers
         {
             //using generic object because of issues posting strings and integers directly into native params
             UserDatabase udb = new UserDatabase();
-            string user = User.Identity.Name;
             Message message= udb.SaveApplication(app);
             return Json(message);
         }
