@@ -25,6 +25,7 @@
             $location.path('/');
         }
         function activate() {
+            /*
             var containsAdmin = $location.url().indexOf("administration");
             $log.log(containsAdmin); //if ($location.pathname)
             vm.showFeatured = (containsAdmin==-1);
@@ -42,6 +43,26 @@
             }, function (update) {
                 $log.log("got notification" + update);
             });
+            */
+            var promise = authService.getXmlEvents();
+            promise.then(function (data) {
+                //console.log(data);
+                data = data.replace(/(?:\\[rn])+/g, "");
+                
+                var data2 = data.substring(1, data.length - 1);
+                data2 = data2.replace(/\\"/g, '"');
+                vm.events = data2;
+                //console.log("|" + data2 + "|");
+                //console.log("|" + vm.events + "|");
+                //console.log(data2 == vm.events);
+            }, function (reason) {
+                $log.error(reason);
+                vm.message = "Unable to connect to the database. Please confirm connectivity and then refresh.";
+                vm.errorFlag = true;
+            }, function (update) {
+                $log.log("got notification" + update);
+            });
+
             //$log.log(vm);
         }
     }

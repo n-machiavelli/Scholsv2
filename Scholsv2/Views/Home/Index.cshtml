@@ -1,122 +1,289 @@
 ﻿<!DOCTYPE html>
-<html data-ng-app="app">
+<html class="no-js standard sec-design page-index folder-lvl1" lang="en" data-ng-app="app">
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <link rel="shortcut icon" href="//cdn.illinoisstate.edu/icons/favicon/reggie.ico" type="image/x-icon" />
+
+    <script src="//cdn.illinoisstate.edu/js/libs/jquery/jquery.min.js">        // jQuery //</script>
+    <script>window.jQuery || document.write('<script src="/_resources/scripts/libs/jquery-1.10.2.min.js"><\/script>')</script>
+    <script src="//cdn.illinoisstate.edu/js/ou/3.0/head.min.js">        // Modernizr & Responsive-nav //</script>
+
     <title>Scholarship Center</title>
     <base href="">
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
-    <link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/cosmo/bootstrap.min.css" rel="stylesheet">-->
     <link href="~/Content/css/fontawesome420/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Content/css2/normalize.css">
+    <link href="//iguides.illinoisstate.edu/iguide/iguide-black.css" rel="stylesheet" media="screen" type="text/css" />
+    <link id="main_css" href="//cdn.iwss.ilstu.edu/css/sites/dev/illinoisstate/style.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/Content/css2/style3.css" media="screen" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
 <body data-ng-controller="navBarController as vm">
-    <style>
-        body {
-            padding-bottom: 40px;
-            padding-top: 60px;
-        }
-
-        .sidebar-nav-fixed {
-            width: 20%;
-        }
-    </style>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                </button>
-                <a class="navbar-brand" href="#/search">Scholarship Center Home</a>
-            </div>
-            <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle pointer" data-toggle="dropdown" aria-expanded="false">List Colleges <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#/searchcollege/01/Applied Science and Technology">Applied Science & Technology</a></li>
-                            <li><a href="#/searchcollege/02/Arts and Sciences">Arts and Sciences</a></li>
-                            <li><a href="#/searchcollege/03/Business">Business</a></li>
-                            <!--<li class="divider"></li>
-                            <li class="dropdown-header">Dropdown header</li>-->
-                            <li><a href="#/searchcollege/04/Education">Education</a></li>
-                            <li><a href="#/searchcollege/05/Fine Arts">Fine Arts</a></li>
-                            <li><a href="#/searchcollege/07/Mennonite College of Nursing">Mennonite College of Nursing</a></li>
-                        </ul>
-                    </li>
-                    <!-- Show when authorized -->
-                    <li data-ng-hide="!vm.authentication.isAuth"><a href="#/profile">Welcome {{vm.authentication.userName}}</a></li>
-                    <li data-ng-hide="!vm.authentication.isAuth"><a data-ng-href="#/profile">My Profile</a></li>
-                    <li data-ng-hide="!vm.authentication.isAuth"><a href="#/myapplications/myapplications">My Applications</a></li>
-                    <li data-ng-hide="!vm.authentication.isAuth"><a href="#/favorites/favorites">My Favorites</a></li>
-                    <li data-ng-hide="!vm.authentication.isAuth"><a href="" data-ng-click="vm.logOut()">Logout</a></li>
-                    <!-- hide when authorized -->
-                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="#/login">Login</a></li>
-                    <li data-ng-hide="vm.authentication.isAuth"> <a data-ng-href="#/register">Register</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3" data-ng-show="vm.showFeatured" id="leftnavbar">
-                <div class="sidebar-nav-fixed affix">
-                    <div class="form3">
-                        <ul class="nav">
-                            <li class="sidebar-brand">
-                                <h4 class="text-center">
-                                    Featured Scholarships
-                                </h4>
-                            </li>
-                            <li data-ng-repeat="scholarship in vm.featuredScholarships" data-ng-show="$odd">
-                                <a target="_blank" href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
-                            </li>
-                        </ul>
+    <div id="container">
+        <a class="visuallyhidden" href="#body">Skip to main content</a>
+        <nav role="navigation" aria-label="University Navigation">
+            <script type="text/javascript" src="//iguides.illinoisstate.edu"></script>
+            <noscript>
+                <div id="iguide-filler"><!-- filler --></div>
+                <div id="iguide-float">
+                    <div class="iguide-link-container">
+                        <a class="iguide-isu" href="http://illinoisstate.edu/">IllinoisState.edu</a>
+                        <span class="iguide-link-divider"><!-- divider --></span>
+                        <a class="iguide-link" id="iguide-link-admissions"
+                           href="http://admissions.illinoisstate.edu/">Admissions</a>
+                        <span class="iguide-link-divider"><!-- divider --></span>
+                        <a class="iguide-link" id="iguide-link-map" href="http://maps.illinoisstate.edu/">Maps</a>
+                        <span class="iguide-link-divider"><!-- divider --></span>
+                        <a class="iguide-link" id="iguide-link-events"
+                           href="http://events.illinoisstate.edu/">Events</a>
+                        <span class="iguide-link-divider"><!-- divider --></span>
+                        <a class="iguide-link" id="iguide-link-employment"
+                           href="http://hr.illinoisstate.edu/prospective/jobs.shtml">Employment</a>
+                        <span class="iguide-link-divider"><!-- divider --></span>
+                        <a class="iguide-link" id="iguide-link-search"
+                           href="http://search.illinoisstate.edu/">Search/A-Z</a>
                     </div>
-                    <!--/.well -->
+                    <span class="iguide-link-divider"><!-- divider --></span>
+                    <a id="iguide-my-link" title="My Illinois State"
+                       href="http://my.illinoisstate.edu">
+                        <img src="//iguides.illinoisstate.edu/images/my-red-dark.png" alt="My" />
+                    </a>
                 </div>
-                <!--/sidebar-nav-fixed -->
-            </div>
-            <!--/span-->
+            </noscript>
+        </nav>
+        <header role="banner">
+            <a class="visuallyhidden" href="#mastnav">Skip to main navigation</a>
+            <!-- com.omniupdate.div label="header-include" path="/_resources/includes/header.html" -->
+            <!-- ouc:editor wysiwyg="no" -->
+            <span class="mast_top"></span>
+            <span class="mast_mid">
+                <section id="mastleft">
+                    <div id="mastlogo">
+                        
+                        <a class="linkhome" href="/">
+                            <!--<img src="//cdn.illinoisstate.edu/default/logo/illinoisstate-color.png" alt="Illinois State University" />-->
+                            <img src="~/Content/wordmark_calendar.png" alt="Illinois State University" />
+                            <span class="visuallyhidden">Illinois State University</span>
+                        </a>
 
-            <div class="col-md-6">
-                <div id="msg" data-ng-bind="vm.message" data-ng-hide="vm.message == '' || vm.message==undefined" class="alert alert-danger"></div>
-                <div data-ng-view>
-                </div>
-            </div>
-            <!--/span-->
-            <div class="col-md-3" data-ng-show="vm.showFeatured" id="rightnavbar">
-                <div class="sidebar-nav-fixed pull-right affix">
-                    <div class="form3">
-                        <ul class="nav">
-                            <li class="sidebar-brand">
-                                <h4 class="text-center">
-                                    Featured Scholarships
-                                </h4>
-                            </li>
-                            <li data-ng-repeat="scholarship in vm.featuredScholarships" data-ng-show="$even">
-                                <a target="_blank" href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>
-                            </li>
-                        </ul>
                     </div>
-                    <!--/.well -->
-                </div>
-                <!--/sidebar-nav-fixed -->
-            </div>
-            <!--/span-->
-        </div>
-        <!--/row-->
+                </section>
+                <section id="mastright">
+                    <button id="nav-toggle-header" class="nav-toggle nav-toggle-header" aria-hidden="true">Menu</button>
+                    <div id="searchbox">
+                        <form id="searchform" action="/search/" method="get" role="search" aria-labeledby="searchlabel">
+                            <div id="searchbackground" class="searchbackground_inactive">
+                                <!-- Search box text -->
+                                <label id="searchlabel" for="searchboxtext" class="visuallyhidden">Search Site</label>
+                                <input type="text" placeholder="Search Site..." id="searchboxtext" class="searchboxtext_inactive" name="q" required="required" />
+                                <!-- Narrow search results to url - site.illinoisstate.edu -->
+                                <input type="hidden" name="as_sitesearch" value="{CHANGE TO SITE DNS}">
+                                <input type="hidden" name="clientID" value="{CHANGE TO SITE NAME}">
+                                <!-- Defaults -->
+                                <input type="hidden" name="site" value="isu_collection" />
+                                <input type="hidden" name="client" value="default_frontend" />
+                                <input type="hidden" name="output" value="xml_no_dtd" />
+                                <input type="hidden" name="filter" value="p" />
+                                <input type="hidden" name="oe" value="UTF8" />
+                                <input id="searchbutton" title="Search" type="submit" alt="Search" value="&#xe067;" />
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </span>
+            <span class="mast_btm"></span>
+        </header>
+        <nav id="mastnav" aria-label="Main Navigation">
+            <a class="visuallyhidden" href="#nav">Skip to section navigation</a>
+            <span class="mastnav_top"><!--MastNav Top--></span>
+            <span class="mastnav_mid">
+                <div class="resp-nav">
+                    <ul class="mastlevel1">
+                        <span class="mastlevel1_top"><!--Top--></span>
+                        <li class="mastlink1 parent">
+                            <span class="mastlink_top"><!--Top--></span>
+                            <span class="mastlink_mid">
+                                <a class="parent" href="/">
+                                    <span>Home</span>
+                                </a>
+                            </span>
+                            <span class="mastlink_btm"><!--Bottom--></span>
+                        </li>
+                        <li class="mastlink2" data-ng-hide="!vm.authentication.isAuth">
+                            <span class="mastlink_top"><!--Top--></span>
+                            <span class="mastlink_mid">
+                                <a data-ng-href="#/profile" class="" href="#/profile">
+                                    <span>My Profile</span>
+                                </a>
+                            </span>
+                            <span class="mastlink_btm"><!--Bottom--></span>
+                        </li>
+                        <li class="mastlink3" data-ng-hide="!vm.authentication.isAuth">
+                            <span class="mastlink_top"><!--Top--></span>
+                            <span class="mastlink_mid">
+                                <a href="#/myapplications/myapplications">
+                                    <span>My Applications</span>
+                                </a>
+                            </span>
+                            <span class="mastlink_btm"><!--Bottom--></span>
+                        </li>
+                        <li class="mastlink4" data-ng-hide="!vm.authentication.isAuth">
+                            <span class="mastlink_top"><!--Top--></span>
+                            <span class="mastlink_mid">
+                                <a class="" href="#/favorites/favorites">
+                                    <span>My Favorites</span>
+                                </a>
+                            </span>
+                            <span class="mastlink_btm"><!--Bottom--></span>
+                        </li>
+                        <li class="mastlink5" data-ng-hide="!vm.authentication.isAuth">
+                            <span class="mastlink_top"><!--Top--></span>
+                            <span class="mastlink_mid">
+                                <a class="" href="" data-ng-click="vm.logOut()">
+                                    <span>Logout</span>
+                                </a>
+                            </span>
+                            <span class="mastlink_btm"><!--Bottom--></span>
+                        </li>
+                        <li class="mastlink6" data-ng-hide="vm.authentication.isAuth">
+                            <span class="mastlink_top"><!--Top--></span>
+                            <span class="mastlink_mid">
+                                <a data-ng-href="#/login" href="#/login">
+                                    <span>Login</span>
+                                </a>
+                            </span>
+                            <span class="mastlink_btm"><!--Bottom--></span>
+                        </li>
+                        <li class="mastlink7" data-ng-hide="vm.authentication.isAuth">
+                            <span class="mastlink_top"><!--Top--></span>
+                            <span class="mastlink_mid">
+                                <a data-ng-href="#/register" href="#/register">
+                                    <span>Register</span>
+                                </a>
+                            </span>
+                            <span class="mastlink_btm"><!--Bottom--></span>
+                        </li>
 
-        <footer>
-            <p>© Scholarship Center 2015</p>
+                        <span class="mastlevel1_btm"><!--Bottom--></span>
+                    </ul>
+                </div>
+            </span>
+            <span class="mastnav_btm"><!--MastNav Bottom--></span>
+        </nav>
+        <!--googleon: snippet--><section id="submast">
+            <span class="submast_top"><!--Top--></span>
+            <div class="submast_mid">
+                <!-- ouc:div label="sub_mast" button="707" group="everyone" -->
+                <!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+                <!--<img src="//cdn.illinoisstate.edu/default/images/submast.jpg" alt="Old Main Bell"
+                     width="100%" />-->
+                <!-- /ouc:div -->
+            </div>
+            <span class="submast_btm"><!--Bottom--></span>
+        </section>
+        <div id="body" class="sidebar sectionnavoff">
+            <span class="body_top"><!--Top--></span>
+            <div id="wrapcontent">
+                <section class="content1">
+                    <span class="section_top"><!--Top--></span>
+                    <div class="section_mid">
+                        <!-- ouc:div label="content_1" button="707" group="everyone" -->
+                        <!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+                        <h1 class="visuallyhidden">Home</h1>
+                        <!-- /ouc:div -->
+                        <!-- ouc:div label="news_feed" path="/_resources/placeholders/feed.html" -->
+                        <div data-ng-view>
+                        </div>
+                        <!-- /ouc:div -->
+                    </div>
+                    <span class="section_btm"><!--Bottom--></span>
+                </section>
+                <section class="content2">
+                    <span class="section_top"><!--Top--></span>
+                    <div class="section_mid form">
+                        <div id="wrapgiving"><!-- com.omniupdate.div label="giving-include" path="/_resources/includes/giving.html" -->
+                        <a class="btn_give" href="/giving/">Make a Gift</a><!-- /com.omniupdate.div --></div>
+                        <!-- ouc:div label="option_box_1" button="707" group="everyone" -->
+                        <!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt" -->
+                        <h2>Events</h2>
+                        <!-- /ouc:div -->
+                        <!-- ouc:div label="cal_feed" path="/_resources/placeholders/feed.html" -->
+                        <div data-ng-bind-html="vm.events">
+                            
+                        </div>
+                        <!-- /ouc:div -->
+                    </div>
+                    <span class="section_btm"><!--Bottom--></span>
+                </section>
+            </div>
+            <!--! end of #wrapcontent --><span class="body_btm"><!--Bottom--></span>
+        </div>
+        <!--googleoff: snippet--><footer role="contentinfo">
+            <!--googleoff: snippet--><!-- com.omniupdate.div label="footer-include" path="/_resources/includes/footer.html" -->
+            <span class="footer_top"><!--Top--></span>
+            <div class="footer_mid">
+                <div id="footerdepartment">
+                    <!-- ouc:div label="footer_dept" button="707" group="everyone" -->
+                    <!-- ouc:editor csspath="/_resources/css/ou.css" cssmenu="/_resources/css/main.txt"/ -->
+                    <p>
+                        Illinois State University
+                        <br />
+                        Campus Box 4000
+                        <br />
+                        Normal, Il 61790-4000
+                        <br />
+                        <a href="/contact/">Contact Us</a>
+                    </p>
+                    <!-- /ouc:div -->
+                </div>
+                <div id="footeruniversity">
+                    <p>
+                        <a id="ou_de" href="#" alt="Edit page">&copy;</a>
+                        <span id="c_year"><!-- #CONFIG TIMEFMT="%Y" --><!--#ECHO VAR = "DATE_LOCAL" --><?php echo date("Y"); ?></span>
+                        <a href="http://IllinoisState.edu">Illinois State University</a>
+                        <span class="legal-more">
+                            <br />
+                            <a href="http://IllinoisState.edu/downloads/web-privacy-statement-2010.pdf">Privacy Statement</a>
+                            &bull;
+                            <a href="http://www.policy.ilstu.edu/technology/9-2.shtml">Appropriate Use Policy</a>
+                        </span>
+                    </p>
+                </div>
+                <div id="footersocial">
+                    <p>
+                        Stay Connected<br />
+                        <a class="icon icon-facebook" title="facebook" href="#" target="_blank"><span class="visuallyhidden">Facebook</span></a>
+                        <a class="icon icon-twitter" title="twitter" href="#" target="_blank"><span class="visuallyhidden">Twitter</span></a>
+                        <a class="icon icon-linkedin" title="linkedin" href="#" target="_blank"><span class="visuallyhidden">LinkedIn</span></a>
+                        <a class="icon icon-google-plus" title="google+" href="#" target="_blank"><span class="visuallyhidden">Google+</span></a>
+                        <a class="icon icon-wordpress" title="wordpress" href="#" target="_blank"><span class="visuallyhidden">Wordpress Blog</span></a>
+                        <a class="icon icon-youtube" title="youtube" href="#" target="_blank"><span class="visuallyhidden">Youtube</span></a>
+                        <a class="icon icon-flickr" title="flickr" href="#" target="_blank"><span class="visuallyhidden">Flickr</span></a>
+                        <a class="icon icon-pinterest" title="pinterest" href="#" target="_blank"><span class="visuallyhidden">Pinterest</span></a>
+                    </p>
+                </div>
+            </div>
+            <span class="footer_btm"><!--Bottom--></span>
         </footer>
+        <div id="ou_modified">
+            <span id="m_datetime">2014-08-28T10:22:55.926-05:00</span>
+            <span id="m_year">2014</span>
+        </div>
+
     </div>
     <!--/.fluid-container-->
     <!-- 3rd party libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script src="http://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/_resources/scripts/plugins.js">    // Plugins //</script>
+    <script src="/_resources/scripts/script.js">        // Scripts //</script>
+    <script src="//analytics.illinoisstate.edu">        // Analytics //</script>
 
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
@@ -151,3 +318,4 @@
 
 </body>
 </html>
+

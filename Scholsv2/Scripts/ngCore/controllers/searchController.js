@@ -127,6 +127,7 @@
             var gradGPA = checkNull(vm.gradGPA);
             var highschoolGPA = checkNull(vm.highschoolGPA);
             var keyword = checkNull(vm.keyword);
+            var noresultstext = "";
             if (title != "") search += (title + ",");
             if (department != "") search += (department + ",");
             if (college != "") search += (college + ",");
@@ -138,11 +139,13 @@
             if (keyword != "") search += (keyword + ",");
             search = search.substring(0, search.length - 1);
             if (search==null || search==""){
-                search="Your search results for \"No parameters\" below...";
-            }else{
+                search = "Your search results for \"No parameters\" below...";
+                noresultstext = "No Parameters";
+            } else {
+                noresultstext = search;
                 search = "Your search results for \"" + search + "\" below...";
             }
-            if (num == null || num === undefined || num == 0) search = "No search results for \"" + search + "\"";
+            if (num == null || num === undefined || num == 0) search = "No search results for \"" + noresultstext + "\"";
             return search;
         }
         function getSchoolYearString() {

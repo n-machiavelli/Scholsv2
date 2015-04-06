@@ -12,7 +12,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Scholsv2</RootNamespace>
-    <AssemblyName>Scholsv2</AssemblyName>
+    <AssemblyName>Scholsv2-ISUTheme</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -224,6 +224,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\XmlEventsController.cs" />
     <Compile Include="Controllers\ScholarshipController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -272,6 +273,11 @@
     <Compile Include="Models\UserDatabase.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
@@ -338,6 +344,7 @@
     <Content Include="angular\views\uimodal.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bg_body.jpg" />
+    <Content Include="Content\bg_heading_large.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css2\normalize.css" />
@@ -362,6 +369,7 @@
     <Content Include="ngViews\administration.html" />
     <Content Include="ngViews\adminmodal.html" />
     <Content Include="ngViews\bg_body.jpg" />
+    <Content Include="ngViews\bg_heading_large.png" />
     <Content Include="ngViews\clients.html" />
     <Content Include="ngViews\home.html" />
     <Content Include="ngViews\login.html" />
@@ -486,6 +494,10 @@
     <Content Include="Scripts\ngCore\services\searchService.js" />
     <Content Include="Views\Index - Copy.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -580,7 +592,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2382</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2382/</IISUrl>
+          <IISUrl>http://localhost:2385/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:2385/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
