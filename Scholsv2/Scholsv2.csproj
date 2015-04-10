@@ -462,8 +462,10 @@
     <Content Include="Scripts\ng3rdparty\angular-file-upload.js" />
     <Content Include="Scripts\ng3rdparty\angular-local-storage.min.js" />
     <Content Include="Scripts\ng3rdparty\authComplete.js" />
+    <Content Include="Scripts\ng3rdparty\dirPagination.js" />
     <Content Include="Scripts\ng3rdparty\jquery.fileupload.js" />
     <Content Include="Scripts\ng3rdparty\jquery.iframe-transport.js" />
+    <Content Include="Scripts\ng3rdparty\jquery.maskedinput.js" />
     <Content Include="Scripts\ng3rdparty\jquery.ui.widget.js" />
     <Content Include="Scripts\ng3rdparty\js2.js" />
     <Content Include="Scripts\ng3rdparty\loading-bar.min.js" />

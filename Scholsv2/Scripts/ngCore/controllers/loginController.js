@@ -57,11 +57,13 @@
                     $log.error(vm.msg);
                 }
             }, function (reason) {
+                /*
                 if (reason.error_description == undefined) {
                     vm.message="Unable to access the system";
                 } else {
                     vm.message = "Failed : " + reason.error_description;
-                }                
+                } */
+                vm.message = "Failed: " +reason.Message;
                 vm.spinnerdisplay = "hideme";
                 $log.error(vm.message);
             }, function (update) {

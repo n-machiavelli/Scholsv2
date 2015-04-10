@@ -35,13 +35,14 @@
                     <div class="field-wrap">
                         <label for="phonenumber">Phone Number</label>
                         <div>
-                            <input data-ng-model="vm.registration.PhoneNumber" id="phonenumber" numeric-only type="text" placeholder="xxx-xxx-xxxx">
+                            <input data-ng-model="vm.registration.PhoneNumber" id="phonenumber" type="text" placeholder="(xxx)xxx-xxxx" ui-mask="(999)999-9999">
+                            <!--<input data-ng-model="vm.registration.PhoneNumber" id="phonenumber" numeric-only type="text" placeholder="xxx-xxx-xxxx">-->
                         </div>
                     </div>
                     <div class="field-wrap">
                         <label for="UniversityId">University ID</label>
                         <div>
-                            <input data-ng-model="vm.registration.UniversityId" id="UniversityId" numeric-only type="text" placeholder="xxxx-xxxxx">
+                            <input data-ng-model="vm.registration.UniversityId" id="UniversityId" numeric-only type="text" placeholder="xxx-xx-xxxx" ui-mask="999-99-9999">
                         </div>
                     </div>
                 </div>
@@ -59,7 +60,7 @@
                 </div>
                 <div class="top-row">
                     <div class="field-wrap">
-                        <label for="email">High School GPA</label>
+                        <label for="highschoolGPA">High School GPA</label>
                         <input id="highschoolGPA" data-ng-model="vm.registration.HighSchoolGPA" type="text" numeric-only>
                     </div>
                     <div class="field-wrap">

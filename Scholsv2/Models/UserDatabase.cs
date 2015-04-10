@@ -14,12 +14,12 @@ namespace Schols.Models
 {
     public class UserDatabase
     {
-        public UserModel ValidUser(UserModel user)
+        public UserModel ValidUserSQLCE(UserModel user)
         {
             /* TODO: Deprecate since we using asp.net identity */
             DBObject db = new DBObject();
 
-            string sqlstr = "SELECT PasswordHash,Salt,FirstName,LastName,UserMajor,UserName FROM manualusers where UserName= @UserName";
+            string sqlstr = "SELECT PasswordHash,Salt,FirstName,LastName,UserMajor,UserName FROM scholarshipcenter.manualusers where UserName= @UserName";
             List<SqlCeParameter> parameters = new List<SqlCeParameter>();
             parameters.Add(new SqlCeParameter("@UserName", user.UserName));
             DataTable dt = db.querySQLServer(sqlstr, parameters);
@@ -52,13 +52,51 @@ namespace Schols.Models
                 return user;
             }
         }
+        public UserModel ValidUser(UserModel user)
+        {
+            /* TODO: Deprecate since we using asp.net identity */
+            DBObject db = new DBObject();
+
+            string sqlstr = "SELECT PasswordHash,Salt,FirstName,LastName,UserMajor,UserName FROM scholarshipcenter.manualusers where UserName= :UserName";
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            parameters.Add(new OracleParameter("UserName", user.UserName));
+            DataTable dt = db.query(sqlstr, parameters);
+            if (dt.Rows.Count == 0)
+            {
+                user.AccessToken = "";
+                user.UserName = "";
+                return user;
+            }
+            string storedHash = dt.Rows[0]["PasswordHash"].ToString();
+            string storedSalt = dt.Rows[0]["Salt"].ToString();
+            string firstName = dt.Rows[0]["FirstName"].ToString();
+            string lastName = dt.Rows[0]["LastName"].ToString();
+            string usermajor = dt.Rows[0]["UserMajor"].ToString();
+            string username = dt.Rows[0]["UserName"].ToString();
+            string inputHash = CreatePasswordHash(user.UserPassword, storedSalt);
+            if (storedHash.Equals(inputHash))
+            {
+                user.AccessToken = generateToken(user);
+                user.FirstName = firstName;
+                user.LastName = lastName;
+                user.UserName = username;
+                user.UserMajor = usermajor;
+                return user;
+            }
+            else
+            {
+                user.AccessToken = "";
+                user.Email = "";
+                return user;
+            }
+        }
         public bool UserExists(UserModel user)
         {
             DBObject db = new DBObject();
-            String sqlstr = "SELECT * FROM manualusers where UserName= @UserName";
-            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
-            parameters.Add(new SqlCeParameter("@UserName", user.UserName));
-            DataTable dt = db.querySQLServer(sqlstr, parameters);
+            String sqlstr = "SELECT * FROM scholarshipcenter.manualusers where UserName= :UserName";
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            parameters.Add(new OracleParameter("UserName", user.UserName));
+            DataTable dt = db.query(sqlstr, parameters);
             if (dt.Rows.Count == 0)
                 return false;
             else
@@ -67,10 +105,10 @@ namespace Schols.Models
         private UserModel GetUser(UserModel user)
         {
             DBObject db = new DBObject();
-            String sqlstr = "SELECT * FROM manualusers where UserName= @UserName";
-            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
-            parameters.Add(new SqlCeParameter("@UserName", user.UserName));
-            DataTable dt = db.querySQLServer(sqlstr, parameters);
+            String sqlstr = "SELECT * FROM scholarshipcenter.manualusers where UserName= :UserName";
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            parameters.Add(new OracleParameter("UserName", user.UserName));
+            DataTable dt = db.query(sqlstr, parameters);
             if (dt.Rows.Count == 0)
             {
                 return null;
@@ -84,7 +122,7 @@ namespace Schols.Models
                 user.LastName = dt.Rows[0]["LastName"].ToString();
                 user.UniversityId = dt.Rows[0]["UniversityId"].ToString();
                 user.PhoneNumber = dt.Rows[0]["PhoneNumber"].ToString();
-                user.PresentGPA = dt.Rows[0]["FirstName"].ToString();
+                user.PresentGPA = dt.Rows[0]["PresentGPA"].ToString();
                 user.HighSchoolGPA = dt.Rows[0]["HighSchoolGPA"].ToString();
                 user.CommunityService = dt.Rows[0]["CommunityService"].ToString();
                 user.ExtraCurricular = dt.Rows[0]["ExtraCurricular"].ToString();
@@ -102,28 +140,26 @@ namespace Schols.Models
                 return "User Exists Already";
             }
             DBObject db = new DBObject();
-            String sqlstr = "INSERT INTO manualusers (UserName,PasswordHash,Salt,UserMajor,FirstName,LastName,MiddleName,PhoneNumber,UniversityId,PresentGPA,HighSchoolGPA,CommunityService,ExtraCurricular,Address) VALUES (@UserName,@PasswordHash,@Salt,@UserMajor,@FirstName,@LastName,@MiddleName,@PhoneNumber,@UniversityId,@PresentGPA,@HighSchoolGPA,@CommunityService,@ExtraCurricular,@Address)";
+            String sqlstr = "INSERT INTO scholarshipcenter.manualusers (UserName,PasswordHash,Salt,UserMajor,FirstName,LastName,MiddleName,PhoneNumber,UniversityId,PresentGPA,HighSchoolGPA,CommunityService,ExtraCurricular,Address) VALUES (:UserName,:PasswordHash,:Salt,:UserMajor,:FirstName,:LastName,:MiddleName,:PhoneNumber,:UniversityId,:PresentGPA,:HighSchoolGPA,:CommunityService,:ExtraCurricular,:Address)";
             string salt = CreateSalt(4);
             string passwordhash = CreatePasswordHash(user.UserPassword, salt);
-            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
-            //parameters.Add(new SqlCeParameter("@UserName", user.UserName));
-            parameters.Add(new SqlCeParameter("@UserName", user.UserName == null ? "" : user.UserName));
-            parameters.Add(new SqlCeParameter("@passwordhash", passwordhash));
-            parameters.Add(new SqlCeParameter("@salt", salt));
-            parameters.Add(new SqlCeParameter("@UserMajor", user.UserMajor == null ? "" : user.UserMajor));
-            parameters.Add(new SqlCeParameter("@FirstName", user.FirstName == null ? "" : user.FirstName));
-            parameters.Add(new SqlCeParameter("@LastName", user.LastName == null ? "" : user.LastName));
-            parameters.Add(new SqlCeParameter("@MiddleName", user.MiddleName == null ? "" : user.MiddleName));
-            parameters.Add(new SqlCeParameter("@PhoneNumber", user.PhoneNumber == null ? "" : user.PhoneNumber));
-            parameters.Add(new SqlCeParameter("@UniversityId", user.UniversityId == null ? "" : user.UniversityId));
-            parameters.Add(new SqlCeParameter("@PresentGPA", user.PresentGPA == null ? "" : user.PresentGPA));
-            parameters.Add(new SqlCeParameter("@HighSchoolGPA", user.HighSchoolGPA == null ? "" : user.HighSchoolGPA));
-            parameters.Add(new SqlCeParameter("@CommunityService", user.CommunityService== null ? "" : user.CommunityService));
-            parameters.Add(new SqlCeParameter("@ExtraCurricular", user.ExtraCurricular == null ? "" : user.ExtraCurricular));
-            parameters.Add(new SqlCeParameter("@Address", user.Address == null ? "" : user.Address));
-            System.Diagnostics.Debug.WriteLine("here1");
-            int count = db.queryExecuteSQLServer(sqlstr, parameters);
-            System.Diagnostics.Debug.WriteLine("here2");
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            //parameters.Add(new SqlCeParameter("UserName", user.UserName));
+            parameters.Add(new OracleParameter("UserName", user.UserName == null ? "" : user.UserName));
+            parameters.Add(new OracleParameter("passwordhash", passwordhash));
+            parameters.Add(new OracleParameter("salt", salt));
+            parameters.Add(new OracleParameter("UserMajor", user.UserMajor == null ? "" : user.UserMajor));
+            parameters.Add(new OracleParameter("FirstName", user.FirstName == null ? "" : user.FirstName));
+            parameters.Add(new OracleParameter("LastName", user.LastName == null ? "" : user.LastName));
+            parameters.Add(new OracleParameter("MiddleName", user.MiddleName == null ? "" : user.MiddleName));
+            parameters.Add(new OracleParameter("PhoneNumber", user.PhoneNumber == null ? "" : user.PhoneNumber));
+            parameters.Add(new OracleParameter("UniversityId", user.UniversityId == null ? "" : user.UniversityId));
+            parameters.Add(new OracleParameter("PresentGPA", user.PresentGPA == null ? "" : user.PresentGPA));
+            parameters.Add(new OracleParameter("HighSchoolGPA", user.HighSchoolGPA == null ? "" : user.HighSchoolGPA));
+            parameters.Add(new OracleParameter("CommunityService", user.CommunityService == null ? "" : user.CommunityService));
+            parameters.Add(new OracleParameter("ExtraCurricular", user.ExtraCurricular == null ? "" : user.ExtraCurricular));
+            parameters.Add(new OracleParameter("Address", user.Address == null ? "" : user.Address));
+            int count = db.queryExecute(sqlstr, parameters);
             if (count == 1)
             {
                 return "";
@@ -284,12 +320,12 @@ namespace Schols.Models
         {
             string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
             DBObject db = new DBObject();
-            String sqlstr = "INSERT INTO tokens (UserName,accesstoken,granted) VALUES (@UserName, @accesstoken,@granted)";
-            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
-            parameters.Add(new SqlCeParameter("@UserName", user.UserName));
-            parameters.Add(new SqlCeParameter("@accesstoken", token));
-            parameters.Add(new SqlCeParameter("@granted", DateTime.Now));
-            int count = db.queryExecuteSQLServer(sqlstr, parameters);
+            String sqlstr = "INSERT INTO scholarshipcenter.tokens (UserName,accesstoken,granted) VALUES (:UserName, :accesstoken,:granted)";
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            parameters.Add(new OracleParameter("UserName", user.UserName));
+            parameters.Add(new OracleParameter("accesstoken", token));
+            parameters.Add(new OracleParameter("granted", DateTime.Now));
+            int count = db.queryExecute(sqlstr, parameters);
             return token;
         }
         public static string generateTokenNoDB(UserModel user)
@@ -300,10 +336,10 @@ namespace Schols.Models
         public UserModel CheckToken(string token)
         {
             DBObject db = new DBObject();
-            string sqlstr = "SELECT UserName FROM tokens WHERE accesstoken= @accesstoken"; //and granted...
-            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
-            parameters.Add(new SqlCeParameter("@accesstoken", token));
-            DataTable dt = db.querySQLServer(sqlstr, parameters);
+            string sqlstr = "SELECT UserName FROM scholarshipcenter.tokens WHERE accesstoken= :accesstoken"; //and granted...
+            List<OracleParameter> parameters = new List<OracleParameter>();
+            parameters.Add(new OracleParameter("accesstoken", token));
+            DataTable dt = db.query(sqlstr, parameters);
             if (dt.Rows.Count == 0)
                 return null;
             else
@@ -392,23 +428,23 @@ namespace Schols.Models
        
 
             DBObject db = new DBObject();
-            String sqlstr = "UPDATE manualusers SET firstname=@firstname, middlename=@middlename, lastname=@lastname,universityid=@universityid,phonenumber=@phonenumber,usermajor=@usermajor,presentgpa=@presentgpa,highschoolgpa=@highschoolgpa,communityservice=@communityservice,extracurricular=@extracurricular,address=@address WHERE username=@username";
-            List<SqlCeParameter> parameters = new List<SqlCeParameter>();
+            String sqlstr = "UPDATE scholarshipcenter.manualusers SET firstname=:firstname, middlename=:middlename, lastname=:lastname,universityid=:universityid,phonenumber=:phonenumber,usermajor=:usermajor,presentgpa=:presentgpa,highschoolgpa=:highschoolgpa,communityservice=:communityservice,extracurricular=:extracurricular,address=:address WHERE username=:username";
+            List<OracleParameter> parameters = new List<OracleParameter>();
             //parameters.Add(new OracleParameter("appid", "1"));
-            parameters.Add(new SqlCeParameter("firstname", userNewDetails.FirstName));
-            parameters.Add(new SqlCeParameter("middlename", userNewDetails.MiddleName));
-            parameters.Add(new SqlCeParameter("lastname", userNewDetails.LastName));
-            parameters.Add(new SqlCeParameter("universityid", userNewDetails.UniversityId));
-            parameters.Add(new SqlCeParameter("phonenumber", userNewDetails.PhoneNumber));
-            parameters.Add(new SqlCeParameter("usermajor", userNewDetails.UserMajor));
-            parameters.Add(new SqlCeParameter("presentgpa", userNewDetails.PresentGPA));
-            parameters.Add(new SqlCeParameter("highschoolgpa", userNewDetails.HighSchoolGPA));
-            parameters.Add(new SqlCeParameter("communityservice", userNewDetails.CommunityService));
-            parameters.Add(new SqlCeParameter("extracurricular", userNewDetails.ExtraCurricular));
-            parameters.Add(new SqlCeParameter("address", userNewDetails.Address));
-            parameters.Add(new SqlCeParameter("username", userFromDB.UserName));
+            parameters.Add(new OracleParameter("firstname", userNewDetails.FirstName));
+            parameters.Add(new OracleParameter("middlename", userNewDetails.MiddleName));
+            parameters.Add(new OracleParameter("lastname", userNewDetails.LastName));
+            parameters.Add(new OracleParameter("universityid", userNewDetails.UniversityId));
+            parameters.Add(new OracleParameter("phonenumber", userNewDetails.PhoneNumber));
+            parameters.Add(new OracleParameter("usermajor", userNewDetails.UserMajor));
+            parameters.Add(new OracleParameter("presentgpa", userNewDetails.PresentGPA));
+            parameters.Add(new OracleParameter("highschoolgpa", userNewDetails.HighSchoolGPA));
+            parameters.Add(new OracleParameter("communityservice", userNewDetails.CommunityService));
+            parameters.Add(new OracleParameter("extracurricular", userNewDetails.ExtraCurricular));
+            parameters.Add(new OracleParameter("address", userNewDetails.Address));
+            parameters.Add(new OracleParameter("username", userFromDB.UserName));
           
-            db.queryExecuteSQLServer(sqlstr, parameters);
+            db.queryExecute(sqlstr, parameters);
             Message message = new Message();
             message.title = "Profile updated";
             message.body= "Profile updated";

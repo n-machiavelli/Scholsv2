@@ -1,5 +1,5 @@
 ﻿var app = angular.module('app',
-    ['ngRoute', 'LocalStorageModule', 'ngSanitize', 'angularFileUpload', 'ui.bootstrap', 'angularUtils.directives.dirPagination']);
+    ['ngRoute', 'LocalStorageModule', 'ngSanitize', 'angularFileUpload', 'ui.bootstrap', 'angularUtils.directives.dirPagination','ui.utils']);
 
 
 app.config(function ($routeProvider, $locationProvider, $logProvider) {
