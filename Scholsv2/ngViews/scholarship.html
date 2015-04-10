@@ -1,5 +1,5 @@
 ﻿<div class="form3">
-    <h2 id="title" data-ng-bind-html="vm.scholarship.Title"></h2>
+    <h4 class="text-thick" id="title" data-ng-bind-html="vm.scholarship.Title"></h4>
     <p data-ng-show="vm.scholarship.Purpose!=''"><b>Scholarship Purpose: </b><span id="purpose" data-ng-bind-html="vm.scholarship.Purpose"></span></p>
     <p data-ng-show="vm.scholarship.Department!=''"><b>Department: </b><span id="department" data-ng-bind-html="vm.scholarship.Department"></span>.</p>
     <p data-ng-show="vm.scholarship.College!=''"><b>College: </b><span id="department" data-ng-bind-html="vm.scholarship.College"></span></p>
@@ -39,7 +39,7 @@
 </div>
 <div class="form">
     <div data-ng-show="!vm.isAuthorized">
-        <h4>You need to login or register to be able to apply</h4>
+        <h4>You need to login to apply</h4>
     </div>
     <div id="applicationform" data-ng-show="vm.scholarship.Title!='' && vm.scholarship.Title!=null && vm.isAuthorized">
         <form>
@@ -77,7 +77,7 @@
                 <div class="field-wrap">
                     <label for="phonenumber">Phone Number</label>
                     <div>
-                        <input id="phonenumber" data-ng-model="vm.phonenumber" type="text">
+                        <input id="phonenumber" data-ng-model="vm.phonenumber" numeric-only type="text" placeholder="xxx-xxx-xxxx">                        
                     </div>
                 </div>
                 <div class="field-wrap">
@@ -91,7 +91,7 @@
                 <div class="field-wrap">
                     <label for="UniversityId">University Id</label>
                     <div>
-                        <input id="UniversityId" data-ng-model="vm.UniversityId" type="text">
+                        <input id="UniversityId" data-ng-model="vm.UniversityId" numeric-only type="text" placeholder="xxx-xxx-xxxx">
                     </div>
                 </div>
             </div>
@@ -135,27 +135,27 @@
 
                 <div class="field-wrap">
                     <label for="presentGPA">Present GPA</label>
-                    <input id="presentGPA" data-ng-model="vm.presentGPA" type="text">
+                    <input id="presentGPA" data-ng-model="vm.presentGPA" type="text" numeric-only>
                 </div>
                 <div class="field-wrap">
                     <label for="email">High School GPA</label>
-                    <input id="highschoolGPA" data-ng-model="vm.highschoolGPA" type="text">
+                    <input id="highschoolGPA" data-ng-model="vm.highschoolGPA" type="text" numeric-only>
                 </div>
             </div>
             <div class="top-row">
                 <div class="field-wrap">
                     <label for="email">Community Service</label>
-                    <input id="communityService" data-ng-model="vm.communityService" type="text" placeholder="Separate with commas">
+                    <textarea id="communityService" data-ng-model="vm.communityService" type="text" placeholder="Community Service"></textarea>
                 </div>
                 <div class="field-wrap">
                     <label for="email">Extra-curricular activities</label>
-                    <input id="extraCurricular" data-ng-model="vm.extraCurricular" type="text" placeholder="Separate with commas">
+                    <textarea id="extraCurricular" data-ng-model="vm.extraCurricular" type="text" placeholder="Extra curricular"></textarea>
                 </div>
             </div>
             <div class="top-row">
                 <div class="field-wrap">
                     <label for="email">Awards/Honors</label>
-                    <input id="awards" data-ng-model="vm.awardsHonors" type="text" placeholder="Separate with commas">
+                    <textarea id="awards" data-ng-model="vm.awardsHonors" type="text" placeholder="Awards/honors"></textarea>
                 </div>
                 <div class="field-wrap">
                     <label for="email">Mailing Address</label>

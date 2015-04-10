@@ -199,6 +199,29 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
     };
 
+    var _getXmlEvents = function () {
+        var deferred = $q.defer();
+        $http.post(serviceBaseApi + 'getevents')
+            .success(function (response) {
+                deferred.resolve(response);
+            })
+            .error(function (err, status) {
+                deferred.reject(err);
+            });
+        return deferred.promise;
+    };
+    var _getXmlNews = function () {
+        var deferred = $q.defer();
+        $http.post(serviceBaseApi + 'getnews')
+            .success(function (response) {
+                deferred.resolve(response);
+            })
+            .error(function (err, status) {
+                deferred.reject(err);
+            });
+        return deferred.promise;
+    };
+
     authServiceFactory.saveRegistration = _saveRegistration;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
@@ -208,6 +231,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     authServiceFactory.getProfile = _getProfile;
     authServiceFactory.saveProfile = _saveProfile;
     authServiceFactory.getFeaturedScholarships = _getFeaturedScholarships;
+    authServiceFactory.getXmlEvents = _getXmlEvents
+    authServiceFactory.getXmlNews = _getXmlNews
 
     authServiceFactory.obtainAccessToken = _obtainAccessToken;
     authServiceFactory.externalAuthData = _externalAuthData;

@@ -145,6 +145,7 @@
                 vm.spinnerdisplay = "hideme";
             });
         }
+
         function getSearchString(num) {
             var search = "";
             var title = checkNull(vm.title);
@@ -157,24 +158,25 @@
             var highschoolGPA = checkNull(vm.highschoolGPA);
             var keyword = checkNull(vm.keyword);
             var noresultstext = "";
-            if (title != "") search += (title + ",");
-            if (department != "") search += (department + ",");
-            if (college != "") search += (college + ",");
-            if (schoolyear != "") search += (schoolyear + ",");
-            if (major != "") search += (major + ",");
-            if (undergradGPA != "") search += (undergradGPA + ",");
-            if (gradGPA != "") search += (gradGPA + ",");
-            if (highschoolGPA != "") search += (highschoolGPA + ",");
-            if (keyword != "") search += (keyword + ",");
-            search = search.substring(0, search.length - 1);
+            if (title != "") search += ("<li>Title: " + title + "</li>");
+            if (department != "") search += ("<li>Department: " + department + "</li>");
+            if (college != "") search += ("<li>College: " + college + "</li>");
+            if (schoolyear != "") search += ("<li>School year: " + schoolyear + "</li>");
+            if (major != "") search += ("<li>Major: " + major + "</li>");
+            if (undergradGPA != "") search += ("<li>Undergraduate GPA: " + undergradGPA + "</li>");
+            if (gradGPA != "") search += ("<li>Graduate GPA: " + gradGPA + "</li>");
+            if (highschoolGPA != "") search += ("<li>High school GPA: " + highschoolGPA + "</li>");
+            if (keyword != "") search += ("<li>Keyword: " + keyword + "</li>");
+            //search = search.substring(0, search.length - 1);
             if (search==null || search==""){
-                search = "Your search results for \"No parameters\" below...";
+                search = "Your search enquiry with no parameters...";
                 noresultstext = "No Parameters";
             } else {
                 noresultstext = search;
-                search = "Your search results for \"" + search + "\" below...";
+                search = "<ul class='nav'><li>Your search enquiry: </li> " + search ;
             }
             if (num == null || num === undefined || num == 0) search = "No search results for \"" + noresultstext + "\"";
+            console.log(search);
             return search;
         }
         function getSchoolYearString() {

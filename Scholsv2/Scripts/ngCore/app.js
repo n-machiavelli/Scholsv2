@@ -81,7 +81,24 @@ app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
 });
 
+app.directive('numericOnly', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, modelCtrl) {
 
+            modelCtrl.$parsers.push(function (inputValue) {
+                var transformedInput = inputValue.replace(/[^\d.-]/g, '');
+
+                if (transformedInput != inputValue) {
+                    modelCtrl.$setViewValue(transformedInput);
+                    modelCtrl.$render();
+                }
+
+                return transformedInput;
+            });
+        }
+    };
+});
 app.run(['authService','$log', function (authService,$log) {
     authService.fillAuthData();
 }]);

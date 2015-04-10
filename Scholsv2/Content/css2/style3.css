@@ -12,6 +12,8 @@ body {
     background-repeat:repeat;  
   /*background: #c1bdba;*/
   font-family: 'Titillium Web', sans-serif;
+            padding-bottom: 40px;
+            padding-top: 60px;
 }
 
 a {
@@ -319,16 +321,24 @@ span.showme {
 .modal-body{
     padding:10px;
 }
+#leftnavbar{
+    padding:0px 0px 0px 0px;
+}
+#rightnavbar{
+    padding:0px 0px 0px 0px;
+}
 
 @media  (max-width:1024px){
     #leftnavbar {display:none;}
     #rightnavbar {display:none;}
 }
+/*
 @media (min-width:1320px) {
     .sidebar-nav-fixed{
         width:17%;
     }
 }
+    */
 .pagecontrols {
   padding: 1px;
   margin: 1px;
@@ -339,4 +349,8 @@ span.showme {
     color: #2780E3;
     background-color: rgba(19, 35, 47, 0.9);
     border: 1px solid #DDD;
+}
+
+.text-thick{
+    font-weight:600;
 }

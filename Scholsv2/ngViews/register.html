@@ -35,13 +35,13 @@
                     <div class="field-wrap">
                         <label for="phonenumber">Phone Number</label>
                         <div>
-                            <input data-ng-model="vm.registration.PhoneNumber" id="phonenumber" type="text" placeholder="Only the numbers">
+                            <input data-ng-model="vm.registration.PhoneNumber" id="phonenumber" numeric-only type="text" placeholder="xxx-xxx-xxxx">
                         </div>
                     </div>
                     <div class="field-wrap">
                         <label for="UniversityId">University ID</label>
                         <div>
-                            <input data-ng-model="vm.registration.UniversityId" id="UniversityId" type="text" placeholder="Only the numbers">
+                            <input data-ng-model="vm.registration.UniversityId" id="UniversityId" numeric-only type="text" placeholder="xxxx-xxxxx">
                         </div>
                     </div>
                 </div>
@@ -49,23 +49,23 @@
                     <div class="field-wrap">
                         <label for="email">Email/User Name</label>
                         <div>
-                            <input data-ng-model="vm.registration.email" id="email" name="email" type="email" required>
+                            <input data-ng-model="vm.registration.UserName" id="UserName" name="UserName" type="email" required>
                         </div>
                     </div>
                     <div class="field-wrap">
-                        <label for="email">Mailing Address</label>
+                        <label for="address">Mailing Address</label>
                         <textarea id="address" data-ng-model="vm.registration.Address" placeholder="Mailing Address"></textarea>
                     </div>
                 </div>
                 <div class="top-row">
                     <div class="field-wrap">
                         <label for="email">High School GPA</label>
-                        <input id="highschoolGPA" data-ng-model="vm.registration.HighSchoolGPA" type="text">
+                        <input id="highschoolGPA" data-ng-model="vm.registration.HighSchoolGPA" type="text" numeric-only>
                     </div>
                     <div class="field-wrap">
                         <label for="presentGPA">Present GPA</label>
                         <div>
-                            <input data-ng-model="vm.registration.PresentGPA" id="PresentGPA" type="text">
+                            <input data-ng-model="vm.registration.PresentGPA" id="PresentGPA" type="text" numeric-only>
                         </div>
                     </div>
                 </div>
@@ -86,11 +86,11 @@
                 <div class="top-row">
                     <div class="field-wrap">
                         <label for="email">Community Service</label>
-                        <input id="communityService" data-ng-model="vm.registration.CommunityService" type="text" placeholder="Separate with commas">
+                        <textarea id="communityService" data-ng-model="vm.registration.CommunityService" placeholder="Community service"></textarea>
                     </div>
                     <div class="field-wrap">
                         <label for="email">Extra-curricular activities</label>
-                        <input id="extraCurricular" data-ng-model="vm.registration.ExtraCurricular" type="text" placeholder="Separate with commas">
+                        <textarea id="extraCurricular" data-ng-model="vm.registration.ExtraCurricular" placeholder="Extra-curricular"></textarea>
                     </div>
                 </div>
                 <button type="button" class="button button-block" data-ng-click="vm.register()">

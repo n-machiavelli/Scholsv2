@@ -1,7 +1,7 @@
 ﻿<div class="form padm">
     <div class="tab-content">
         <div id="search">
-            <h1>Search Here...</h1>
+            <h4 class="text-center text-thick">Search Here...</h4>
             <form>
                 <div class="top-row">
                     <div class="field-wrap">
@@ -56,14 +56,12 @@
     </div><!-- tab-content -->
 </div> <!-- /form -->
 <div class="form2" data-ng-show="vm.searchString!='' && vm.searchString!=undefined">
-    <h3 id="searchinfo" class="form-login-heading">
-        {{vm.searchString}}
-    </h3>
+    <span id="searchinfo" class="form-login-heading" data-ng-bind-html="vm.searchString"></span>
     <div data-ng-show="vm.scholarships.length>0">
         <!-- class="col-md-8 bodynobg"-->
-        <div class="text-center">
+        <div>
             <!--page-header -->
-            <h3><span ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span>Scholarships search result ({{vm.scholarships.length}})</h3>
+            <span><span ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span>{{vm.scholarships.length}} result(s)</span>
         </div>
         <table id="scholarship" class="table table-condensed table-bordered">
             <thead>
@@ -77,7 +75,7 @@
                 <tr dir-paginate="scholarship in vm.scholarships |  itemsPerPage: vm.pageSize" current-page="vm.currentPage">
                 <!--<tr data-ng-repeat="scholarship in vm.scholarships">-->
                     <td>
-                        {{$index + 1}}
+                        {{$index + 1 + (vm.currentPage-1)*10}}
                     </td>
                     <td>
                         <a target="_blank" href="#/scholarship/{{scholarship.FUND_ACCT}}/{{scholarship.SCHLRSHP_NUM}}">{{scholarship.FRML_SCHLRSHP_NAME}}</a>

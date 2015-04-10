@@ -19,7 +19,7 @@
         vm.message = "";
         
         vm.registration = {
-            email: "",
+            UserName: "",
             password: "",
             confirmPassword: "",
             UserMajor:"",
@@ -50,7 +50,7 @@
             var majorRegex = /^[A-Za-z\(\)\[\]\- ]+$/;
             var numberRegex = /^[0-9.]+$/;
             //var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-            if (!(emailRegex.test(vm.registration.email))) {
+            if (!(emailRegex.test(vm.registration.UserName))) {
                 vm.message += "Invalid email address. ";
                 isValid = false;
             }
