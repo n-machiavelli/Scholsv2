@@ -5,10 +5,10 @@
         .module('app')
         .controller('profileController', profileController);
 
-    profileController.$inject = ['$location', 'authService','$log'];
+    profileController.$inject = ['$location', 'authService','searchService','$log'];
 
     /* @ngInject */
-    function profileController($location, authService,$log) {
+    function profileController($location, authService,searchService,$log) {
         /* jshint validthis: true */
         var vm = this;
         vm.title = 'profileController';
@@ -17,8 +17,17 @@
         vm.getProfile = getProfile;
         vm.saveProfile = saveProfile;
         getProfile();
+        getMajors();
 
-
+        function getMajors() {
+            var promise = searchService.getDropDowns();
+            promise.then(function (data) {
+                vm.majors = data.majors;
+                vm.schoolyears = data.schoolyears;
+            }, function (reason) {
+                $log.log(reason);
+            });
+        }
 
         function getProfile() {
             $log.log(vm.profile, "before call get");

@@ -95,6 +95,7 @@ namespace Schols.Models
                         }
                     }
                     result = comm.ExecuteNonQuery();
+                    System.Diagnostics.Debug.Write(result);
                     comm.Dispose();
                 }
                 conn.Close(); // close the oracle connection
@@ -193,7 +194,8 @@ namespace Schols.Models
         }
         public List<string> GetDistinctMajors()
         {
-            string sqlstr = "SELECT DISTINCT USER_CD_DESCR FROM UHELP.USER_CD WHERE UHELP.USER_CD.USER_GRP='SCHMJ' ORDER BY USER_CD_DESCR";
+            //string sqlstr = "SELECT DISTINCT USER_CD_DESCR FROM UHELP.USER_CD WHERE UHELP.USER_CD.USER_GRP='SCHMJ' ORDER BY USER_CD_DESCR";
+            string sqlstr = "SELECT DISTINCT USER_CD_DESCR FROM SCHOLARSHIPCENTER.MAJORS ORDER BY USER_CD_DESCR";
             DataTable dt = query(sqlstr, null);
             List<string> majorsList = new List<string>();
             Major major ;
@@ -368,13 +370,13 @@ namespace Schols.Models
             System.Diagnostics.Debug.WriteLine("Data : " + data.Title);
             return data;            
         }
-        public DataTable GetApplicationsTable(string fund_acct="", string username="")//TODO:  DEPRECATE
+        public DataTable GetApplicationsTable(string fund_acct="", string username="", string schlrshp_num="")//TODO:  DEPRECATE
         {
-            string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,fund_acct,essayfilename,username,reffilename,scholarshipyear FROM scholarshipcenter.applications "; //TODO: WHERE
+            string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,fund_acct,schlrshp_num,essayfilename,username,reffilename,scholarshipyear FROM scholarshipcenter.applications "; //TODO: WHERE
             bool hasFundAcct = false;
             if (!(fund_acct==null) && !fund_acct.Equals(""))
             {
-                sqlstr += " WHERE fund_acct='" + fund_acct + "'";
+                sqlstr += " WHERE fund_acct='" + fund_acct + "' AND schlrshp_num='" + schlrshp_num + "'";
                 hasFundAcct = true;
             }
             if (!(username == null) && !username.Equals(""))
@@ -392,15 +394,15 @@ namespace Schols.Models
             DataTable dt = query(sqlstr, null);
             return dt;
         }
-        public DataTable GetPublicApplicationsTable(string fund_acct = "", string username = "")
+        public DataTable GetPublicApplicationsTable(string fund_acct = "", string username = "", string schlrshp_num="")
         {
-            string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,a.fund_acct,essayfilename,username,reffilename,scholarshipyear ";
+            string sqlstr = "SELECT id,universityid,firstname,lastname,middlename,address,phonenumber,email,a.fund_acct,a.schlrshp_num,essayfilename,username,reffilename,scholarshipyear ";
             sqlstr+=",frml_schlrshp_name,status,communityservice,extracurricular,awardshonors,presentgpa,highschoolgpa,expectedgraduation,applydate,usermajor ";
-            sqlstr += "FROM scholarshipcenter.applications a JOIN summit.schlrshp s ON (regexp_like(s.fund_acct,a.fund_acct,'i') and s.SCHLR_USER_VARBL2 = 'Y')"; //TODO: WHERE
+            sqlstr += "FROM scholarshipcenter.applications a JOIN summit.schlrshp s ON (regexp_like(s.fund_acct,a.fund_acct,'i') and regexp_like(s.schlrshp_num,a.schlrshp_num,'i') and s.SCHLR_USER_VARBL2 = 'Y')"; //TODO: WHERE
             bool hasFundAcct = false;
             if (!(fund_acct == null) && !fund_acct.Equals(""))
             {
-                sqlstr += " WHERE a.fund_acct='" + fund_acct + "'";
+                sqlstr += " WHERE a.fund_acct='" + fund_acct + "' AND a.schlrshp_num='" + schlrshp_num + "'";
                 hasFundAcct = true;
             }
             if (!(username == null) && !username.Equals(""))
@@ -448,7 +450,7 @@ namespace Schols.Models
         {
             //string sqlstr = "SELECT DISTINCT fund_acct,frml_schlrshp_name FROM scholarshipcenter.applications a INNER JOIN fund f ON a.fund_acct=f.fund_acct";
             //use regex bcos the join was not returning rows. maybe some padding exist... making not exactly equal
-            string sqlstr = "SELECT DISTINCT * FROM scholarshipcenter.applications a JOIN summit.schlrshp s ON (regexp_like(s.fund_acct,a.fund_acct,'i') and s.SCHLR_USER_VARBL2 = 'Y')";
+            string sqlstr = "SELECT DISTINCT * FROM scholarshipcenter.applications a JOIN summit.schlrshp s ON (regexp_like(s.fund_acct,a.fund_acct,'i') and regexp_like(s.schlrshp_num,a.schlrshp_num,'i') and s.SCHLR_USER_VARBL2 = 'Y')";
             DataTable dt = query(sqlstr, null);
             return dt;
         }
@@ -480,12 +482,12 @@ namespace Schols.Models
         public DataTable GetScholarshipsTable(SearchObject searchObject, string user=null, bool strictcompare=false)
         {
             List<OracleParameter> parameters = new List<OracleParameter>();
-            string sqlstr = "SELECT DISTINCT s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num,'' as fav FROM summit.schlrshp s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct LEFT OUTER JOIN uhelp.fund_coll_attrb coll on f.fund_coll_attrb=coll.fund_coll_attrb LEFT OUTER JOIN uhelp.fund_dept_attrb dept on f.fund_coll_attrb=dept.fund_dept_attrb ";
+            string sqlstr = "SELECT DISTINCT s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num,'' as fav,su.USER_GRP FROM summit.schlrshp s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct LEFT OUTER JOIN uhelp.fund_coll_attrb coll on f.fund_coll_attrb=coll.fund_coll_attrb LEFT OUTER JOIN uhelp.fund_dept_attrb dept on f.fund_coll_attrb=dept.fund_dept_attrb ";
             string sqlstr2 = "LEFT OUTER JOIN summit.user_code su on (s.audit_tran_id=su.parent_audit_tran_id and (su.user_grp='SCHMJ' or su.user_grp='SCHYR' or su.USER_GRP='SCHOT' or su.USER_GRP='SCHCO'))";
             sqlstr2 += "LEFT OUTER JOIN uhelp.user_cd uu on su.user_cd=uu.user_cd ";
             if (user!=null)
             {
-                sqlstr = "SELECT DISTINCT s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num,fv.frml_schlrshp_name as fav FROM summit.schlrshp s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct LEFT OUTER JOIN uhelp.fund_coll_attrb coll on f.fund_coll_attrb=coll.fund_coll_attrb LEFT OUTER JOIN uhelp.fund_dept_attrb dept on f.fund_coll_attrb=dept.fund_dept_attrb ";
+                sqlstr = "SELECT DISTINCT s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num,fv.frml_schlrshp_name as fav,su.USER_GRP FROM summit.schlrshp s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct LEFT OUTER JOIN uhelp.fund_coll_attrb coll on f.fund_coll_attrb=coll.fund_coll_attrb LEFT OUTER JOIN uhelp.fund_dept_attrb dept on f.fund_coll_attrb=dept.fund_dept_attrb ";
                 sqlstr += sqlstr2;
                 sqlstr += "LEFT OUTER JOIN scholarshipcenter.favorites fv ON (regexp_like(s.fund_acct,fv.fund_acct,'i') AND fv.username=:username) ";
                 parameters.Add(new OracleParameter("username", user));
@@ -515,22 +517,36 @@ namespace Schols.Models
                 sqlstr += " and f.FUND_DEPT_ATTRB like :department ";
                 parameters.Add(new OracleParameter("department", searchObject.department));
             }
-            if (searchObject.schoolYear != null && !searchObject.schoolYear.Equals("-1"))
+            if (searchObject.schoolYear != null && !searchObject.schoolYear.Equals("-1") && (searchObject.major==null || searchObject.major.Trim().Equals("")))
             {
-                sqlstr += " and uu.USER_CD like :year and su.USER_GRP='SCHYR'";
+                //sqlstr += " and uu.USER_CD like :year and su.USER_GRP='SCHYR'";
+                //check if year = input year OR year is all or year is nothing.
+                //due to nature of schoolyear, not doing strictcompare for profile search
+                sqlstr += " and (uu.USER_CD like :schoolYear or regexp_like(USER_CD_DESCR,'*All','i') or regexp_like(USER_CD_DESCR,'*No','i')) and su.user_grp='SCHYR'";
                 parameters.Add(new OracleParameter("schoolYear", searchObject.schoolYear));
             }
-            if (searchObject.major != null && !searchObject.major.Trim().Equals(""))
+            if (searchObject.major != null && !searchObject.major.Trim().Equals("") && (searchObject.schoolYear == null || searchObject.schoolYear.Equals("-1")))
             {   //this compares major to department and major due to some special cases observed. see onenote
                 //sqlstr += " and ((regexp_like(uu.USER_CD_DESCR, :major, 'i') or regexp_like(uu.USER_CD_DESCR, 'ALL Major', 'i')) and su.USER_GRP='SCHMJ') "; //**allmajors 2/25
                 if (!strictcompare)
                 {
-                    sqlstr += " and (((regexp_like(uu.USER_CD_DESCR, :major, 'i') or regexp_like(uu.USER_CD_DESCR, 'ALL Major', 'i')) and su.USER_GRP='SCHMJ') or (regexp_like(f.FUND_DEPT_ATTRB,:major,'i'))) "; //**allmajors 2/25
+                    sqlstr += " and (((regexp_like(uu.USER_CD_DESCR, :major, 'i') or regexp_like(uu.USER_CD_DESCR, 'ALL Major', 'i') or regexp_like(uu.USER_CD_DESCR, 'No code', 'i')) and su.USER_GRP='SCHMJ') or (regexp_like(f.FUND_DEPT_ATTRB,:major,'i'))) "; //**allmajors 2/25
                 }
                 else
                 {
+                    /* strict compare is used  by profile search. will bring all that exactly the user's major, and exactly any other feature of the user. 
+                     * at the moment i have major, schoolyear, transfer. so it will bring all for the user's major and all that's user's schoolyear with same major or blank major
+                     * */
                     sqlstr += " and ((regexp_like(uu.USER_CD_DESCR, :major, 'i')  and su.USER_GRP='SCHMJ') or (regexp_like(f.FUND_DEPT_ATTRB,:major,'i'))) "; //**allmajors 2/25
                 }
+                parameters.Add(new OracleParameter("major", searchObject.major));
+            }
+            if (searchObject.major != null && !searchObject.major.Trim().Equals("") && searchObject.schoolYear != null && !searchObject.schoolYear.Equals("-1"))
+            {
+                sqlstr += " and (uu.USER_CD like :schoolYear or regexp_like(USER_CD_DESCR,'*All','i') or regexp_like(USER_CD_DESCR,'*No','i')) and su.user_grp='SCHYR'";
+                sqlstr += " or ((regexp_like(uu.USER_CD_DESCR, :major, 'i')  and su.USER_GRP='SCHMJ') or (regexp_like(f.FUND_DEPT_ATTRB,:major,'i'))) "; 
+                //          ^^^
+                parameters.Add(new OracleParameter("schoolYear", searchObject.schoolYear));
                 parameters.Add(new OracleParameter("major", searchObject.major));
             }
             if (searchObject.undergradGPA != null && !searchObject.undergradGPA.Trim().Equals(""))
@@ -548,12 +564,22 @@ namespace Schols.Models
                 sqlstr += " and CAST(NVL(TRIM(SCHLR_USER_VARBL15),0) AS number) <= :highschoolGPA ";
                 parameters.Add(new OracleParameter("highschoolGPA", searchObject.highschoolGPA));
             }
+            if (searchObject.IsTransfer != null && !searchObject.IsTransfer.Trim().Equals(""))
+            {   //similar to keyword search for transfer
+                sqlstr += " or (regexp_like(NOTE, :IsTransfer,'i') or regexp_like(s.SCHLRSHP_CRTRIA,:IsTransfer,'i'))"; //using OR to "include"
+                parameters.Add(new OracleParameter("IsTransfer", searchObject.IsTransfer));
+            }
             if (searchObject.keyword != null && !searchObject.keyword.Trim().Equals(""))
             {
                 sqlstr += " and (regexp_like(s.FRML_SCHLRSHP_NAME, :keyword,'i') or regexp_like(s.SCHLRSHP_PRPS, :keyword,'i') or regexp_like(s.SCHLRSHP_CRTRIA,:keyword,'i')";
                 sqlstr += " or regexp_like(uu.USER_CD_DESCR, :keyword,'i') or regexp_like(f.FUND_DEPT_ATTRB, :keyword,'i') or regexp_like(f.FUND_COLL_ATTRB, :keyword,'i') ";
                 sqlstr += " or regexp_like(NOTE, :keyword,'i')) ";
                 parameters.Add(new OracleParameter("keyword", searchObject.keyword));
+            }
+            if (searchObject.major != null && !searchObject.major.Trim().Equals("") && searchObject.schoolYear != null && !searchObject.schoolYear.Equals("-1"))
+            {
+                sqlstr ="with view1 as (" + sqlstr + ") select distinct view1.frml_schlrshp_name,view1.fund_acct,view1.schlrshp_num,'' as fav from view1 join view1 view2 ";
+                sqlstr += "on (view1.frml_schlrshp_name=view2.frml_schlrshp_name and view1.user_grp<>view2.user_grp)";
             }
             System.Diagnostics.Debug.WriteLine(sqlstr);
             DataTable dt = query(sqlstr, parameters);
@@ -807,6 +833,7 @@ namespace Schols.Models
                 scholarshipLink = new ScholarshipLink();
                 scholarshipLink.FRML_SCHLRSHP_NAME = dt.Rows[i]["FRML_SCHLRSHP_NAME"].ToString().Trim();
                 scholarshipLink.FUND_ACCT = dt.Rows[i]["FUND_ACCT"].ToString().Trim();
+                scholarshipLink.SCHLRSHP_NUM = dt.Rows[i]["SCHLRSHP_NUM"].ToString().Trim();
                 scholarshipLinks.Add(scholarshipLink);
             }
             dt = GetHiddenScholarshipNamesTable();
@@ -816,6 +843,7 @@ namespace Schols.Models
                 scholarshipLink = new ScholarshipLink();
                 scholarshipLink.FRML_SCHLRSHP_NAME = dt.Rows[i]["FRML_SCHLRSHP_NAME"].ToString().Trim();
                 scholarshipLink.FUND_ACCT = dt.Rows[i]["FUND_ACCT"].ToString().Trim();
+                scholarshipLink.SCHLRSHP_NUM = dt.Rows[i]["SCHLRSHP_NUM"].ToString().Trim();
                 scholarshipLinks.Add(scholarshipLink);
             }
 

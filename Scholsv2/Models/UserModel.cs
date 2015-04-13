@@ -23,6 +23,7 @@ namespace Schols.Models
         public string Address{get; set;}
         public string CommunityService{get; set;}
         public string ExtraCurricular{get; set;}
-
+        public string SchoolYear { get; set; }
+        public string IsTransfer { get; set; }
     }
 }

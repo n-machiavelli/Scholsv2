@@ -59,7 +59,8 @@
                     HighSchoolGPA: vm.highschoolGPA,
                     CommunityService: vm.communityService,
                     ExtraCurricular: vm.extraCurricular,
-                    AwardsHonors: vm.awardsHonors
+                    AwardsHonors: vm.awardsHonors,
+                    SCHLRSHP_NUM: vm.SCHLRSHP_NUM
                 }
                 //,headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });

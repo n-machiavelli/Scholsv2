@@ -5,16 +5,16 @@
         .module('app')
         .controller('scholarshipController', scholarshipController);
 
-    scholarshipController.$inject = ['scholarshipService', '$location', 'authService', '$routeParams','$upload','$log'];
+    scholarshipController.$inject = ['scholarshipService', '$location', 'authService', '$routeParams','$upload','$log','searchService'];
 
     /* @ngInject */
-    function scholarshipController(scholarshipService, $location, authService, $routeParams, $upload,$log) {
+    function scholarshipController(scholarshipService, $location, authService, $routeParams, $upload,$log,searchService) {
         /* jshint validthis: true */
         var vm = this;
         
         vm.activate = activate;
         vm.fund_acct = $routeParams.fund_acct;
-        vm.schlrshp_num = $routeParams.schlrshp_num;
+        vm.SCHLRSHP_NUM = $routeParams.schlrshp_num;
         vm.savedSuccessfully = false;
         vm.message = "";
         //vm.title = 'searchController';
@@ -28,7 +28,8 @@
         ////////////////
         function activate() {
             vm.isAuthorized = authService.authentication.isAuth;  //need this also in this ctrlr for use in displaying apply form
-            var promise = scholarshipService.getScholarshipDetails(vm.fund_acct, vm.schlrshp_num);
+            getDropDowns();
+            var promise = scholarshipService.getScholarshipDetails(vm.fund_acct, vm.SCHLRSHP_NUM);
             promise.then(function (data) {
                 $log.log(data);
                 $log.log(vm.isAuthorized);
@@ -40,6 +41,17 @@
                 $log.log("got notification" + update);
             });
         }
+
+        function getDropDowns() {
+            var promise = searchService.getDropDowns();
+            promise.then(function (data) {
+                vm.majors = data.majors;
+                vm.schoolyears = data.schoolyears;
+            }, function (reason) {
+                $log.log(reason);
+            });
+        }
+
         vm.onFileSelect = function ($files, uploadtype) {
             //$files: an array of files selected, each file has name, size, and type.
             var file = $files[0];
@@ -134,7 +146,11 @@
                 vm.filenamelabel1 = "&nbsp;&nbsp;&nbsp;Essay";
                 vm.filenamelabel2 = "&nbsp;&nbsp;&nbsp;Reference";
                 vm.loadprofile = false;
-                vm.savedSuccessfully = true;
+                if (vm.message == 'Application Submitted') {
+                    vm.savedSuccessfully = true;
+                } else {
+                    vm.savedSuccessfully = false;
+                }
             }, function (reason) {
                 $log.error(reason);
             });

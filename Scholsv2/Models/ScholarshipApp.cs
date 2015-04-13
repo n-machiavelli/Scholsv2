@@ -33,6 +33,7 @@ namespace Schols.Models
         public string UserMajor { get; set; }
         public DateTime ApplyDate { get; set; }
         public string ApplyDateString { get; set; }
-
+        public string SchoolYear { get; set; }
+        public string IsTransfer { get; set; }
     }
 }

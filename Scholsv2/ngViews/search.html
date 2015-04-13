@@ -9,7 +9,6 @@
                         <input ng-model="vm.title" id="title" type="text" placeholder="Scholarship Title" autofocus>
                     </div>
                     <div class="field-wrap">
-
                         <input type="text" ng-model="vm.major" typeahead="major for major in vm.majors | filter:$viewValue | limitTo:8" placeholder="Major">
                     </div>
                 </div>
@@ -21,12 +20,11 @@
                         </select>
                     </div>
                     <div class="field-wrap">
-                        <select ng-init="vm.schoolyear = -1" ng-model="vm.schoolyear" id="schoolyear">
+                        <select ng-init="vm.schoolYear = -1" ng-model="vm.schoolYear" id="schoolYear">
                             <option value="-1" selected>School Year</option>
-                            <option value="{{schoolyear.USER_CD}}" ng-repeat="schoolyear in vm.schoolyears">{{schoolyear.USER_CD_DESCR}}</option>
+                            <option value="{{schoolYear.USER_CD}}" ng-repeat="schoolYear in vm.schoolYears">{{schoolYear.USER_CD_DESCR}}</option>
                         </select>
                     </div>
-
                 </div>
                 <div class="top-row">
                     <div class="field-wrap">

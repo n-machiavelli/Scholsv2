@@ -54,11 +54,12 @@
         function activate() {
             var promise = searchService.getDropDowns();
             promise.then(function (data) {
+                console.log(data);
                 vm.majors = data.majors;
                 //console.log(vm.majors);
                 vm.colleges = data.colleges;
                 vm.departments = data.departments;
-                vm.schoolyears = data.schoolyears;
+                vm.schoolYears = data.schoolyears;
             }, function (reason) {
                 $log.error(reason);
                 vm.message = "Unable to connect to the database. Please confirm connectivity and then refresh.";
@@ -66,7 +67,6 @@
             }, function (update) {
                 $log.log("got notification" + update);
             });
-
         }
 
         function getScholarships() {
@@ -151,7 +151,7 @@
             var title = checkNull(vm.title);
             var department = checkNull(vm.department);
             var college = getCollegeString();
-            var schoolyear = getSchoolYearString();
+            var schoolYear = getSchoolYearString();
             var major = checkNull(vm.major);
             var undergradGPA = checkNull(vm.undergradGPA);
             var gradGPA = checkNull(vm.gradGPA);
@@ -161,7 +161,7 @@
             if (title != "") search += ("<li>Title: " + title + "</li>");
             if (department != "") search += ("<li>Department: " + department + "</li>");
             if (college != "") search += ("<li>College: " + college + "</li>");
-            if (schoolyear != "") search += ("<li>School year: " + schoolyear + "</li>");
+            if (schoolYear != "") search += ("<li>School year: " + schoolYear + "</li>");
             if (major != "") search += ("<li>Major: " + major + "</li>");
             if (undergradGPA != "") search += ("<li>Undergraduate GPA: " + undergradGPA + "</li>");
             if (gradGPA != "") search += ("<li>Graduate GPA: " + gradGPA + "</li>");
@@ -180,9 +180,9 @@
             return search;
         }
         function getSchoolYearString() {
-            for (var i = 0; i < vm.schoolyears.length; i++) {
-                if (vm.schoolyears[i].USER_CD == vm.schoolyear) {
-                    return vm.schoolyears[i].USER_CD_DESCR;
+            for (var i = 0; i < vm.schoolYears.length; i++) {
+                if (vm.schoolYears[i].USER_CD == vm.schoolyear) {
+                    return vm.schoolYears[i].USER_CD_DESCR;
                 }
             }
             return "";

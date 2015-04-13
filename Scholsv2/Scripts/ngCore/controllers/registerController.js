@@ -38,6 +38,7 @@
             var promise = searchService.getDropDowns();
             promise.then(function (data) {
                 vm.majors = data.majors;
+                vm.schoolyears = data.schoolyears;
                 //console.log(vm.majors);
             }, function (reason) {
                 $log.log(reason);

@@ -40,11 +40,10 @@
                         </div>
                     </div>
                     <div class="field-wrap">
-                        <label for="UniversityId">University ID</label>
-                        <div>
-                            <input data-ng-model="vm.registration.UniversityId" id="UniversityId" numeric-only type="text" placeholder="xxx-xx-xxxx" ui-mask="999-99-9999">
-                        </div>
+                        <label for="address">Mailing Address</label>
+                        <textarea id="address" data-ng-model="vm.registration.Address" placeholder="Mailing Address"></textarea>
                     </div>
+
                 </div>
                 <div class="top-row">
                     <div class="field-wrap">
@@ -54,19 +53,9 @@
                         </div>
                     </div>
                     <div class="field-wrap">
-                        <label for="address">Mailing Address</label>
-                        <textarea id="address" data-ng-model="vm.registration.Address" placeholder="Mailing Address"></textarea>
-                    </div>
-                </div>
-                <div class="top-row">
-                    <div class="field-wrap">
-                        <label for="highschoolGPA">High School GPA</label>
-                        <input id="highschoolGPA" data-ng-model="vm.registration.HighSchoolGPA" type="text" numeric-only>
-                    </div>
-                    <div class="field-wrap">
-                        <label for="presentGPA">Present GPA</label>
+                        <label for="UniversityId">University ID</label>
                         <div>
-                            <input data-ng-model="vm.registration.PresentGPA" id="PresentGPA" type="text" numeric-only>
+                            <input data-ng-model="vm.registration.UniversityId" id="UniversityId" type="text" placeholder="xxx-xx-xxxx" ui-mask="999-99-9999">
                         </div>
                     </div>
                 </div>
@@ -81,6 +70,36 @@
                         <label for="confirmPassword">Confirm Password</label>
                         <div>
                             <input data-ng-model="vm.registration.confirmPassword" id="confirmPassword" name="confirmPassword" type="password">
+                        </div>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="highschoolGPA">High School GPA</label>
+                        <input id="highschoolGPA" data-ng-model="vm.registration.HighSchoolGPA" type="text" numeric-only>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="presentGPA">Present GPA</label>
+                        <div>
+                            <input data-ng-model="vm.registration.PresentGPA" id="PresentGPA" type="text" numeric-only>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-row">                    
+                    <div class="field-wrap">
+                        <label for="SchoolYear">School Year</label>
+                        <select ng-init="vm.registration.SchoolYear = -1" ng-model="vm.registration.SchoolYear" id="SchoolYear">
+                            <option value="-1" selected>School Year</option>
+                            <option value="{{schoolyear.USER_CD}}" ng-repeat="schoolyear in vm.schoolyears">{{schoolyear.USER_CD_DESCR}}</option>
+                        </select>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="IsTransfer">Transfer/Regular</label>
+                        <div>
+                            <select ng-init="vm.registration.IsTransfer = 'Regular'" data-ng-model="vm.registration.IsTransfer" id="IsTransfer">
+                                <option value="Regular" selected>Regular</option>
+                                <option value="Transfer">Transfer</option>
+                            </select>
                         </div>
                     </div>
                 </div>

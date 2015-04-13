@@ -30,7 +30,7 @@
                     <div class="field-wrap">
                         <label for="usermajor">User Major</label>
                         <div>
-                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.UserMajor" id="usermajor" type="text" >
+                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.UserMajor" id="usermajor" type="text" typeahead="major for major in vm.majors | filter:$viewValue | limitTo:8">
                             <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.UserMajor" id="usermajorview" class="profilespan"></span>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                     <div class="field-wrap">
                         <label for="phonenumber">Phone Number</label>
                         <div>
-                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.PhoneNumber" id="phonenumber" type="text" >
+                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.PhoneNumber" id="phonenumber" type="text" placeholder="(xxx)xxx-xxxx" ui-mask="(999)999-9999">
                             <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.PhoneNumber" id="phonenumberview" class="profilespan"></span>
                         </div>
                     </div>
@@ -49,6 +49,20 @@
                             <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.UserName" id="username" type="text">
                             <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.UserName" id="emailview" class="profilespan"></span>
                         </div>
+                    </div>
+                </div>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label for="universityid">University ID</label>
+                        <div>
+                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.UniversityId" id="universityid" type="text" placeholder="xxx-xx-xxxx" ui-mask="999-99-9999">
+                            <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.UniversityId" id="universityidview" class="profilespan"></span>
+                        </div>
+                    </div>
+                    <div class="field-wrap">
+                        <label for="Address">Mailing Address</label>
+                        <textarea data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.Address" id="Address" placeholder="Mailing Address"></textarea>
+                        <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.Address" id="Addressview" class="profilespan"></span>
                     </div>
                 </div>
                 <div class="top-row">
@@ -67,18 +81,25 @@
                 </div>
                 <div class="top-row">
                     <div class="field-wrap">
-                        <label for="universityid">University ID</label>
-                        <div>
-                            <input data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.UniversityId" id="universityid" type="text">
-                            <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.UniversityId" id="universityidview" class="profilespan"></span>
-                        </div>
+                        <label for="SchoolYear">School Year</label>
+                        <select data-ng-show="vm.mode=='editprofile'" ng-init="vm.profile.SchoolYear = -1" ng-model="vm.profile.SchoolYear" id="SchoolYear">
+                            <option value="-1" selected>School Year</option>
+                            <option value="{{schoolyear.USER_CD}}" ng-repeat="schoolyear in vm.schoolyears">{{schoolyear.USER_CD_DESCR}}</option>
+                        </select>
+                        <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.SchoolYear" id="SchoolYearview" class="profilespan"></span>
                     </div>
                     <div class="field-wrap">
-                        <label for="Address">Mailing Address</label>
-                        <textarea data-ng-show="vm.mode=='editprofile'" data-ng-model="vm.profile.Address" id="Address" placeholder="Mailing Address"></textarea>
-                        <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.Address" id="Addressview" class="profilespan"></span>
+                        <label for="IsTransfer">Transfer/Regular</label>
+                        <div>
+                            <select data-ng-show="vm.mode=='editprofile'" ng-init="vm.profile.IsTransfer = 'Regular'" data-ng-model="vm.profile.IsTransfer" id="IsTransfer">
+                                <option value="Regular" selected>Regular</option>
+                                <option value="Transfer">Transfer</option>
+                            </select>
+                            <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.IsTransfer" id="IsTransferview" class="profilespan"></span>
+                        </div>
                     </div>
                 </div>
+
                 <div class="top-row">
                     <div class="field-wrap">
                         <label for="CommunityService">Community Service</label>

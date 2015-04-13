@@ -187,17 +187,26 @@ namespace Scholarship.Controllers
         [HttpGet]
         public IHttpActionResult Profile()
         {
+            //System.Diagnostics.Debug.WriteLine("User.Identity is " + User.Identity.Name + "::");
             UserDatabase udb = new UserDatabase();
             UserModel user = udb.GetUserFromToken();
-            DBObject db = new DBObject();
-            SearchObject searchObject = new SearchObject();
-            searchObject.highschoolGPA = user.HighSchoolGPA;
-            searchObject.major = user.UserMajor;
-            
-            List<ScholarshipLink> scholarships=null;
-            if (user!=null) scholarships= db.GetScholarships(searchObject, user.UserName,false,true);
-            //return "{Message" + ":" + "You-accessed-this-message-with-authorization" + "}"; return Ok(headers.ToString());
-            return Ok(scholarships);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                DBObject db = new DBObject();
+                SearchObject searchObject = new SearchObject();
+                searchObject.highschoolGPA = user.HighSchoolGPA;
+                searchObject.major = user.UserMajor;
+                searchObject.schoolYear = user.SchoolYear;
+                searchObject.IsTransfer = user.IsTransfer;
+                List<ScholarshipLink> scholarships = null;
+                scholarships = db.GetScholarships(searchObject, user.UserName, false, true);
+                //return "{Message" + ":" + "You-accessed-this-message-with-authorization" + "}"; return Ok(headers.ToString());
+                return Ok(scholarships);
+            }
         }
 
     }

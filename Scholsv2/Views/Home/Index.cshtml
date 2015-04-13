@@ -55,7 +55,7 @@
                 <div class="sidebar-nav-fixed">
                     <div class="form3">
                         <h4 class="text-center text-thick">
-                            ISU News
+                            <span ng-class="vm.spinnerdisplaynews"><i class="fa fa-spinner fa-spin"></i></span>ISU News
                         </h4>
                         <div data-ng-bind-html="vm.news"></div>
                         <!--
@@ -81,7 +81,7 @@
             <div class="col-md-3" data-ng-show="vm.showFeatured" id="rightnavbar">
                 <div class="sidebar-nav-fixed pull-right">
                     <div class="form3">
-                        <h4 class="text-center text-thick">ISU Events</h4>
+                        <h4 class="text-center text-thick"><span ng-class="vm.spinnerdisplayevents"><i class="fa fa-spinner fa-spin"></i></span>ISU Events</h4>
                         <div data-ng-bind-html="vm.events"></div>
                     </div>
                     <!--/.well -->

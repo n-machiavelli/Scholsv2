@@ -127,6 +127,8 @@ namespace Schols.Models
                 user.CommunityService = dt.Rows[0]["CommunityService"].ToString();
                 user.ExtraCurricular = dt.Rows[0]["ExtraCurricular"].ToString();
                 user.Address = dt.Rows[0]["Address"].ToString();
+                user.SchoolYear = dt.Rows[0]["SchoolYear"].ToString();
+                user.IsTransfer = dt.Rows[0]["IsTransfer"].ToString();
                 System.Diagnostics.Debug.WriteLine(user.FirstName);
                 //System.Diagnostics.Debug.WriteLine(user.UserName);
                 return user;
@@ -140,7 +142,7 @@ namespace Schols.Models
                 return "User Exists Already";
             }
             DBObject db = new DBObject();
-            String sqlstr = "INSERT INTO scholarshipcenter.manualusers (UserName,PasswordHash,Salt,UserMajor,FirstName,LastName,MiddleName,PhoneNumber,UniversityId,PresentGPA,HighSchoolGPA,CommunityService,ExtraCurricular,Address) VALUES (:UserName,:PasswordHash,:Salt,:UserMajor,:FirstName,:LastName,:MiddleName,:PhoneNumber,:UniversityId,:PresentGPA,:HighSchoolGPA,:CommunityService,:ExtraCurricular,:Address)";
+            String sqlstr = "INSERT INTO scholarshipcenter.manualusers (UserName,PasswordHash,Salt,UserMajor,FirstName,LastName,MiddleName,PhoneNumber,UniversityId,PresentGPA,HighSchoolGPA,CommunityService,ExtraCurricular,Address,SchoolYear,IsTransfer) VALUES (:UserName,:PasswordHash,:Salt,:UserMajor,:FirstName,:LastName,:MiddleName,:PhoneNumber,:UniversityId,:PresentGPA,:HighSchoolGPA,:CommunityService,:ExtraCurricular,:Address,:SchoolYear,:IsTransfer)";
             string salt = CreateSalt(4);
             string passwordhash = CreatePasswordHash(user.UserPassword, salt);
             List<OracleParameter> parameters = new List<OracleParameter>();
@@ -159,6 +161,9 @@ namespace Schols.Models
             parameters.Add(new OracleParameter("CommunityService", user.CommunityService == null ? "" : user.CommunityService));
             parameters.Add(new OracleParameter("ExtraCurricular", user.ExtraCurricular == null ? "" : user.ExtraCurricular));
             parameters.Add(new OracleParameter("Address", user.Address == null ? "" : user.Address));
+            parameters.Add(new OracleParameter("SchoolYear", user.SchoolYear == null ? "" : user.SchoolYear));
+            parameters.Add(new OracleParameter("IsTransfer", user.IsTransfer == null ? "" : user.IsTransfer));
+
             int count = db.queryExecute(sqlstr, parameters);
             if (count == 1)
             {
@@ -173,12 +178,13 @@ namespace Schols.Models
 
         public string Apply(ScholarshipApp app, string username) //UserModel user)
         {
-            string sqlstr = "SELECT * FROM scholarshipcenter.applications WHERE username=:username AND fund_acct=:fund_acct";
+            string sqlstr = "SELECT * FROM scholarshipcenter.applications WHERE username=:username AND fund_acct=:fund_acct AND SCHLRSHP_NUM=:SCHLRSHP_NUM";
             string message = "";
             DBObject db = new DBObject();
             List<OracleParameter> parameters = new List<OracleParameter>();
             parameters.Add(new OracleParameter("username", username));
             parameters.Add(new OracleParameter("fund_acct", app.fund_acct));
+            parameters.Add(new OracleParameter("SCHLRSHP_NUM", app.SCHLRSHP_NUM));
 
             DataTable dt = db.query(sqlstr, parameters);
             if (dt.Rows.Count == 0)
@@ -199,7 +205,7 @@ namespace Schols.Models
                         return message;
                     }
                 }
-                sqlstr = "INSERT INTO scholarshipcenter.applications (universityid,firstname,middlename,lastname,address,phonenumber,usermajor,username,fund_acct,essayfilename,reffilename,scholarshipyear,expectedgraduation,presentgpa,highschoolgpa,communityservice,extracurricular,awardshonors) VALUES (:universityid,:firstname,:middlename,:lastname,:address,:phonenumber,:usermajor,:username,:fund_acct,:essayfilename,:reffilename,:scholarshipyear,:expectedgraduation,:presentgpa,:highschoolgpa,:communityservice,:extracurricular,:awardshonors)";
+                sqlstr = "INSERT INTO scholarshipcenter.applications (universityid,firstname,middlename,lastname,address,phonenumber,usermajor,username,fund_acct,essayfilename,reffilename,scholarshipyear,expectedgraduation,presentgpa,highschoolgpa,communityservice,extracurricular,awardshonors,SCHLRSHP_NUM) VALUES (:universityid,:firstname,:middlename,:lastname,:address,:phonenumber,:usermajor,:username,:fund_acct,:essayfilename,:reffilename,:scholarshipyear,:expectedgraduation,:presentgpa,:highschoolgpa,:communityservice,:extracurricular,:awardshonors,:SCHLRSHP_NUM)";
                 List<OracleParameter> insertParameters = new List<OracleParameter>();
                 insertParameters.Add(new OracleParameter("universityid", app.UniversityId == null ? "" : app.UniversityId));
                 insertParameters.Add(new OracleParameter("firstname", app.firstname == null ? "" : app.firstname));
@@ -220,6 +226,7 @@ namespace Schols.Models
                 insertParameters.Add(new OracleParameter("communityservice", app.CommunityService == null ? "" : app.CommunityService));
                 insertParameters.Add(new OracleParameter("extracurricular", app.ExtraCurricular == null ? "" : app.ExtraCurricular));
                 insertParameters.Add(new OracleParameter("awardshonors", app.AwardsHonors == null ? "" : app.AwardsHonors));
+                insertParameters.Add(new OracleParameter("SCHLRSHP_NUM", app.SCHLRSHP_NUM == null ? "" : app.SCHLRSHP_NUM));
                 int count = db.queryExecute(sqlstr, insertParameters);
                 message = "Application Submitted";
             }
@@ -428,7 +435,7 @@ namespace Schols.Models
        
 
             DBObject db = new DBObject();
-            String sqlstr = "UPDATE scholarshipcenter.manualusers SET firstname=:firstname, middlename=:middlename, lastname=:lastname,universityid=:universityid,phonenumber=:phonenumber,usermajor=:usermajor,presentgpa=:presentgpa,highschoolgpa=:highschoolgpa,communityservice=:communityservice,extracurricular=:extracurricular,address=:address WHERE username=:username";
+            String sqlstr = "UPDATE scholarshipcenter.manualusers SET firstname=:firstname, middlename=:middlename, lastname=:lastname,universityid=:universityid,phonenumber=:phonenumber,usermajor=:usermajor,presentgpa=:presentgpa,highschoolgpa=:highschoolgpa,communityservice=:communityservice,extracurricular=:extracurricular,address=:address,SchoolYear=:SchoolYear,IsTransfer=:IsTransfer WHERE username=:username";
             List<OracleParameter> parameters = new List<OracleParameter>();
             //parameters.Add(new OracleParameter("appid", "1"));
             parameters.Add(new OracleParameter("firstname", userNewDetails.FirstName));
@@ -441,10 +448,12 @@ namespace Schols.Models
             parameters.Add(new OracleParameter("highschoolgpa", userNewDetails.HighSchoolGPA));
             parameters.Add(new OracleParameter("communityservice", userNewDetails.CommunityService));
             parameters.Add(new OracleParameter("extracurricular", userNewDetails.ExtraCurricular));
-            parameters.Add(new OracleParameter("address", userNewDetails.Address));
+            parameters.Add(new OracleParameter("address", userNewDetails.Address));            
+            parameters.Add(new OracleParameter("SchoolYear", userNewDetails.SchoolYear));
+            parameters.Add(new OracleParameter("IsTransfer", userFromDB.IsTransfer));
             parameters.Add(new OracleParameter("username", userFromDB.UserName));
-          
             db.queryExecute(sqlstr, parameters);
+            System.Diagnostics.Debug.WriteLine(sqlstr);
             Message message = new Message();
             message.title = "Profile updated";
             message.body= "Profile updated";
@@ -477,7 +486,10 @@ namespace Schols.Models
                 application.HighSchoolGPA= dt.Rows[i]["highschoolgpa"].ToString().Trim();
                 application.CommunityService = dt.Rows[i]["communityservice"].ToString().Trim();
                 application.ExtraCurricular = dt.Rows[i]["extracurricular"].ToString().Trim();
-                application.AwardsHonors = dt.Rows[i]["awardshonors"].ToString().Trim();                
+                application.AwardsHonors = dt.Rows[i]["awardshonors"].ToString().Trim();
+                application.SchoolYear = dt.Rows[i]["SchoolYear"].ToString().Trim();
+                application.IsTransfer = dt.Rows[i]["IsTransfer"].ToString().Trim();                
+
                 //System.Diagnostics.Debug.WriteLine("Row : " + i.ToString());
             }
             return application;

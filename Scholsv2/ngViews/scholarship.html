@@ -76,8 +76,8 @@
             <div class="top-row">
                 <div class="field-wrap">
                     <label for="phonenumber">Phone Number</label>
-                    <div>
-                        <input id="phonenumber" data-ng-model="vm.phonenumber" numeric-only type="text" placeholder="xxx-xxx-xxxx">                        
+                    <div>                        
+                        <input id="phonenumber" data-ng-model="vm.phonenumber" type="text" placeholder="(xxx)xxx-xxxx" ui-mask="(999)999-9999">
                     </div>
                 </div>
                 <div class="field-wrap">
@@ -91,7 +91,7 @@
                 <div class="field-wrap">
                     <label for="UniversityId">University Id</label>
                     <div>
-                        <input id="UniversityId" data-ng-model="vm.UniversityId" numeric-only type="text" placeholder="xxx-xxx-xxxx">
+                        <input id="UniversityId" data-ng-model="vm.UniversityId" numeric-only type="text" placeholder="xxx-xx-xxxx" ui-mask="999-99-9999">
                     </div>
                 </div>
             </div>
@@ -132,7 +132,6 @@
                 </div>
             </div>
             <div class="top-row">
-
                 <div class="field-wrap">
                     <label for="presentGPA">Present GPA</label>
                     <input id="presentGPA" data-ng-model="vm.presentGPA" type="text" numeric-only>
@@ -140,6 +139,24 @@
                 <div class="field-wrap">
                     <label for="email">High School GPA</label>
                     <input id="highschoolGPA" data-ng-model="vm.highschoolGPA" type="text" numeric-only>
+                </div>
+            </div>
+            <div class="top-row">
+                <div class="field-wrap">
+                    <label for="SchoolYear">School Year</label>
+                    <select ng-init="vm.SchoolYear = -1" ng-model="vm.SchoolYear" id="SchoolYear">
+                        <option value="-1" selected>School Year</option>
+                        <option value="{{schoolyear.USER_CD}}" ng-repeat="schoolyear in vm.schoolyears">{{schoolyear.USER_CD_DESCR}}</option>
+                    </select>
+                </div>
+                <div class="field-wrap">
+                    <label for="IsTransfer">Transfer/Regular</label>
+                    <div>                        
+                        <select ng-init="vm.IsTransfer = 'Regular'" data-ng-model="vm.IsTransfer" id="IsTransfer">
+                            <option value="Regular" selected>Regular</option>
+                            <option value="Transfer">Transfer</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="top-row">
@@ -183,6 +200,7 @@
                 <input type="hidden" id="essayfilename" data-ng-model="vm.essayfilename" />
                 <input type="hidden" id="reffilename" data-ng-model="vm.reffilename" />
                 <input type="hidden" id="fund_acct" data-ng-model="vm.fund_acct" />
+                <input type="hidden" id="SCHLRSHP_NUM" data-ng-model="vm.SCHLRSHP_NUM" />
             </div>
             <div id="msg" data-ng-bind="vm.message" data-ng-hide="vm.message == ''" data-ng-class="(vm.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'"></div>
             <button type="button" class="button button-block" data-ng-click="vm.apply()">Apply</button>
