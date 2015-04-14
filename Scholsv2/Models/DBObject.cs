@@ -487,7 +487,7 @@ namespace Schols.Models
             sqlstr2 += "LEFT OUTER JOIN uhelp.user_cd uu on su.user_cd=uu.user_cd ";
             if (user!=null)
             {
-                sqlstr = "SELECT DISTINCT s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num,fv.frml_schlrshp_name as fav,su.USER_GRP FROM summit.schlrshp s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct LEFT OUTER JOIN uhelp.fund_coll_attrb coll on f.fund_coll_attrb=coll.fund_coll_attrb LEFT OUTER JOIN uhelp.fund_dept_attrb dept on f.fund_coll_attrb=dept.fund_dept_attrb ";
+                sqlstr = "SELECT DISTINCT s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num,fv.frml_schlrshp_name as fav FROM summit.schlrshp s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct LEFT OUTER JOIN uhelp.fund_coll_attrb coll on f.fund_coll_attrb=coll.fund_coll_attrb LEFT OUTER JOIN uhelp.fund_dept_attrb dept on f.fund_dept_attrb=dept.fund_dept_attrb ";
                 sqlstr += sqlstr2;
                 sqlstr += "LEFT OUTER JOIN scholarshipcenter.favorites fv ON (regexp_like(s.fund_acct,fv.fund_acct,'i') AND fv.username=:username) ";
                 parameters.Add(new OracleParameter("username", user));
@@ -579,7 +579,9 @@ namespace Schols.Models
             }
             if (searchObject.major != null && !searchObject.major.Trim().Equals("") && searchObject.schoolYear != null && !searchObject.schoolYear.Equals("-1"))
             {
+                System.Diagnostics.Debug.WriteLine("before:" + sqlstr);
                 sqlstr = sqlstr.Replace("as fav", "as fav,su.USER_GRP"); //this routine needs user_grp for the selfjoin below. the other scenarios dont require it. if left brings duplicates
+                System.Diagnostics.Debug.WriteLine("after:" + sqlstr);
                 sqlstr ="with view1 as (" + sqlstr + ") select distinct view1.frml_schlrshp_name,view1.fund_acct,view1.schlrshp_num,'' as fav from view1 join view1 view2 ";
                 sqlstr += "on (view1.frml_schlrshp_name=view2.frml_schlrshp_name and view1.user_grp<>view2.user_grp)";
             }
