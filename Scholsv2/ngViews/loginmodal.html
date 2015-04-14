@@ -1,0 +1,12 @@
+            <div class="modal-body">
+                <form class="form-login" role="form" id="loginform" name="loginform">
+                    <h3 class="form-login-heading">Login here...</h3>
+                    <input data-ng-model="vm.login_username" id="login_username" type="text" placeholder="Username/Email" required autofocus>
+                    <input data-ng-model="vm.login_password" id="login_password" type="password" placeholder="Password" required>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="vm.cancel()">Cancel</button>
+                <button id="loginbutton" type="button" ng-disabled="loginform.$invalid" class="btn btn-primary" data-ng-click="vm.ok()">Login</button>
+            </div>
+

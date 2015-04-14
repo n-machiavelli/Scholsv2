@@ -11,6 +11,12 @@
     function searchController(searchService, $location, $anchorScroll, authService, $routeParams,$log) {
         
         var vm = this;
+                //paging
+                vm.currentPage = 1;
+                vm.pageSize = 10;
+                vm.pageChangeHandler = function (num) {
+
+                };
         vm.activate = activate;
         vm.spinnerdisplay = "hideme";
         vm.message = "";
@@ -34,6 +40,9 @@
         } else if ($routeParams !== undefined && $routeParams !== null && $routeParams.favorites !== undefined && $routeParams.favorites == 'favorites') {
             vm.collegename = "Favorites";
             getFavoriteScholarships();
+        } else if ($routeParams !== undefined && $routeParams !== null && $routeParams.profilesearch !== undefined && $routeParams.profilesearch == 'profilesearch') {
+            vm.collegename = "Your Profile Search Results";
+            getProfileSearch();
         } else if ($routeParams !== undefined && $routeParams !== null && $routeParams.myapplications !== undefined && $routeParams.myapplications == 'myapplications') {
             vm.collegename = "My Applications";
             getMyApplications();
@@ -116,6 +125,26 @@
                 vm.spinnerdisplay = "hideme";
             });
         }
+        
+        function getProfileSearch() {
+            $log.log("controller title:" + vm.title);
+            vm.spinnerdisplay = "showme";
+            var promise = searchService.getProfileSearch();
+            promise.then(function (results) {
+                $log.log("Profile search retrieved via controller");
+                vm.scholarships = results;
+                vm.searchString = "Your Profile Search Results...";
+                $log.log(vm.searchString);
+                $log.log(vm.scholarships);
+                vm.spinnerdisplay = "hideme";
+            }, function (err) {
+                $log.error("error here");
+                vm.spinnerdisplay = "hideme";
+            }, function (update) {
+                $log.log("update here");
+                vm.spinnerdisplay = "hideme";
+            });
+        }
         function getSearchString(num) {
             var search = "";
             var title = checkNull(vm.title);
@@ -188,17 +217,5 @@
                 $log.log("update here");
             });
         }
-        // function registerClientApp() {
-        //     vm.message = "";
-        //     console.log("came here");
-        //     clientService.registerClientApp(vm.clientApp).then(function (results) {
-        //         console.log("registered");
-        //         vm.getClientApps();
-        //         //vm.$apply();
-        //     }, function (error) {
-        //         //alert(error.data.message);
-        //         console.log("error here");
-        //     });
-        // }
     }
 })();

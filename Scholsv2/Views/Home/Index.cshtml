@@ -123,6 +123,16 @@
                             </span>
                             <span class="mastlink_btm"><!--Bottom--></span>
                         </li>
+                        <li class="mastlink2" data-ng-hide="!vm.authentication.isAuth">
+                            <span class="mastlink_top"><!--Top--></span>
+                            <span class="mastlink_mid">
+                                <a data-ng-href="#/profilesearch/profilesearch" class="">
+                                    <span>Profile Results</span>
+                                </a>
+                            </span>
+                            <span class="mastlink_btm"><!--Bottom--></span>
+                        </li>
+
                         <li class="mastlink3" data-ng-hide="!vm.authentication.isAuth">
                             <span class="mastlink_top"><!--Top--></span>
                             <span class="mastlink_mid">
@@ -153,7 +163,7 @@
                         <li class="mastlink6" data-ng-hide="vm.authentication.isAuth">
                             <span class="mastlink_top"><!--Top--></span>
                             <span class="mastlink_mid">
-                                <a data-ng-href="#/login" href="#/login">
+                                <a data-ng-click="vm.loginModal()" class="pointer">
                                     <span>Login</span>
                                 </a>
                             </span>
@@ -292,6 +302,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/Scripts/ng3rdparty/dirPagination.js"></script>
     <script src="~/Scripts/ng3rdparty/js2.js"></script>
     <script src="~/Scripts/ng3rdparty/angular-file-upload-shim.js"></script>
     <script src="~/Scripts/ng3rdparty/angular-file-upload.js"></script>
@@ -315,6 +326,7 @@
     <script src="~/Scripts/ngCore/controllers/administrationController.js"></script>
     <script src="~/Scripts/ngCore/controllers/profileController.js"></script>
     <script src="~/Scripts/ngCore/controllers/adminmodalController.js"></script>
+    <script src="~/Scripts/ngCore/controllers/loginmodalController.js"></script>
 
 </body>
 </html>

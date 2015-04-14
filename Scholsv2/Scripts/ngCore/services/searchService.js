@@ -84,6 +84,23 @@
                 });
             return deferred.promise;
         };
+        this.getProfileSearch = function getProfileSearch() { //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
+            var deferred = $q.defer();
+            var request = $http({
+                method: 'GET',
+                url: serviceBaseApi + "profilesearch",
+            });
+            request.success(function (data) {
+                $log.log("Profile Search results retrieved via service");
+                $log.log(data);
+                deferred.resolve(data);
+            })
+                .error(function (error) {
+                    $log.log(error);
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
         this.getDropDowns=function getDropDowns(){
             var deferred=$q.defer();
             var request = $http({

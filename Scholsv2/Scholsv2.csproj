@@ -224,6 +224,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManualAccountController.cs" />
     <Compile Include="Controllers\XmlEventsController.cs" />
     <Compile Include="Controllers\ScholarshipController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -367,6 +368,7 @@
     <Content Include="Global.asax" />
     <Content Include="ngViews\activeTokens.html" />
     <Content Include="ngViews\administration.html" />
+    <Content Include="ngViews\loginmodal.html" />
     <Content Include="ngViews\adminmodal.html" />
     <Content Include="ngViews\bg_body.jpg" />
     <Content Include="ngViews\bg_heading_large.png" />
@@ -477,6 +479,7 @@
     <Content Include="Scripts\ngCore\app_admin.js" />
     <Content Include="Scripts\ngCore\app.js" />
     <Content Include="Scripts\ngCore\controllers\administrationController.js" />
+    <Content Include="Scripts\ngCore\controllers\loginmodalController.js" />
     <Content Include="Scripts\ngCore\controllers\adminmodalController.js" />
     <Content Include="Scripts\ngCore\controllers\homeController.js" />
     <Content Include="Scripts\ngCore\controllers\loginController.js" />

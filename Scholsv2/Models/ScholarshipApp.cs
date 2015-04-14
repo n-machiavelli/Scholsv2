@@ -11,14 +11,14 @@ namespace Schols.Models
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string middlename { get; set; }
-        public string email { get; set; }
+        public string Email { get; set; }   //leaving here for compatibility. no longer in use
         public string phonenumber { get; set; }        
         public string address { get; set; }
         public string UniversityId { get; set; }
         public string fund_acct { get; set; }
         public string essayfilename { get; set; }
         public string reffilename { get; set; }
-        public string username { get; set; }
+        public string UserName { get; set; }
         public string ScholarshipYear { get; set; }
         public string remark { get; set; }
         public string status { get; set; }

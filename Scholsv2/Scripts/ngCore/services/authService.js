@@ -37,7 +37,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     var _saveRegistration = function (registration) {
         _logOut();
         var deferred = $q.defer();
-        $http.post(serviceBaseApi + 'account/register', registration)
+        $http.post(serviceBaseApi + 'register', registration)
             .success(function (response) {
                 deferred.resolve(response);
             })
@@ -48,13 +48,13 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     };
 
     var _saveProfile = function (profile) {
-        return $http.post(serviceBaseApi + 'account/saveprofile', profile).then(function (response) {
+        return $http.post(serviceBaseApi + 'saveprofile', profile).then(function (response) {
             return response;
         });
     };
     var _getProfile = function () {
         var deferred = $q.defer();
-        $http.get(serviceBaseApi + 'account/profile')
+        $http.get(serviceBaseApi + 'profile')
         .success(function (response) {
             deferred.resolve(response);
         })
@@ -77,17 +77,17 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
         var deferred = $q.defer();
 
-        $http.post(serviceBase + 'Token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+        $http.post(serviceBaseApi + 'login', loginData)
                     .success(function (response) {
 
                         if (loginData.useRefreshTokens) {
-                            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
+                            localStorageService.set('authorizationData', { token: response.AccessToken, userName: loginData.userName, refreshToken: response.refresh_token, useRefreshTokens: true });
                         }
                         else {
-                            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false });
+                            localStorageService.set('authorizationData', { token: response.AccessToken, userName: loginData.userName, refreshToken: "", useRefreshTokens: false });
                         }
                         _authentication.isAuth = true;
-                        _authentication.userName = response.userName;
+                        _authentication.userName = response.UserName;
                         _authentication.useRefreshTokens = response.useRefreshTokens;
                         $log.log(response);
                         deferred.resolve(response);
@@ -194,7 +194,9 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             _logOut();
             deferred.reject(err);
         });
+
         return deferred.promise;
+
     };
     var _getXmlEvents = function () {
         var deferred = $q.defer();
@@ -207,7 +209,6 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             });
         return deferred.promise;
     };
-
     authServiceFactory.saveRegistration = _saveRegistration;
     authServiceFactory.login = _login;
     authServiceFactory.logOut = _logOut;
@@ -217,7 +218,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     authServiceFactory.getProfile = _getProfile;
     authServiceFactory.saveProfile = _saveProfile;
     authServiceFactory.getFeaturedScholarships = _getFeaturedScholarships;
-    authServiceFactory.getXmlEvents=_getXmlEvents
+    authServiceFactory.getXmlEvents = _getXmlEvents
 
     authServiceFactory.obtainAccessToken = _obtainAccessToken;
     authServiceFactory.externalAuthData = _externalAuthData;
