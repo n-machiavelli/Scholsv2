@@ -482,7 +482,7 @@ namespace Schols.Models
         public DataTable GetScholarshipsTable(SearchObject searchObject, string user=null, bool strictcompare=false)
         {
             List<OracleParameter> parameters = new List<OracleParameter>();
-            string sqlstr = "SELECT DISTINCT s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num,'' as fav,su.USER_GRP FROM summit.schlrshp s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct LEFT OUTER JOIN uhelp.fund_coll_attrb coll on f.fund_coll_attrb=coll.fund_coll_attrb LEFT OUTER JOIN uhelp.fund_dept_attrb dept on f.fund_coll_attrb=dept.fund_dept_attrb ";
+            string sqlstr = "SELECT DISTINCT s.frml_schlrshp_name,s.fund_acct,s.schlrshp_num,'' as fav FROM summit.schlrshp s INNER JOIN summit.fund f ON s.fund_acct=f.fund_acct LEFT OUTER JOIN uhelp.fund_coll_attrb coll on f.fund_coll_attrb=coll.fund_coll_attrb LEFT OUTER JOIN uhelp.fund_dept_attrb dept on f.fund_dept_attrb=dept.fund_dept_attrb ";
             string sqlstr2 = "LEFT OUTER JOIN summit.user_code su on (s.audit_tran_id=su.parent_audit_tran_id and (su.user_grp='SCHMJ' or su.user_grp='SCHYR' or su.USER_GRP='SCHOT' or su.USER_GRP='SCHCO'))";
             sqlstr2 += "LEFT OUTER JOIN uhelp.user_cd uu on su.user_cd=uu.user_cd ";
             if (user!=null)
@@ -528,9 +528,10 @@ namespace Schols.Models
             if (searchObject.major != null && !searchObject.major.Trim().Equals("") && (searchObject.schoolYear == null || searchObject.schoolYear.Equals("-1")))
             {   //this compares major to department and major due to some special cases observed. see onenote
                 //sqlstr += " and ((regexp_like(uu.USER_CD_DESCR, :major, 'i') or regexp_like(uu.USER_CD_DESCR, 'ALL Major', 'i')) and su.USER_GRP='SCHMJ') "; //**allmajors 2/25
+                strictcompare = false;
                 if (!strictcompare)
                 {
-                    sqlstr += " and (((regexp_like(uu.USER_CD_DESCR, :major, 'i') or regexp_like(uu.USER_CD_DESCR, 'ALL Major', 'i') or regexp_like(uu.USER_CD_DESCR, 'No code', 'i')) and su.USER_GRP='SCHMJ') or (regexp_like(f.FUND_DEPT_ATTRB,:major,'i'))) "; //**allmajors 2/25
+                    sqlstr += " and (((regexp_like(uu.USER_CD_DESCR, :major, 'i') or regexp_like(uu.USER_CD_DESCR, 'ALL Major', 'i') or regexp_like(uu.USER_CD_DESCR, 'No code', 'i')) and su.USER_GRP='SCHMJ') or (regexp_like(dept.FUND_DEPT_DESCR,:major,'i'))) "; //**allmajors 2/25
                 }
                 else
                 {
@@ -578,6 +579,7 @@ namespace Schols.Models
             }
             if (searchObject.major != null && !searchObject.major.Trim().Equals("") && searchObject.schoolYear != null && !searchObject.schoolYear.Equals("-1"))
             {
+                sqlstr = sqlstr.Replace("as fav", "as fav,su.USER_GRP"); //this routine needs user_grp for the selfjoin below. the other scenarios dont require it. if left brings duplicates
                 sqlstr ="with view1 as (" + sqlstr + ") select distinct view1.frml_schlrshp_name,view1.fund_acct,view1.schlrshp_num,'' as fav from view1 join view1 view2 ";
                 sqlstr += "on (view1.frml_schlrshp_name=view2.frml_schlrshp_name and view1.user_grp<>view2.user_grp)";
             }

@@ -450,7 +450,7 @@ namespace Schols.Models
             parameters.Add(new OracleParameter("extracurricular", userNewDetails.ExtraCurricular));
             parameters.Add(new OracleParameter("address", userNewDetails.Address));            
             parameters.Add(new OracleParameter("SchoolYear", userNewDetails.SchoolYear));
-            parameters.Add(new OracleParameter("IsTransfer", userFromDB.IsTransfer));
+            parameters.Add(new OracleParameter("IsTransfer", userNewDetails.IsTransfer));
             parameters.Add(new OracleParameter("username", userFromDB.UserName));
             db.queryExecute(sqlstr, parameters);
             System.Diagnostics.Debug.WriteLine(sqlstr);
