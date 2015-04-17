@@ -100,9 +100,13 @@
         }
         function filterApplications() {
             vm.filterspinner = "showme";
-            if (vm.fund_acct == undefined || vm.fund_acct ==null) vm.fund_acct ="";
-            $log.log(vm.fund_acct);
-            var promise = administrationService.filterApplications(vm.fund_acct);
+            if (vm.fund_acct_num == undefined || vm.fund_acct_num == null) vm.fund_acct_num = "";
+            var arr = vm.fund_acct_num.split(",");
+            var fund_acct = arr[0];
+            var schlrshp_num = arr[1];           
+            $log.log(fund_acct);
+            $log.log(schlrshp_num);
+            var promise = administrationService.filterApplications(fund_acct, schlrshp_num);
             promise.then(function (response) {
                 $log.log("Filtered Applications");
                 vm.applications = response; 

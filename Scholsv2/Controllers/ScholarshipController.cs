@@ -76,11 +76,11 @@ namespace Scholsv2.Controllers
             return Ok(scholarshipLinks);
         }
         [Route("api/filteredapplications")]
-        public IHttpActionResult GetFilteredApplications([FromUri]string f)
+        public IHttpActionResult GetFilteredApplications([FromUri]string f, [FromUri]string s)
         {
             DBObject db = new DBObject();
             List<Schols.Models.ScholarshipApp> applications;
-            applications = db.GetApplications(f);
+            applications = db.GetApplications(f,null,s);
             return Ok(applications);
         }
         [Route("api/applications")]

@@ -47,11 +47,11 @@
                 });
             return deferred.promise;            
         };
-        this.filterApplications = function filterApplications(fund_acct) { //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
+        this.filterApplications = function filterApplications(fund_acct, schlrshp_num) { //title,department,college,schoolYear,major,undergradGPA,gradGPA,highschoolGPA,keyword) {
             var deferred = $q.defer();
             var request = $http({
                 method: 'GET',
-                url: serviceBaseApi + "filteredapplications?f=" + fund_acct
+                url: serviceBaseApi + "filteredapplications?f=" + fund_acct + "&s=" + schlrshp_num
             });
             /* Check whether the HTTP Request is Successfull or not. */
             request.success(function (data) {

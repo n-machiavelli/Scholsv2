@@ -205,7 +205,7 @@ namespace Schols.Models
                         return message;
                     }
                 }
-                sqlstr = "INSERT INTO scholarshipcenter.applications (universityid,firstname,middlename,lastname,address,phonenumber,usermajor,username,fund_acct,essayfilename,reffilename,scholarshipyear,expectedgraduation,presentgpa,highschoolgpa,communityservice,extracurricular,awardshonors,SCHLRSHP_NUM) VALUES (:universityid,:firstname,:middlename,:lastname,:address,:phonenumber,:usermajor,:username,:fund_acct,:essayfilename,:reffilename,:scholarshipyear,:expectedgraduation,:presentgpa,:highschoolgpa,:communityservice,:extracurricular,:awardshonors,:SCHLRSHP_NUM)";
+                sqlstr = "INSERT INTO scholarshipcenter.applications (universityid,firstname,middlename,lastname,address,phonenumber,usermajor,username,fund_acct,essayfilename,reffilename,scholarshipyear,expectedgraduation,presentgpa,highschoolgpa,communityservice,extracurricular,awardshonors,SCHLRSHP_NUM,IsTransfer,SchoolYear) VALUES (:universityid,:firstname,:middlename,:lastname,:address,:phonenumber,:usermajor,:username,:fund_acct,:essayfilename,:reffilename,:scholarshipyear,:expectedgraduation,:presentgpa,:highschoolgpa,:communityservice,:extracurricular,:awardshonors,:SCHLRSHP_NUM,:IsTransfer,:SchoolYear)";
                 List<OracleParameter> insertParameters = new List<OracleParameter>();
                 insertParameters.Add(new OracleParameter("universityid", app.UniversityId == null ? "" : app.UniversityId));
                 insertParameters.Add(new OracleParameter("firstname", app.firstname == null ? "" : app.firstname));
@@ -227,6 +227,9 @@ namespace Schols.Models
                 insertParameters.Add(new OracleParameter("extracurricular", app.ExtraCurricular == null ? "" : app.ExtraCurricular));
                 insertParameters.Add(new OracleParameter("awardshonors", app.AwardsHonors == null ? "" : app.AwardsHonors));
                 insertParameters.Add(new OracleParameter("SCHLRSHP_NUM", app.SCHLRSHP_NUM == null ? "" : app.SCHLRSHP_NUM));
+                insertParameters.Add(new OracleParameter("IsTransfer", app.IsTransfer == null ? "" : app.IsTransfer));
+                insertParameters.Add(new OracleParameter("SchoolYear", app.SchoolYear == null ? "" : app.SchoolYear));
+
                 int count = db.queryExecute(sqlstr, insertParameters);
                 message = "Application Submitted";
             }
@@ -488,8 +491,8 @@ namespace Schols.Models
                 application.ExtraCurricular = dt.Rows[i]["extracurricular"].ToString().Trim();
                 application.AwardsHonors = dt.Rows[i]["awardshonors"].ToString().Trim();
                 application.SchoolYear = dt.Rows[i]["SchoolYear"].ToString().Trim();
-                application.IsTransfer = dt.Rows[i]["IsTransfer"].ToString().Trim();                
-
+                application.IsTransfer = dt.Rows[i]["IsTransfer"].ToString().Trim();
+                application.SCHLRSHP_NUM = dt.Rows[i]["SCHLRSHP_NUM"].ToString().Trim();
                 //System.Diagnostics.Debug.WriteLine("Row : " + i.ToString());
             }
             return application;

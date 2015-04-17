@@ -4,9 +4,9 @@
         <h3><span data-ng-class="vm.spinnerdisplay"><i class="fa fa-spinner fa-spin"></i></span> List of Applications ({{vm.applications.length}})</h3>
     </div>
     <div class="col-md-4">
-        <select ng-model="vm.fund_acct" class="form-control" id="fund_acct" required="required">
+        <select ng-model="vm.fund_acct_num" class="form-control" id="fund_acct_num" required="required">
             <option value="" selected>All Scholarships</option>
-            <option value="{{scholarship.FUND_ACCT}}" ng-repeat="scholarship in vm.scholarships">{{scholarship.FRML_SCHLRSHP_NAME}}</option>
+            <option value="{{scholarship.FUND_ACCT}},{{scholarship.SCHLRSHP_NUM}}" ng-repeat="scholarship in vm.scholarships">{{scholarship.FRML_SCHLRSHP_NAME}}</option>
         </select>
     </div>
         <button class="btn btn-default btn-md" data-ng-click="vm.filterApplications()"><span ng-class="vm.filterspinner"><i class="fa fa-spinner fa-spin"></i></span>Filter</button>
@@ -37,8 +37,8 @@
                 <td>{{application.UserName}}</td>
                 <td>{{application.phonenumber}}</td>
                 <td>{{application.UniversityId}}</td>
-                <td><a target="_blank" href="../api/Upload/{{application.username}}/{{application.essayfilename}}">Essay</a></td>
-                <td><a target="_blank" href="../api/Upload/{{application.username}}/{{application.reffilename}}">Reference</a></td>
+                <td><a data-ng-show="application.essayfilename != ''" target="_blank" href="../api/Upload/{{application.UserName}}/{{application.essayfilename}}">Essay</a></td>
+                <td><a data-ng-show="application.reffilename != ''" target="_blank" href="../api/Upload/{{application.UserName}}/{{application.reffilename}}">Reference</a></td>
                 <td>{{application.status}}</td>
                 <td>{{application.ApplyDateString}}</td>
             </tr>

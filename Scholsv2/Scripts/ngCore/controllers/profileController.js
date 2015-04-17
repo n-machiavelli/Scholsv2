@@ -16,6 +16,7 @@
         vm.profile = {};
         vm.getProfile = getProfile;
         vm.saveProfile = saveProfile;
+        vm.getSchoolYearString = getSchoolYearString;
         getProfile();
         getMajors();
 
@@ -66,5 +67,14 @@
                 vm.message = "updated";
             })
         }
+        function getSchoolYearString() {
+            for (var i = 0; i < vm.schoolyears.length; i++) {
+                if (vm.schoolyears[i].USER_CD == vm.profile.SchoolYear) {
+                    return vm.schoolyears[i].USER_CD_DESCR;
+                }
+            }
+            return "";
+        }
+
     }
 })();

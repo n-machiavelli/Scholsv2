@@ -86,7 +86,7 @@
                             <option value="-1" selected>School Year</option>
                             <option value="{{schoolyear.USER_CD}}" ng-repeat="schoolyear in vm.schoolyears">{{schoolyear.USER_CD_DESCR}}</option>
                         </select>
-                        <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.profile.SchoolYear" id="SchoolYearview" class="profilespan"></span>
+                        <span data-ng-show="vm.mode!='editprofile'" data-ng-bind="vm.getSchoolYearString()" id="SchoolYearview" class="profilespan"></span>
                     </div>
                     <div class="field-wrap">
                         <label for="IsTransfer">Transfer/Regular</label>

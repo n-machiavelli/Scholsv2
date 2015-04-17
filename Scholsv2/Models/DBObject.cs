@@ -753,9 +753,9 @@ namespace Schols.Models
                         var cell = ws.Cells[rowIndex, colIndex];
                         //Setting Value in cell
                         
-                        if (dc.ColumnName.Equals("reffilename") || dc.ColumnName.Equals("essayfilename"))
+                        if (dc.ColumnName.ToLower().Equals("reffilename") || dc.ColumnName.ToLower().Equals("essayfilename"))
                         {
-                            cell.Hyperlink = new Uri("http://localhost:2382/api/Upload/" + dr["username"] + "/" + dr[dc.ColumnName].ToString());
+                            cell.Hyperlink = new Uri("http://dev21.iwss.ilstu.edu/api/Upload/" + dr["username"] + "/" + dr[dc.ColumnName].ToString());
                             cell.Value = dr[dc.ColumnName];
                             cell.StyleName = "HyperLink";
                             System.Diagnostics.Debug.WriteLine(cell.Text);
@@ -854,10 +854,10 @@ namespace Schols.Models
             return scholarshipLinks;
         }
 
-        public List<ScholarshipApp> GetApplications(string fund_acct="", string username="")
+        public List<ScholarshipApp> GetApplications(string fund_acct="", string username="",string schlrshp_num="")
         {
             DataTable dt ;//= GetApplicationsTable(fund_acct,username);
-            dt = GetPublicApplicationsTable(fund_acct, username);
+            dt = GetPublicApplicationsTable(fund_acct, username, schlrshp_num);
             List<ScholarshipApp> applications = new List<ScholarshipApp>();
             ScholarshipApp application;
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -880,6 +880,7 @@ namespace Schols.Models
                 application.ApplyDate = (DateTime)dt.Rows[i]["applydate"];
                 application.UserMajor = dt.Rows[i]["usermajor"].ToString().Trim();
                 application.ApplyDateString = String.Format("{0:MMM dd, yyyy HH:mm:ss}", application.ApplyDate);
+                application.SCHLRSHP_NUM = dt.Rows[i]["SCHLRSHP_NUM"].ToString().Trim();
                 if (username != null || (username!=null && !username.Equals("")))
                 {
                     application.ExpectedGraduation = dt.Rows[i]["expectedgraduation"].ToString().Trim();
